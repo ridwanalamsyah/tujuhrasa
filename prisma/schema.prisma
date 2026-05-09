@@ -1,0 +1,339 @@
+// Tujuh Rasa — bottled coffee storefront
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Product {
+  id                Int          @id @default(autoincrement())
+  slug              String       @unique
+  name              String
+  rasa              String // manis, pahit, asam, gurih, rempah, bumi, hangat
+  tagline           String
+  description       String
+  origin            String // e.g. "Aceh Gayo"
+  process           String // washed, natural, honey
+  roast             String // light, medium, dark
+  volume            Int // ml
+  caffeine          String // e.g. "~95mg"
+  ingredients       String // semicolon separated
+  notes             String // taste notes, semicolon separated
+  brewTip           String
+  story             String
+  priceCents        Int // IDR rupiah units (legacy field name; matches ERP `sell`)
+  comparePriceCents Int?
+  stock             Int          @default(100)
+  accentHex         String
+  bgHex             String
+  bottleSvg         String // inline SVG for the bottle illustration
+  isFeatured        Boolean      @default(false)
+  // ─── ERP-aligned fields ───
+  erpId             String?      @unique // mapped ERP product id e.g. "P001"
+  sku               String       @unique // e.g. "TR-MANIS-01"
+  sat               String       @default("botol") // unit / satuan
+  cat               String       @default("Kopi Botol")
+  gros              Int          @default(0) // HPP / cost in IDR
+  minStk            Int          @default(10)
+  photo             String       @default("")
+  baristaSop        String       @default("")
+  baristaTempC      Int          @default(4)
+  baristaTimeS      Int          @default(90)
+  baristaYieldMl    Int          @default(250)
+  createdAt         DateTime     @default(now())
+  cartItems         CartItem[]
+  orderItems        OrderItem[]
+  reviews           Review[]
+  RecipeItem        RecipeItem[]
+}
+
+model Cart {
+  id        String     @id @default(cuid())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  items     CartItem[]
+}
+
+model CartItem {
+  id        Int     @id @default(autoincrement())
+  cartId    String
+  productId Int
+  quantity  Int     @default(1)
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([cartId, productId])
+}
+
+model Order {
+  id               String      @id @default(cuid())
+  orderNumber      String      @unique // format: ORD-NNNN (ERP-compatible)
+  customerName     String
+  customerEmail    String
+  customerPhone    String
+  shippingAddress  String
+  shippingCity     String
+  shippingZip      String
+  notes            String?
+  paymentMethod    String // xendit-va, xendit-ewallet, xendit-qris, cod
+  paymentChannel   String? // BCA, BNI, MANDIRI, OVO, DANA, QRIS, ALFAMART, etc
+  subtotalCents    Int
+  shippingCents    Int
+  discountCents    Int         @default(0)
+  hppCents         Int         @default(0) // total HPP / cost
+  totalCents       Int
+  promoCode        String?
+  status           String      @default("unpaid") // unpaid | paid | partial | shipped | delivered | cancelled
+  batch            String      @default("")
+  createdAt        DateTime    @default(now())
+  // ─── Xendit ───
+  xenditInvoiceId  String?     @unique
+  xenditInvoiceUrl String?
+  xenditExternalId String?     @unique
+  xenditPaidAt     DateTime?
+  // ─── ERP sync ───
+  erpSyncStatus    String      @default("pending") // pending | synced | failed | skipped
+  erpSyncedAt      DateTime?
+  erpSyncError     String?
+  items            OrderItem[]
+  payments         Payment[]
+}
+
+model OrderItem {
+  id             Int     @id @default(autoincrement())
+  orderId        String
+  productId      Int
+  erpProductId   String? // mapped ERP P00X id at time of purchase
+  productSku     String
+  productName    String
+  productRasa    String
+  quantity       Int
+  unitPriceCents Int
+  unitHppCents   Int     @default(0)
+  order          Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product        Product @relation(fields: [productId], references: [id])
+}
+
+model Subscription {
+  id            String    @id @default(cuid())
+  customerName  String
+  customerEmail String    @unique
+  customerPhone String    @default("")
+  plan          String // weekly, biweekly, monthly
+  bottlesPerBox Int
+  preference    String // mixed, manis-pack, etc
+  address       String
+  status        String    @default("active")
+  createdAt     DateTime  @default(now())
+  erpSyncStatus String    @default("pending")
+  erpSyncedAt   DateTime?
+  erpSyncError  String?
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  customer  String
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model JournalPost {
+  id        Int      @id @default(autoincrement())
+  slug      String   @unique
+  title     String
+  excerpt   String
+  body      String
+  author    String
+  cover     String // emoji or hex color
+  createdAt DateTime @default(now())
+}
+
+model Batch {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique // e.g. "Batch Mei 2026"
+  status   String    @default("open") // open | shipping | closed
+  openedAt DateTime  @default(now())
+  shipDate DateTime?
+  closedAt DateTime?
+  notes    String    @default("")
+}
+
+model Payment {
+  id                Int      @id @default(autoincrement())
+  orderId           String
+  amountCents       Int
+  method            String // xendit-va, xendit-ewallet, xendit-qris, cod
+  channel           String? // BCA / OVO / QRIS / etc
+  ref               String   @default("")
+  status            String   @default("pending") // pending | settled | failed
+  receivedBy        String   @default("system")
+  ts                DateTime @default(now())
+  xenditPayloadJson String?
+  order             Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model PromoCode {
+  id            Int       @id @default(autoincrement())
+  code          String    @unique
+  kind          String    @default("percent") // percent | amount
+  value         Int // percent (1-100) or amount in IDR
+  minSubtotal   Int       @default(0)
+  maxRedemption Int       @default(0) // 0 = unlimited
+  redeemedCount Int       @default(0)
+  startsAt      DateTime  @default(now())
+  endsAt        DateTime?
+  active        Boolean   @default(true)
+}
+
+model PointsActivity {
+  id            Int      @id @default(autoincrement())
+  customerEmail String
+  kind          String // newCustomer | orderReferral | revenuePerMillion | redeem
+  points        Int
+  refOrderId    String?
+  note          String   @default("")
+  createdAt     DateTime @default(now())
+}
+
+model ErpSyncLog {
+  id          Int      @id @default(autoincrement())
+  resource    String // order | subscription
+  resourceId  String
+  action      String // push
+  status      String // success | error
+  message     String   @default("")
+  payloadJson String?
+  createdAt   DateTime @default(now())
+}
+
+model Ingredient {
+  id          Int             @id @default(autoincrement())
+  sku         String          @unique
+  name        String
+  unit        String          @default("g") // g, ml, pcs
+  stock       Float           @default(0)
+  minStock    Float           @default(0)
+  costPerUnit Int             @default(0) // IDR per 1 unit
+  supplier    String          @default("")
+  notes       String          @default("")
+  recipes     RecipeItem[]
+  movements   StockMovement[]
+}
+
+model RecipeItem {
+  id           Int        @id @default(autoincrement())
+  productId    Int
+  ingredientId Int
+  qty          Float // qty per 1 produk
+  product      Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, ingredientId])
+}
+
+model StockMovement {
+  id           Int        @id @default(autoincrement())
+  ingredientId Int
+  kind         String // in | out | adjust
+  qty          Float
+  ref          String     @default("") // ProductionOrder id, OrderItem id, etc
+  note         String     @default("")
+  createdAt    DateTime   @default(now())
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+}
+
+model ProductionOrder {
+  id         Int       @id @default(autoincrement())
+  productId  Int
+  batch      String // links to Batch.name
+  qty        Int // bottles produced
+  status     String    @default("planned") // planned | in-progress | done | cancelled
+  startedAt  DateTime?
+  finishedAt DateTime?
+  notes      String    @default("")
+  createdAt  DateTime  @default(now())
+}
+
+model Wastage {
+  id           Int      @id @default(autoincrement())
+  productId    Int?
+  ingredientId Int?
+  qty          Float
+  unit         String   @default("pcs")
+  reason       String // expired | broken | spillage | quality
+  costCents    Int      @default(0)
+  notes        String   @default("")
+  createdAt    DateTime @default(now())
+}
+
+model Shift {
+  id          Int       @id @default(autoincrement())
+  cashier     String
+  openedAt    DateTime  @default(now())
+  closedAt    DateTime?
+  cashOpening Int       @default(0)
+  cashClosing Int?
+  notes       String    @default("")
+}
+
+model Schedule {
+  id     Int      @id @default(autoincrement())
+  kind   String // production | shipping | maintenance | other
+  title  String
+  date   DateTime
+  notes  String   @default("")
+  status String   @default("planned") // planned | done | cancelled
+}
+
+model Account {
+  id       Int           @id @default(autoincrement())
+  code     String        @unique // 1100, 4100, dst
+  name     String
+  type     String // asset | liability | equity | revenue | expense
+  parent   String        @default("")
+  journals JournalLine[]
+}
+
+model Journal {
+  id    Int           @id @default(autoincrement())
+  ref   String        @default("") // OrderId, ProductionOrder, etc
+  memo  String
+  ts    DateTime      @default(now())
+  lines JournalLine[]
+}
+
+model JournalLine {
+  id        Int     @id @default(autoincrement())
+  journalId Int
+  accountId Int
+  side      String // debit | credit
+  amount    Int // IDR
+  journal   Journal @relation(fields: [journalId], references: [id], onDelete: Cascade)
+  account   Account @relation(fields: [accountId], references: [id])
+}
+
+model AppSettings {
+  id                  Int      @id @default(1)
+  brandName           String   @default("Tujuh Rasa")
+  tagline             String   @default("Coffee & Beyond")
+  brandColor          String   @default("#C47040")
+  email               String   @default("halo@tujuhrasa.id")
+  phone               String   @default("")
+  address             String   @default("")
+  npwp                String   @default("")
+  activeBatch         String   @default("Batch Mei 2026")
+  pointsPerMillion    Int      @default(2)
+  pointsNewCustomer   Int      @default(10)
+  pointsOrderReferral Int      @default(5)
+  reinvestmentRate    Float    @default(0.3)
+  approvalThreshold   Int      @default(1000000)
+  updatedAt           DateTime @updatedAt
+}

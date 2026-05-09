@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="42" fill="#5b1a14"/>
+  <text x="96" y="92" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="44" fill="#f7efde">Tujuh</text>
+  <text x="96" y="138" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="44" fill="#e07a3c">Rasa</text>
+  <line x1="40" y1="160" x2="152" y2="160" stroke="#f7efde" stroke-width="2" stroke-dasharray="3,4"/>
+</svg>

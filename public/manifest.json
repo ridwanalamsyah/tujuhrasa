@@ -1,0 +1,29 @@
+{
+  "name": "Tujuh Rasa — Kopi Botolan",
+  "short_name": "Tujuh Rasa",
+  "description": "Kopi, matcha, dan wedang dari resep kafe — diantar hari yang sama.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7efde",
+  "theme_color": "#5b1a14",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    { "name": "Lihat Menu", "url": "/shop", "description": "Browse kopi & matcha" },
+    { "name": "Keranjang", "url": "/cart" },
+    { "name": "Pesanan Saya", "url": "/account/orders" }
+  ]
+}
