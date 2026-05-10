@@ -6,34 +6,43 @@ export const CART_COOKIE = "tujuhrasa_cart";
 export async function getOrCreateCart() {
   const jar = cookies();
   let cartId = jar.get(CART_COOKIE)?.value;
-  if (cartId) {
-    const existing = await prisma.cart.findUnique({
-      where: { id: cartId },
+  try {
+    if (cartId) {
+      const existing = await prisma.cart.findUnique({
+        where: { id: cartId },
+        include: { items: { include: { product: true } } },
+      });
+      if (existing) return existing;
+    }
+    const created = await prisma.cart.create({ data: {} });
+    jar.set(CART_COOKIE, created.id, {
+      httpOnly: true,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 60,
+    });
+    return prisma.cart.findUnique({
+      where: { id: created.id },
       include: { items: { include: { product: true } } },
     });
-    if (existing) return existing;
+  } catch {
+    // DB unavailable — return null so UI gracefully shows empty state.
+    return null;
   }
-  const created = await prisma.cart.create({ data: {} });
-  jar.set(CART_COOKIE, created.id, {
-    httpOnly: true,
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 60,
-  });
-  return prisma.cart.findUnique({
-    where: { id: created.id },
-    include: { items: { include: { product: true } } },
-  });
 }
 
 export async function getCart() {
   const jar = cookies();
   const cartId = jar.get(CART_COOKIE)?.value;
   if (!cartId) return null;
-  return prisma.cart.findUnique({
-    where: { id: cartId },
-    include: { items: { include: { product: true } } },
-  });
+  try {
+    return await prisma.cart.findUnique({
+      where: { id: cartId },
+      include: { items: { include: { product: true } } },
+    });
+  } catch {
+    return null;
+  }
 }
 
 export type CartWithItems = NonNullable<Awaited<ReturnType<typeof getOrCreateCart>>>;
