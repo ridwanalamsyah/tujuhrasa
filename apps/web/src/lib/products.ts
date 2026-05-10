@@ -219,6 +219,49 @@ function localToDisplay(
   };
 }
 
+function erpOnlyToDisplay(e: ErpProductFull): DisplayProduct {
+  const palette = paletteFor(e.sku, e.cat ?? "");
+  const slug = slugify(e.name) || `produk-${e.id.toLowerCase()}`;
+  return {
+    id: 0,
+    slug,
+    name: e.name,
+    rasa: "",
+    tagline: "",
+    description: "",
+    origin: "",
+    process: "",
+    roast: "",
+    volume: Math.round(e.barista?.yieldMl ?? 250),
+    caffeine: "",
+    ingredients: "",
+    notes: "",
+    brewTip: e.barista?.sop ?? "",
+    story: "",
+    priceCents: e.sell,
+    comparePriceCents: null,
+    stock: e.stock,
+    accentHex: palette.accent,
+    bgHex: palette.bg,
+    liquidHex: palette.liquid,
+    labelHex: palette.label,
+    inkHex: palette.ink,
+    liquidPct: liquidLevel(e.stock, e.minStk ?? 0),
+    bottleSvg: "",
+    photo: e.photo ?? "",
+    isFeatured: false,
+    sku: e.sku,
+    cat: e.cat ?? "",
+    sat: e.sat ?? "botol",
+    gros: e.gros ?? 0,
+    minStk: e.minStk ?? 0,
+    baristaTempC: e.barista?.tempC ?? null,
+    baristaTimeS: e.barista?.timeS ?? null,
+    baristaYieldMl: e.barista?.yieldMl ?? null,
+    source: "erp",
+  };
+}
+
 export async function getProductsForDisplay(opts?: {
   cat?: string | null;
   rasa?: string | null;
@@ -226,13 +269,19 @@ export async function getProductsForDisplay(opts?: {
   const erp = await fetchErpProducts();
 
   if (erp.length > 0) {
-    const bySku = await ensureLocalStubs(erp);
-    let merged = erp
-      .map((e) => {
-        const local = bySku.get(e.sku);
-        return local ? fromErp(e, local) : null;
-      })
-      .filter((p): p is DisplayProduct => p !== null);
+    let merged: DisplayProduct[];
+    try {
+      const bySku = await ensureLocalStubs(erp);
+      merged = erp
+        .map((e) => {
+          const local = bySku.get(e.sku);
+          return local ? fromErp(e, local) : erpOnlyToDisplay(e);
+        })
+        .filter((p): p is DisplayProduct => p !== null);
+    } catch (err) {
+      // DB unavailable — fall back to ERP-only display (no reviews etc).
+      merged = erp.map((e) => erpOnlyToDisplay(e));
+    }
 
     if (opts?.cat) {
       merged = merged.filter(
@@ -246,12 +295,16 @@ export async function getProductsForDisplay(opts?: {
   }
 
   // Fallback: ERP unreachable, pakai local Prisma seutuhnya.
-  const where = opts?.rasa ? { rasa: opts.rasa } : undefined;
-  const local = await prisma.product.findMany({
-    where,
-    orderBy: { id: "asc" },
-  });
-  return local.map(localToDisplay);
+  try {
+    const where = opts?.rasa ? { rasa: opts.rasa } : undefined;
+    const local = await prisma.product.findMany({
+      where,
+      orderBy: { id: "asc" },
+    });
+    return local.map(localToDisplay);
+  } catch {
+    return [];
+  }
 }
 
 export async function getProductForDisplayBySlug(

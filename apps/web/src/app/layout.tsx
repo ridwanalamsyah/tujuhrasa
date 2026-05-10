@@ -4,12 +4,14 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { BottomNav } from "@/components/BottomNav";
 import { PwaRegister } from "@/components/PwaRegister";
+import { CmdK } from "@/components/CmdK";
+import { WhatsappChat } from "@/components/WhatsappChat";
 import { getCart, cartTotals } from "@/lib/cart";
 
 export const metadata: Metadata = {
-  title: "Tujuh Rasa — Kopi Botolan Nusantara",
+  title: "Tujuh Rasa — Kopi & teh botolan, dari kafe ke pintu rumah",
   description:
-    "Tujuh Rasa adalah kopi botolan nusantara — tujuh karakter rasa, tujuh cerita. Diseduh, dibotolkan, diantar segar.",
+    "Diseduh tangan dan dibotolkan segar. Pilih, pesan, sambut kurir. Tujuh karakter rasa nusantara dalam satu meja.",
   metadataBase: new URL("http://localhost:3000"),
   manifest: "/manifest.json",
   applicationName: "Tujuh Rasa",
@@ -25,10 +27,16 @@ export const metadata: Metadata = {
     ],
     apple: "/icon-192.svg",
   },
+  openGraph: {
+    title: "Tujuh Rasa — Kopi & teh botolan",
+    description:
+      "Diseduh tangan, dibotolkan segar, diantar hari yang sama.",
+    type: "website",
+  },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#5b1a14",
+  themeColor: "#faf6ec",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -45,12 +53,22 @@ export default async function RootLayout({
   return (
     <html lang="id">
       <body>
-        <div className="min-h-screen flex flex-col">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-[var(--tr-ink)] focus:text-[var(--tr-cream)] focus:px-3 focus:py-2 focus:rounded-lg"
+        >
+          Lompat ke isi utama
+        </a>
+        <div className="min-h-screen flex flex-col relative">
           <Nav cartCount={totals.itemCount} />
-          <main className="flex-1 pb-16 md:pb-0">{children}</main>
+          <main id="main" className="flex-1 pb-16 md:pb-0">
+            {children}
+          </main>
           <Footer />
           <BottomNav />
           <PwaRegister />
+          <CmdK />
+          <WhatsappChat />
         </div>
       </body>
     </html>

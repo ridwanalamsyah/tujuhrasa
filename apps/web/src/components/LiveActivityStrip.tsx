@@ -48,7 +48,14 @@ export function LiveActivityStrip({ initial }: { initial: Activity[] }) {
   }
 
   const a = items[idx];
-  const ago = a.agoMin < 60 ? `${a.agoMin} menit lalu` : `${Math.round(a.agoMin / 60)} jam lalu`;
+  const ago =
+    a.agoMin < 1
+      ? "baru saja"
+      : a.agoMin < 60
+      ? `${a.agoMin} menit lalu`
+      : a.agoMin < 60 * 48
+      ? `${Math.round(a.agoMin / 60)} jam lalu`
+      : `${Math.round(a.agoMin / (60 * 24))} hari lalu`;
 
   return (
     <div
