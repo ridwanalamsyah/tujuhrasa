@@ -255,9 +255,9 @@ function erpOnlyToDisplay(e: ErpProductFull): DisplayProduct {
     sat: e.sat ?? "botol",
     gros: e.gros ?? 0,
     minStk: e.minStk ?? 0,
-    baristaTempC: e.barista?.tempC ?? null,
-    baristaTimeS: e.barista?.timeS ?? null,
-    baristaYieldMl: e.barista?.yieldMl ?? null,
+    baristaTempC: e.barista?.tempC ?? 4,
+    baristaTimeS: e.barista?.timeS ?? 90,
+    baristaYieldMl: e.barista?.yieldMl ?? 250,
     source: "erp",
   };
 }
