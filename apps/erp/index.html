@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#C47040" />
+  <meta name="description" content="Tujuh Rasa — Sistem ERP Coffee (Apple-style glass UI, GL accounting, bagi hasil poin, data-driven)" />
+  <title>Tujuh Rasa — Sistem ERP Coffee</title>
+
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./assets/styles.css" />
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+  <link rel="apple-touch-icon" href="./assets/favicon.svg" />
+  <meta name="theme-color" content="#C47040" />
+
+  <!-- Glass background ambient gradient (di-fix di body, di-blur via CSS) -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+  </div>
+  <div id="root">
+    <div class="boot-screen">
+      <div class="boot-card">
+        <div class="boot-mark">
+          <svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true">
+            <defs>
+              <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#E08B5C"/><stop offset="100%" stop-color="#C47040"/>
+              </linearGradient>
+            </defs>
+            <rect width="64" height="64" rx="16" fill="url(#bg)"/>
+            <path d="M14 22 h36 l-12 28 h-8 l10-22 h-26 z" fill="#fff"/>
+          </svg>
+        </div>
+        <div class="boot-name">Tujuh Rasa</div>
+        <div class="boot-tag">Memuat sistem</div>
+        <div class="boot-bar"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
