@@ -1,0 +1,25 @@
+# Rename this file to ci.yml after creating a Personal Access Token
+# with the "workflow" scope. The current PAT only has "repo" scope.
+#
+# Steps:
+#   1. https://github.com/settings/tokens/new?scopes=repo,workflow
+#   2. mv .github/workflows/ci.yml.example .github/workflows/ci.yml
+#   3. git add . && git commit -m "ci: enable workflow" && git push
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Run smoke tests
+        run: node tests/smoke.test.js

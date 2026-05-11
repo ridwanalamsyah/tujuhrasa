@@ -1,0 +1,10 @@
+{
+  "name": "tujuhrasa-architecture",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "Rekonstruksi arsitektur Tujuh Rasa — data-driven, modular, production-ready.",
+  "scripts": {
+    "test": "node tests/smoke.test.js"
+  }
+}

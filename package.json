@@ -1,36 +1,21 @@
 {
-  "name": "tujuh-rasa",
+  "name": "tujuhrasa-mono",
   "version": "1.0.0",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "next dev -p 3000",
-    "build": "next build",
-    "start": "next start -p 3000",
-    "lint": "next lint",
-    "postinstall": "prisma generate",
-    "db:push": "prisma db push --accept-data-loss --skip-generate",
-    "db:seed": "tsx prisma/seed.ts",
-    "setup": "prisma generate && prisma db push --accept-data-loss && tsx prisma/seed.ts"
+    "dev": "npm run dev --workspace @tujuhrasa/web",
+    "dev:erp": "npm run dev --workspace @tujuhrasa/erp",
+    "build": "npm run build --workspace @tujuhrasa/web",
+    "build:erp": "npm run build --workspace @tujuhrasa/erp",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "setup": "npm install && npm run setup --workspace @tujuhrasa/web"
   },
-  "dependencies": {
-    "@prisma/client": "^6.16.0",
-    "next": "14.2.13",
-    "pg": "^8.20.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "zod": "^3.23.8"
-  },
-  "devDependencies": {
-    "@types/node": "^22.7.5",
-    "@types/react": "^18.3.11",
-    "@types/react-dom": "^18.3.0",
-    "autoprefixer": "^10.4.20",
-    "eslint": "^8.57.1",
-    "eslint-config-next": "14.2.13",
-    "postcss": "^8.4.47",
-    "prisma": "^6.16.0",
-    "tailwindcss": "^3.4.13",
-    "tsx": "^4.19.1",
-    "typescript": "^5.6.2"
+  "engines": {
+    "node": ">=20"
   }
 }

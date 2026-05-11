@@ -1,0 +1,105 @@
+/* Tujuh Rasa — design tokens (Tuku + Notion hybrid)
+ * Hand-drawn warmth (cream paper, ink, orange) + Notion clarity (generous spacing, clear hierarchy).
+ * Light & dark via prefers-color-scheme auto. No toggle UI.
+ */
+
+:root {
+  /* ── Surfaces (paper warm, ink dark) ── */
+  --tr-cream: #faf6ec;
+  --tr-paper: #fefcf6;
+  --tr-paper-2: #f4ede0;
+  --tr-paper-3: #ede4d1;
+  --tr-ink: #2a241e;
+  --tr-ink-soft: #4b4138;
+  --tr-ink-muted: #7a6f63;
+  --tr-ink-subtle: #a89e90;
+  --tr-line: rgba(42, 36, 30, 0.12);
+  --tr-line-strong: rgba(42, 36, 30, 0.22);
+  --tr-shadow-card: 0 1px 0 rgba(42, 36, 30, 0.04), 0 8px 24px rgba(42, 36, 30, 0.06);
+  --tr-shadow-card-hover: 0 4px 0 rgba(42, 36, 30, 0.05), 0 12px 32px rgba(42, 36, 30, 0.1);
+  --tr-shadow-sketch: 1px 1px 0 rgba(42, 36, 30, 0.85);
+
+  /* ── Brand accents ── */
+  --tr-orange: #e07a2c;       /* primary CTA, sunset orange */
+  --tr-orange-soft: #f4c08a;
+  --tr-orange-deep: #b75e1a;
+  --tr-leaf: #5b7a3d;         /* matcha, fresh leaf */
+  --tr-leaf-soft: #b7c79c;
+  --tr-leaf-deep: #3f5828;
+  --tr-plum: #7a3f5e;         /* taro, plum */
+  --tr-plum-soft: #c9a3b8;
+  --tr-sky: #4b7a8e;          /* pandan, sky */
+  --tr-sky-soft: #a3c1cf;
+  --tr-cocoa: #6a4928;        /* coffee, brown */
+  --tr-cocoa-soft: #c4a482;
+  --tr-cream-deep: #d7b96e;   /* gula aren */
+
+  /* ── Status ── */
+  --tr-success: #5b7a3d;
+  --tr-warn: #b75e1a;
+  --tr-danger: #a83e3a;
+  --tr-info: #4b7a8e;
+
+  /* ── Type ── */
+  --tr-font-serif: "Cormorant Garamond", "Crimson Pro", Georgia, serif;
+  --tr-font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --tr-font-hand: "Caveat", "Patrick Hand", "Comic Sans MS", cursive;
+  --tr-font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+
+  /* ── Motion ── */
+  --tr-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --tr-fast: 140ms var(--tr-ease);
+  --tr-base: 240ms var(--tr-ease);
+  --tr-slow: 480ms var(--tr-ease);
+
+  /* ── Radius (slightly imperfect for hand-drawn feel) ── */
+  --tr-r-xs: 6px;
+  --tr-r-sm: 10px;
+  --tr-r-md: 14px;
+  --tr-r-lg: 20px;
+  --tr-r-xl: 28px;
+  --tr-r-full: 9999px;
+
+  /* ── Spacing ── */
+  --tr-tap: 44px;
+
+  /* ── Semantic (light defaults) ── */
+  --tr-bg: var(--tr-cream);
+  --tr-bg-elev: var(--tr-paper);
+  --tr-bg-soft: var(--tr-paper-2);
+  --tr-text: var(--tr-ink);
+  --tr-text-soft: var(--tr-ink-soft);
+  --tr-text-muted: var(--tr-ink-muted);
+  --tr-text-subtle: var(--tr-ink-subtle);
+  --tr-border: var(--tr-line);
+  --tr-border-strong: var(--tr-line-strong);
+  --tr-accent: var(--tr-orange);
+  --tr-accent-soft: var(--tr-orange-soft);
+  --tr-accent-deep: var(--tr-orange-deep);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark mode: warm dark paper (not black, more like dim cafe) */
+    --tr-bg: #1c1812;
+    --tr-bg-elev: #25201a;
+    --tr-bg-soft: #2e2820;
+    --tr-text: #f0e8d8;
+    --tr-text-soft: #d4ccbc;
+    --tr-text-muted: #9e9486;
+    --tr-text-subtle: #6e6558;
+    --tr-border: rgba(240, 232, 216, 0.12);
+    --tr-border-strong: rgba(240, 232, 216, 0.22);
+    --tr-shadow-card: 0 1px 0 rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+    --tr-shadow-card-hover: 0 4px 0 rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.4);
+    --tr-shadow-sketch: 1px 1px 0 rgba(240, 232, 216, 0.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --tr-fast: 0ms;
+    --tr-base: 0ms;
+    --tr-slow: 0ms;
+  }
+}
