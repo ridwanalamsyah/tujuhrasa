@@ -37,12 +37,12 @@ export function LiveActivityStrip({ initial }: { initial: Activity[] }) {
 
   if (items.length === 0) {
     return (
-      <div className="flex items-center gap-3 text-sm font-mono opacity-70 px-4 py-2 rounded-full bg-paper border border-ink/15">
+      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[var(--tr-paper)] border-2 border-[var(--tr-ink)] shadow-stamp-sm text-xs font-mono">
         <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange opacity-75" />
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-orange" />
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--tr-brick)] opacity-75" />
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--tr-brick)]" />
         </span>
-        <span>siap mengantar pesananmu</span>
+        <span className="uppercase tracking-widest">Siap antar</span>
       </div>
     );
   }
@@ -59,23 +59,20 @@ export function LiveActivityStrip({ initial }: { initial: Activity[] }) {
 
   return (
     <div
-      className="inline-flex items-center gap-3 text-xs sm:text-sm px-4 py-2 rounded-full bg-paper border border-ink/15 card-shadow"
+      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[var(--tr-paper)] border-2 border-[var(--tr-ink)] shadow-stamp-sm text-xs"
       role="status"
       aria-live="polite"
       key={idx}
     >
       <span className="relative flex h-2 w-2 shrink-0">
-        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange opacity-75" />
-        <span className="relative inline-flex rounded-full h-2 w-2 bg-orange" />
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--tr-brick)] opacity-75" />
+        <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--tr-brick)]" />
       </span>
-      <span className="font-serif italic">
-        {a.buyer} dari {a.city}
-      </span>
-      <span className="opacity-60">baru pesan</span>
-      <span className="font-mono">
-        {a.qty} botol {a.pname}
-      </span>
-      <span className="opacity-50">· {ago}</span>
+      <span className="font-display font-semibold">{a.buyer}</span>
+      <span className="text-[var(--tr-text-muted)] hidden sm:inline">dari {a.city}</span>
+      <span className="text-[var(--tr-text-muted)]">pesan</span>
+      <span className="font-mono font-medium">{a.qty}×{a.pname}</span>
+      <span className="text-[var(--tr-text-subtle)] hidden sm:inline">· {ago}</span>
     </div>
   );
 }

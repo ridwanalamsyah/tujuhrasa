@@ -42,29 +42,30 @@ export function KafeSedangSeduh({
   }, []);
 
   return (
-    <section className="rounded-3xl border border-ink/20 bg-paper p-6 lg:p-8 card-shadow">
-      <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
+    <section className="card-stamp p-6 lg:p-8 bg-[var(--tr-paper)]">
+      <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
         <div>
-          <p className="eyebrow mb-2">/ kafe sedang seduh</p>
-          <p className="font-serif italic text-2xl">Lihat ke dapur kami.</p>
+          <p className="eyebrow mb-1.5">Kafe sedang seduh</p>
+          <p className="font-display font-bold text-2xl leading-tight">Lihat ke dapur kami</p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           <span
             className={
-              "inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-mono " +
+              "inline-flex items-center gap-2 rounded-sm px-2.5 py-1 text-[11px] font-mono uppercase tracking-widest border-2 " +
               (isOpen
-                ? "bg-leaf/15 text-leaf border border-leaf/40"
-                : "bg-ink/10 text-ink border border-ink/30")
+                ? "bg-[var(--tr-leaf-soft)] text-[var(--tr-leaf-deep)] border-[var(--tr-leaf-deep)]"
+                : "bg-[var(--tr-paper-2)] text-[var(--tr-ink-soft)] border-[var(--tr-ink)]")
             }
           >
             <span
               className={
-                "h-2 w-2 rounded-full " + (isOpen ? "bg-leaf" : "bg-ink/40")
+                "h-2 w-2 rounded-full " +
+                (isOpen ? "bg-[var(--tr-leaf-deep)]" : "bg-[var(--tr-ink-soft)]")
               }
             />
             {isOpen ? "buka" : "tutup"}
           </span>
-          <span className="font-mono text-[10px] opacity-60">{openHourLabel}</span>
+          <span className="font-mono text-[10px] text-[var(--tr-text-muted)]">{openHourLabel}</span>
         </div>
       </div>
 
@@ -72,28 +73,26 @@ export function KafeSedangSeduh({
         <div>
           {data ? (
             <>
-              <p className="font-mono text-[10px] uppercase tracking-widest opacity-60 mb-1">
+              <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--tr-text-muted)] mb-2">
                 lagi diseduh
               </p>
-              <p className="font-serif italic text-2xl leading-tight">
+              <p className="font-display font-black text-2xl sm:text-3xl leading-tight">
                 {data.qty} botol {data.pname}
               </p>
-              <p className="text-sm opacity-70 mt-2 line-clamp-2">{data.sop}</p>
-              <div className="mt-4 flex items-center gap-3 text-xs font-mono">
-                <span className="rounded-full border border-ink/20 px-2 py-1">
-                  ☕ {data.tempC}°C
-                </span>
-                <span className="rounded-full border border-orange text-orange px-2 py-1">
+              <p className="text-sm text-[var(--tr-text-soft)] mt-3 line-clamp-2">{data.sop}</p>
+              <div className="mt-4 flex items-center gap-2 text-xs font-mono">
+                <span className="pill">☕ {data.tempC}°C</span>
+                <span className="pill text-[var(--tr-brick)] border-[var(--tr-brick)]">
                   ETA {data.etaMin} mnt
                 </span>
               </div>
             </>
           ) : (
             <>
-              <p className="font-mono text-[10px] uppercase tracking-widest opacity-60 mb-1">
+              <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--tr-text-muted)] mb-2">
                 kafe lagi tenang
               </p>
-              <p className="font-serif italic text-2xl leading-tight">
+              <p className="font-display-italic text-xl sm:text-2xl leading-tight">
                 Tidak ada antrean — pesan sekarang langsung dibuat.
               </p>
             </>
@@ -101,12 +100,12 @@ export function KafeSedangSeduh({
         </div>
 
         {barista && (
-          <div className="rounded-2xl border border-ink/20 bg-cream p-4 text-center min-w-[140px]">
-            <div className="text-4xl mb-1">{barista.emoji}</div>
-            <p className="font-mono text-[10px] opacity-60 uppercase tracking-widest">
+          <div className="rounded-md border-2 border-[var(--tr-ink)] bg-[var(--tr-paper-2)] p-4 text-center min-w-[140px] shadow-stamp-sm">
+            <div className="text-4xl mb-1" aria-hidden>{barista.emoji}</div>
+            <p className="font-mono text-[10px] text-[var(--tr-text-muted)] uppercase tracking-widest">
               barista hari ini
             </p>
-            <p className="font-serif italic text-lg mt-1">{barista.name}</p>
+            <p className="font-display font-bold text-base mt-1">{barista.name}</p>
           </div>
         )}
       </div>

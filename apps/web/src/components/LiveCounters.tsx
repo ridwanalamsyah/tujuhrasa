@@ -35,21 +35,22 @@ export function LiveCounters({ initial }: { initial: Stats }) {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-      <Card label="botol terjual hari ini" value={fmt(s.bottlesToday)} icon="🍶" />
-      <Card label="pelanggan tetap" value={fmt(s.totalCustomers)} icon="🧑‍🤝‍🧑" />
-      <Card label="menu aktif" value={fmt(s.activeMenu)} icon="📋" />
-      <Card label="revenue 7 hari" value={fmtRp(s.revenueWeek)} icon="💰" />
+    <div className="grid grid-cols-2 gap-3">
+      <Card label="Botol hari ini" value={fmt(s.bottlesToday)} />
+      <Card label="Pelanggan tetap" value={fmt(s.totalCustomers)} />
+      <Card label="Menu aktif" value={fmt(s.activeMenu)} />
+      <Card label="Revenue 7 hari" value={fmtRp(s.revenueWeek)} />
     </div>
   );
 }
 
-function Card({ label, value, icon }: { label: string; value: string; icon: string }) {
+function Card({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-ink/20 bg-paper p-5 card-shadow">
-      <div className="text-2xl mb-1">{icon}</div>
-      <p className="font-serif italic text-3xl tabular-nums">{value}</p>
-      <p className="font-mono text-[10px] opacity-60 mt-1 lowercase tracking-wider">
+    <div className="rounded-md border-2 border-[var(--tr-ink)] bg-[var(--tr-paper)] p-5 shadow-stamp-sm">
+      <p className="font-display font-black text-3xl sm:text-4xl tabular-nums leading-none text-[var(--tr-ink)]">
+        {value}
+      </p>
+      <p className="font-mono text-[10px] text-[var(--tr-text-muted)] mt-3 uppercase tracking-widest">
         {label}
       </p>
     </div>

@@ -137,7 +137,7 @@ export default function JelajahPage() {
         <p className="eyebrow mb-3">/ catatan founder</p>
         <article className="rounded-3xl border border-ink/20 bg-paper p-8 max-w-3xl">
           <p className="font-serif italic text-3xl leading-snug mb-4">
-            "Kopi paling enak adalah kopi yang dibikin tetangga — bukan kopi paling mahal."
+            &ldquo;Kopi paling enak adalah kopi yang dibikin tetangga — bukan kopi paling mahal.&rdquo;
           </p>
           <p className="opacity-80 leading-relaxed mb-3">
             Saya tumbuh di warung Pak Dirman, ayah saya. Tiap pagi sebelum sekolah,
