@@ -71,116 +71,130 @@ const TIMELINE = [
 
 export default function JelajahPage() {
   return (
-    <div className="container-tr pt-32 pb-20">
-      <p className="eyebrow mb-3">/ jelajah</p>
-      <h1 className="h-display text-[clamp(36px,6vw,72px)] leading-[1.02] mb-4">
-        Cerita di balik tujuh rasa.
-      </h1>
-      <p className="max-w-2xl opacity-80 mb-12">
-        Bukan cuma jualan botol. Kami juga senang cerita — siapa petaninya,
-        gimana cara seduh, sampai apa makanan yang cocok pasangannya.
-      </p>
-
-      <section className="mb-14">
-        <p className="eyebrow mb-3">/ quiz · minuman cocok untukmu</p>
-        <QuizClient />
-      </section>
-
-      <section className="mb-14">
-        <p className="eyebrow mb-3">/ origin map · dari mana biji kami</p>
-        <OriginMap />
-      </section>
-
-      <section className="mb-14">
-        <p className="eyebrow mb-3">/ pairing · makan sama apa enaknya</p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {PAIRINGS.map((p) => (
-            <article
-              key={p.drink}
-              className="rounded-2xl border border-ink/20 bg-paper p-5"
-            >
-              <p className="font-serif italic text-xl">{p.drink}</p>
-              <ul className="mt-3 space-y-1 text-sm">
-                {p.foods.map((f) => (
-                  <li key={f} className="flex items-start gap-2">
-                    <span className="text-orange">·</span> {f}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-3 text-xs italic opacity-70">{p.note}</p>
-            </article>
-          ))}
+    <>
+      <section className="bg-[var(--tr-paper)] border-b-2 border-[var(--tr-ink)]">
+        <div className="container-tr py-10 sm:py-14">
+          <div className="flex items-center gap-3 mb-4 flex-wrap">
+            <span className="stamp">Jelajah rasa</span>
+            <span className="font-hand text-2xl text-[var(--tr-brick-deep)]">
+              ngobrolin biji, bukan jualan saja —
+            </span>
+          </div>
+          <h1 className="font-display font-black text-[clamp(36px,6vw,72px)] leading-[0.98] tracking-[-0.02em] mb-4">
+            Cerita di balik{" "}
+            <em className="text-[var(--tr-brick)]">tujuh rasa.</em>
+          </h1>
+          <p className="max-w-2xl text-[var(--tr-text-soft)] leading-relaxed">
+            Bukan cuma jualan botol. Kami juga senang cerita — siapa petaninya,
+            gimana cara seduh, sampai apa makanan yang cocok pasangannya.
+          </p>
         </div>
       </section>
 
-      <section className="mb-14">
-        <MoodPlayer />
-      </section>
+      <div className="container-tr py-12 sm:py-16 space-y-14">
+        <section>
+          <p className="eyebrow mb-3">Quiz · minuman cocok untukmu</p>
+          <QuizClient />
+        </section>
 
-      <section className="mb-14">
-        <p className="eyebrow mb-3">/ behind the scenes · gimana botol dibuat</p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {BTS_STEPS.map((s) => (
-            <article
-              key={s.step}
-              className="rounded-2xl border border-ink/20 bg-paper p-5"
-            >
-              <p className="font-mono text-xs opacity-60">{s.step}</p>
-              <p className="font-serif italic text-xl mt-1">{s.title}</p>
-              <p className="text-sm mt-2 opacity-80">{s.desc}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+        <section>
+          <p className="eyebrow mb-3">Origin map · dari mana biji kami</p>
+          <OriginMap />
+        </section>
 
-      <section className="mb-14">
-        <p className="eyebrow mb-3">/ catatan founder</p>
-        <article className="rounded-3xl border border-ink/20 bg-paper p-8 max-w-3xl">
-          <p className="font-serif italic text-3xl leading-snug mb-4">
-            &ldquo;Kopi paling enak adalah kopi yang dibikin tetangga — bukan kopi paling mahal.&rdquo;
-          </p>
-          <p className="opacity-80 leading-relaxed mb-3">
-            Saya tumbuh di warung Pak Dirman, ayah saya. Tiap pagi sebelum sekolah,
-            saya bantu sangrai biji. Aroma asapnya nempel di seragam putih saya.
-          </p>
-          <p className="opacity-80 leading-relaxed mb-3">
-            Tujuh Rasa lahir dari satu observasi: tetangga-tetangga yang dulu mampir
-            ke warung ayah saya, sekarang sibuk banget. Mereka butuh kopi yang
-            tetap hangat di lidah, walau diminumnya di mobil, di kantor, di kasur.
-          </p>
-          <p className="opacity-80 leading-relaxed">
-            Jadi kami bikin kopi botolan. Tetap pakai biji yang ayah saya pakai.
-            Tetap pakai resep yang ibu saya turunkan. Tetap diantar tangan kami sendiri.
-          </p>
-          <p className="font-serif italic text-lg mt-6 opacity-90">— Mbak Rara, Founder</p>
-        </article>
-      </section>
+        <section>
+          <p className="eyebrow mb-3">Pairing · makan sama apa enaknya</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {PAIRINGS.map((p) => (
+              <article key={p.drink} className="card-stamp p-5">
+                <p className="font-display font-bold text-xl">{p.drink}</p>
+                <ul className="mt-3 space-y-1 text-sm">
+                  {p.foods.map((f) => (
+                    <li key={f} className="flex items-start gap-2">
+                      <span className="text-[var(--tr-brick)] font-bold">·</span> {f}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-3 font-hand text-lg text-[var(--tr-brick-deep)]">{p.note}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
-      <section className="mb-14">
-        <p className="eyebrow mb-3">/ timeline · perjalanan tujuh rasa</p>
-        <ol className="relative border-l-2 border-ink/20 ml-3 space-y-6">
-          {TIMELINE.map((t) => (
-            <li key={t.year} className="pl-6 relative">
-              <span className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-orange border-2 border-cream" />
-              <p className="font-mono text-sm opacity-70">{t.year}</p>
-              <p className="font-serif italic text-xl">{t.title}</p>
-              <p className="text-sm opacity-80 mt-1">{t.desc}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
+        <section>
+          <MoodPlayer />
+        </section>
 
-      <section className="mb-14">
-        <p className="eyebrow mb-3">/ glossary · istilah kopi</p>
-        <dl className="grid sm:grid-cols-2 gap-x-8 gap-y-4">
-          {GLOSSARY.map((g) => (
-            <div key={g.term}>
-              <dt className="font-serif italic text-lg">{g.term}</dt>
-              <dd className="text-sm opacity-80 mt-1">{g.def}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-    </div>
+        <section>
+          <p className="eyebrow mb-3">Behind the scenes · gimana botol dibuat</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {BTS_STEPS.map((s) => (
+              <article key={s.step} className="card-stamp p-5">
+                <p className="font-mono text-[11px] uppercase tracking-widest text-[var(--tr-brick)] font-bold">
+                  {s.step}
+                </p>
+                <p className="font-display font-bold text-xl mt-1">{s.title}</p>
+                <p className="text-sm mt-2 text-[var(--tr-text-soft)] leading-relaxed">
+                  {s.desc}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <p className="eyebrow mb-3">Catatan founder</p>
+          <article className="card-stamp p-8 sm:p-10 max-w-3xl">
+            <p className="font-display-italic text-3xl leading-snug mb-4">
+              &ldquo;Kopi paling enak adalah kopi yang dibikin tetangga — bukan kopi paling mahal.&rdquo;
+            </p>
+            <p className="text-[var(--tr-text-soft)] leading-relaxed mb-3">
+              Saya tumbuh di warung Pak Dirman, ayah saya. Tiap pagi sebelum sekolah,
+              saya bantu sangrai biji. Aroma asapnya nempel di seragam putih saya.
+            </p>
+            <p className="text-[var(--tr-text-soft)] leading-relaxed mb-3">
+              Tujuh Rasa lahir dari satu observasi: tetangga-tetangga yang dulu mampir
+              ke warung ayah saya, sekarang sibuk banget. Mereka butuh kopi yang
+              tetap hangat di lidah, walau diminumnya di mobil, di kantor, di kasur.
+            </p>
+            <p className="text-[var(--tr-text-soft)] leading-relaxed">
+              Jadi kami bikin kopi botolan. Tetap pakai biji yang ayah saya pakai.
+              Tetap pakai resep yang ibu saya turunkan. Tetap diantar tangan kami sendiri.
+            </p>
+            <p className="font-hand text-2xl mt-6 text-[var(--tr-brick-deep)]">
+              — Mbak Rara, Founder
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <p className="eyebrow mb-3">Timeline · perjalanan tujuh rasa</p>
+          <ol className="relative border-l-2 border-[var(--tr-ink)] ml-3 space-y-6">
+            {TIMELINE.map((t) => (
+              <li key={t.year} className="pl-6 relative">
+                <span className="absolute -left-[10px] top-1 w-4 h-4 rounded-sm bg-[var(--tr-brick)] border-2 border-[var(--tr-ink)]" />
+                <p className="font-mono text-sm text-[var(--tr-brick)] font-bold tracking-widest">
+                  {t.year}
+                </p>
+                <p className="font-display font-bold text-xl">{t.title}</p>
+                <p className="text-sm text-[var(--tr-text-soft)] mt-1 leading-relaxed">{t.desc}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section>
+          <p className="eyebrow mb-3">Glossary · istilah kopi</p>
+          <dl className="grid sm:grid-cols-2 gap-x-8 gap-y-4">
+            {GLOSSARY.map((g) => (
+              <div key={g.term} className="border-t-2 border-[var(--tr-ink)] pt-2">
+                <dt className="font-display font-bold text-lg">{g.term}</dt>
+                <dd className="text-sm text-[var(--tr-text-soft)] mt-1 leading-relaxed">{g.def}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      </div>
+    </>
   );
 }

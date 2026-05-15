@@ -50,10 +50,10 @@ export function GrosirForm({
 
   if (done) {
     return (
-      <div className="rounded-2xl bg-cream border border-leaf/40 p-4">
-        <p className="font-serif italic text-xl">Sip, sudah masuk!</p>
-        <p className="opacity-70 text-sm mt-1">
-          Tim kami akan menghubungi {wa} dalam 24 jam untuk konfirmasi & invoice.
+      <div className="rounded-sm border-2 border-[var(--tr-ink)] shadow-stamp-sm bg-[var(--tr-mustard-soft)]/35 p-5">
+        <p className="font-display font-black text-xl">Sip, sudah masuk!</p>
+        <p className="font-hand text-lg text-[var(--tr-brick-deep)] mt-1">
+          tim kami akan menghubungi {wa} dalam 24 jam untuk konfirmasi & invoice —
         </p>
       </div>
     );
@@ -63,31 +63,31 @@ export function GrosirForm({
     <form onSubmit={submit} className="grid sm:grid-cols-2 gap-3">
       <input
         required
-        placeholder="nama / nama acara"
+        placeholder="Nama / nama acara"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="rounded-full border border-ink px-4 py-2 bg-cream text-sm"
+        className="input text-sm"
       />
       <input
         required
         placeholder="WhatsApp"
         value={wa}
         onChange={(e) => setWa(e.target.value)}
-        className="rounded-full border border-ink px-4 py-2 bg-cream text-sm"
+        className="input text-sm"
       />
       <input
         required
-        placeholder="kota"
+        placeholder="Kota"
         value={city}
         onChange={(e) => setCity(e.target.value)}
-        className="rounded-full border border-ink px-4 py-2 bg-cream text-sm"
+        className="input text-sm"
       />
       <input
         type="email"
-        placeholder="email (opsional)"
+        placeholder="Email (opsional)"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="rounded-full border border-ink px-4 py-2 bg-cream text-sm"
+        className="input text-sm"
       />
       <input
         type="number"
@@ -95,36 +95,40 @@ export function GrosirForm({
         max={1000}
         value={qty}
         onChange={(e) => setQty(parseInt(e.target.value || "0") || 0)}
-        className="rounded-full border border-ink px-4 py-2 bg-cream text-sm"
+        className="input text-sm tabular-nums"
         aria-label="jumlah botol"
       />
       <select
         value={notes}
         onChange={(e) => setNotes(e.target.value)}
-        className="rounded-full border border-ink px-4 py-2 bg-cream text-sm"
+        className="input text-sm"
       >
-        <option value="">tipe acara / tujuan (opsional)</option>
-        <option value="kantor">kantor / corporate</option>
-        <option value="wedding">pernikahan</option>
-        <option value="komunitas">komunitas / RT</option>
-        <option value="sekolah">sekolah / kelas</option>
-        <option value="lainnya">lainnya</option>
+        <option value="">Tipe acara / tujuan (opsional)</option>
+        <option value="kantor">Kantor / corporate</option>
+        <option value="wedding">Pernikahan</option>
+        <option value="komunitas">Komunitas / RT</option>
+        <option value="sekolah">Sekolah / kelas</option>
+        <option value="lainnya">Lainnya</option>
       </select>
       <textarea
-        placeholder="catatan tambahan (varian, tanggal antar, dll)"
+        placeholder="Catatan tambahan (varian, tanggal antar, dll)"
         value={notes.startsWith("note:") ? notes.slice(5) : ""}
         onChange={(e) => setNotes("note:" + e.target.value)}
         rows={2}
-        className="sm:col-span-2 rounded-2xl border border-ink px-4 py-3 bg-cream text-sm"
+        className="input sm:col-span-2 text-sm"
       />
       <button
         type="submit"
         disabled={busy}
-        className="sm:col-span-2 btn-primary disabled:opacity-50 justify-center"
+        className="btn btn-primary sm:col-span-2 disabled:opacity-50 justify-center"
       >
-        {busy ? "memproses..." : `kirim ${type === "pre-order" ? "pre-order" : type === "group-buy" ? "pendaftaran" : "permintaan grosir"}`}
+        {busy ? "Memproses…" : `Kirim ${type === "pre-order" ? "pre-order" : type === "group-buy" ? "pendaftaran" : "permintaan grosir"}`}
       </button>
-      {err && <p className="sm:col-span-2 text-xs text-orange font-mono">{err}</p>}
+      {err && (
+        <p className="sm:col-span-2 text-xs text-[var(--tr-brick)] font-mono">
+          {err}
+        </p>
+      )}
     </form>
   );
 }

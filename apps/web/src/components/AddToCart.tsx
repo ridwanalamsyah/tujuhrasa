@@ -41,21 +41,23 @@ export function AddToCart({
 
   return (
     <div className="flex flex-wrap items-center gap-3">
-      <div className="inline-flex items-center rounded-full border border-ink overflow-hidden">
+      <div className="inline-flex items-center rounded-sm border-2 border-[var(--tr-ink)] overflow-hidden bg-[var(--tr-paper)]">
         <button
           aria-label="kurangi"
           onClick={() => setQty((q) => Math.max(1, q - 1))}
           disabled={habis}
-          className="px-3 py-2 hover:bg-ink hover:text-cream transition disabled:opacity-30"
+          className="px-3 py-2 hover:bg-[var(--tr-ink)] hover:text-[var(--tr-paper)] transition disabled:opacity-30 font-mono"
         >
           −
         </button>
-        <span className="px-3 font-mono text-sm w-8 text-center">{qty}</span>
+        <span className="px-3 font-mono text-sm w-8 text-center border-x-2 border-[var(--tr-ink)]">
+          {qty}
+        </span>
         <button
           aria-label="tambah"
           onClick={() => setQty((q) => Math.min(maxQty, q + 1))}
           disabled={habis || qty >= maxQty}
-          className="px-3 py-2 hover:bg-ink hover:text-cream transition disabled:opacity-30"
+          className="px-3 py-2 hover:bg-[var(--tr-ink)] hover:text-[var(--tr-paper)] transition disabled:opacity-30 font-mono"
         >
           +
         </button>
@@ -63,16 +65,16 @@ export function AddToCart({
       <button
         onClick={add}
         disabled={pending || habis}
-        className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
-        style={{ background: done ? accent : undefined }}
+        className="btn btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+        style={done ? { background: accent } : undefined}
       >
         {habis
-          ? "stok habis"
+          ? "Stok habis"
           : pending
-          ? "memasukkan…"
+          ? "Memasukkan…"
           : done
-          ? "✓ masuk keranjang"
-          : "tambah ke keranjang"}
+          ? "✓ Masuk keranjang"
+          : "Tambah ke keranjang"}
       </button>
     </div>
   );

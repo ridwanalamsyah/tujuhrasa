@@ -52,124 +52,155 @@ import { NewsletterForm } from "@/components/NewsletterForm";
 
 export default function TransparansiPage() {
   return (
-    <div className="container-tr pt-32 pb-20">
-      <p className="eyebrow mb-3">/ transparansi & FAQ</p>
-      <h1 className="h-display text-[clamp(36px,6vw,72px)] leading-[1.02] mb-4">
-        Buka semuanya.
-      </h1>
-      <p className="max-w-2xl opacity-80 mb-12">
-        Sertifikat, petani mitra, footprint karbon, program botol balik — semua
-        kami jelaskan sedetail mungkin di sini. Kalau ada yang belum jelas,
-        WA kami langsung.
-      </p>
-
-      <section className="mb-14">
-        <p className="eyebrow mb-3">/ sertifikat</p>
-        <div className="grid sm:grid-cols-2 gap-4">
-          {SERTS.map((s) => (
-            <article key={s.name} className="rounded-2xl border border-ink/20 bg-paper p-5">
-              <div className="flex items-start justify-between gap-2">
-                <p className="font-serif italic text-xl leading-tight">{s.name}</p>
-                <span className="rounded-full px-2 py-0.5 text-[10px] bg-leaf/15 text-leaf font-mono">aktif</span>
-              </div>
-              <p className="font-mono text-xs opacity-60 mt-2">{s.body}</p>
-              <p className="font-mono text-sm mt-1">{s.id}</p>
-              <p className="text-xs opacity-70 mt-1">berlaku sampai: {s.expires}</p>
-            </article>
-          ))}
+    <>
+      <section className="bg-[var(--tr-paper)] border-b-2 border-[var(--tr-ink)]">
+        <div className="container-tr py-10 sm:py-14">
+          <div className="flex items-center gap-3 mb-4 flex-wrap">
+            <span className="stamp">Transparansi &amp; FAQ</span>
+            <span className="font-hand text-2xl text-[var(--tr-brick-deep)]">
+              semuanya boleh diintip —
+            </span>
+          </div>
+          <h1 className="font-display font-black text-[clamp(36px,6vw,72px)] leading-[0.98] tracking-[-0.02em] mb-4">
+            Buka{" "}
+            <em className="text-[var(--tr-brick)]">semuanya.</em>
+          </h1>
+          <p className="max-w-2xl text-[var(--tr-text-soft)] leading-relaxed">
+            Sertifikat, petani mitra, footprint karbon, program botol balik —
+            semua kami jelaskan sedetail mungkin di sini. Kalau ada yang belum
+            jelas, WA kami langsung.
+          </p>
         </div>
       </section>
 
-      <section className="mb-14">
-        <p className="eyebrow mb-3">/ petani & supplier mitra</p>
-        <div className="rounded-3xl border border-ink/20 bg-paper overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-ink text-cream">
-              <tr>
-                <th className="px-5 py-3 text-left font-mono text-xs lowercase">koperasi/grup</th>
-                <th className="px-5 py-3 text-left font-mono text-xs lowercase">wilayah</th>
-                <th className="px-5 py-3 text-right font-mono text-xs lowercase">petani</th>
-                <th className="px-5 py-3 text-right font-mono text-xs lowercase">luas (ha)</th>
-                <th className="px-5 py-3 text-right font-mono text-xs lowercase">sejak</th>
-              </tr>
-            </thead>
-            <tbody>
-              {PETANI.map((p) => (
-                <tr key={p.name} className="border-t border-ink/10">
-                  <td className="px-5 py-4 font-serif italic">{p.name}</td>
-                  <td className="px-5 py-4 opacity-80">{p.region}</td>
-                  <td className="px-5 py-4 text-right font-mono">{p.farmers}</td>
-                  <td className="px-5 py-4 text-right font-mono">{p.ha}</td>
-                  <td className="px-5 py-4 text-right font-mono opacity-70">{p.since}</td>
+      <div className="container-tr py-12 sm:py-16 space-y-14">
+        <section>
+          <p className="eyebrow mb-3">Sertifikat</p>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {SERTS.map((s) => (
+              <article key={s.name} className="card-stamp p-5">
+                <div className="flex items-start justify-between gap-2">
+                  <p className="font-display font-bold text-xl leading-tight">{s.name}</p>
+                  <span className="stamp bg-[var(--tr-leaf)] text-[var(--tr-paper)]">aktif</span>
+                </div>
+                <p className="font-mono text-[11px] uppercase tracking-widest text-[var(--tr-text-muted)] mt-2">
+                  {s.body}
+                </p>
+                <p className="font-mono text-sm mt-1">{s.id}</p>
+                <p className="text-xs text-[var(--tr-text-muted)] mt-1">
+                  berlaku sampai: {s.expires}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <p className="eyebrow mb-3">Petani &amp; supplier mitra</p>
+          <div className="rounded-sm border-2 border-[var(--tr-ink)] bg-[var(--tr-paper)] overflow-hidden shadow-stamp-sm">
+            <table className="w-full text-sm">
+              <thead className="bg-[var(--tr-ink)] text-[var(--tr-paper)]">
+                <tr>
+                  <th className="px-5 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Koperasi/grup</th>
+                  <th className="px-5 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Wilayah</th>
+                  <th className="px-5 py-3 text-right font-mono text-[10px] uppercase tracking-widest">Petani</th>
+                  <th className="px-5 py-3 text-right font-mono text-[10px] uppercase tracking-widest">Luas (ha)</th>
+                  <th className="px-5 py-3 text-right font-mono text-[10px] uppercase tracking-widest">Sejak</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+              </thead>
+              <tbody>
+                {PETANI.map((p) => (
+                  <tr key={p.name} className="border-t-2 border-[var(--tr-ink)]/15">
+                    <td className="px-5 py-4 font-display font-bold">{p.name}</td>
+                    <td className="px-5 py-4 text-[var(--tr-text-soft)]">{p.region}</td>
+                    <td className="px-5 py-4 text-right font-mono tabular-nums">{p.farmers}</td>
+                    <td className="px-5 py-4 text-right font-mono tabular-nums">{p.ha}</td>
+                    <td className="px-5 py-4 text-right font-mono tabular-nums text-[var(--tr-text-muted)]">{p.since}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-      <section className="mb-14">
-        <p className="eyebrow mb-3">/ jejak karbon</p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {CARBON_ITEMS.map((c) => (
-            <article key={c.metric} className="rounded-2xl border border-leaf/30 bg-leaf/5 p-5">
-              <p className="font-mono text-xs opacity-60 lowercase">{c.metric}</p>
-              <p className="font-display text-3xl text-leaf mt-2">{c.value}</p>
-              <p className="text-xs mt-2 opacity-80">{c.note}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+        <section>
+          <p className="eyebrow mb-3">Jejak karbon</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {CARBON_ITEMS.map((c) => (
+              <article
+                key={c.metric}
+                className="card-stamp p-5 bg-[var(--tr-paper-2)]"
+              >
+                <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--tr-text-muted)]">
+                  {c.metric}
+                </p>
+                <p className="font-display font-black text-3xl text-[var(--tr-leaf)] mt-2 leading-none">
+                  {c.value}
+                </p>
+                <p className="text-xs mt-2 text-[var(--tr-text-soft)] leading-relaxed">
+                  {c.note}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
 
-      <section className="mb-14">
-        <p className="eyebrow mb-3">/ program botol kembali</p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {BOTTLE_PROGRAM.map((s) => (
-            <article key={s.step} className="rounded-2xl border border-ink/20 bg-paper p-5">
-              <p className="font-mono text-xs opacity-60">{s.step}</p>
-              <p className="font-serif italic text-lg mt-1">{s.title}</p>
-              <p className="text-sm mt-2 opacity-80">{s.desc}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+        <section>
+          <p className="eyebrow mb-3">Program botol kembali</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {BOTTLE_PROGRAM.map((s) => (
+              <article key={s.step} className="card-stamp p-5">
+                <p className="font-mono text-[11px] uppercase tracking-widest text-[var(--tr-brick)] font-bold">
+                  {s.step}
+                </p>
+                <p className="font-display font-bold text-lg mt-1">{s.title}</p>
+                <p className="text-sm mt-2 text-[var(--tr-text-soft)] leading-relaxed">
+                  {s.desc}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
 
-      <section className="mb-14">
-        <p className="eyebrow mb-3">/ pertanyaan yang sering ditanya</p>
-        <div className="rounded-3xl border border-ink/20 bg-paper p-2">
-          {FAQ.map((f, i) => (
-            <details key={i} className="group border-b border-ink/10 last:border-0">
-              <summary className="cursor-pointer px-5 py-4 flex items-center justify-between gap-3 font-serif italic text-lg group-open:text-orange transition">
-                <span>{f.q}</span>
-                <span className="text-xl opacity-60 group-open:rotate-45 transition">+</span>
-              </summary>
-              <p className="px-5 pb-5 opacity-80 text-sm leading-relaxed">{f.a}</p>
-            </details>
-          ))}
-        </div>
-      </section>
+        <section>
+          <p className="eyebrow mb-3">Pertanyaan yang sering ditanya</p>
+          <div className="rounded-sm border-2 border-[var(--tr-ink)] bg-[var(--tr-paper)] divide-y-2 divide-[var(--tr-ink)] overflow-hidden">
+            {FAQ.map((f, i) => (
+              <details key={i} className="group">
+                <summary className="cursor-pointer px-5 py-4 flex items-center justify-between gap-3 font-display font-semibold text-base sm:text-lg hover:bg-[var(--tr-paper-2)] transition list-none">
+                  <span>{f.q}</span>
+                  <span className="w-7 h-7 grid place-items-center rounded-sm border-2 border-[var(--tr-ink)] bg-[var(--tr-paper)] group-open:bg-[var(--tr-brick)] group-open:text-[var(--tr-paper)] group-open:rotate-45 transition font-mono text-base shrink-0">
+                    +
+                  </span>
+                </summary>
+                <p className="px-5 pb-5 text-[var(--tr-text-soft)] text-sm leading-relaxed bg-[var(--tr-paper-2)]">
+                  {f.a}
+                </p>
+              </details>
+            ))}
+          </div>
+        </section>
 
-      <section className="mb-14">
-        <p className="eyebrow mb-3">/ newsletter — cerita kafe per minggu</p>
-        <div className="rounded-3xl border border-orange/40 bg-orange/5 p-6">
-          <p className="font-serif italic text-2xl mb-2">
-            Kirim cerita seminggu sekali ke email kamu.
-          </p>
-          <p className="text-sm opacity-80 mb-4 max-w-xl">
-            Tiap Jumat sore: 1 origin yang lagi musim panen, 1 resep brewing,
-            1 surprise kode promo khusus pelanggan newsletter.
-          </p>
-          <NewsletterForm />
-        </div>
-      </section>
+        <section>
+          <p className="eyebrow mb-3">Newsletter — cerita kafe per minggu</p>
+          <div className="rounded-md border-2 border-[var(--tr-ink)] shadow-stamp bg-[var(--tr-mustard-soft)]/35 p-6 sm:p-7">
+            <p className="font-display font-black text-2xl mb-2">
+              Kirim cerita seminggu sekali ke email kamu.
+            </p>
+            <p className="text-sm text-[var(--tr-text-soft)] mb-4 max-w-xl">
+              Tiap Jumat sore: 1 origin yang lagi musim panen, 1 resep brewing,
+              1 surprise kode promo khusus pelanggan newsletter.
+            </p>
+            <NewsletterForm />
+          </div>
+        </section>
 
-      <p className="text-sm opacity-70">
-        Mau cek hal lain? <Link href="/cerita" className="tr-link">/cerita</Link>{" "}
-        ·{" "}
-        <Link href="/jelajah" className="tr-link">/jelajah</Link>{" "}
-        ·{" "}
-        <Link href="/poin" className="tr-link">/poin</Link>
-      </p>
-    </div>
+        <p className="text-sm text-[var(--tr-text-muted)]">
+          Mau cek hal lain? <Link href="/cerita" className="tr-link">/cerita</Link>{" "}
+          · <Link href="/jelajah" className="tr-link">/jelajah</Link>{" "}
+          · <Link href="/poin" className="tr-link">/poin</Link>
+        </p>
+      </div>
+    </>
   );
 }

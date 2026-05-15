@@ -79,7 +79,7 @@ export function BuildBoxClient({ products }: { products: P[] }) {
   return (
     <div className="grid lg:grid-cols-[1fr_360px] gap-8">
       <div>
-        <div className="flex gap-2 mb-6">
+        <div className="flex gap-2 mb-6 flex-wrap">
           {SIZES.map((s) => (
             <button
               key={s.count}
@@ -88,10 +88,10 @@ export function BuildBoxClient({ products }: { products: P[] }) {
                 setPicks({});
               }}
               className={
-                "rounded-full px-4 py-2 text-sm font-mono lowercase border transition " +
+                "rounded-sm px-4 py-2 text-sm font-mono uppercase tracking-widest border-2 border-[var(--tr-ink)] transition " +
                 (selectedSize.count === s.count
-                  ? "bg-ink text-cream border-ink"
-                  : "bg-cream text-ink border-ink/30 hover:border-ink")
+                  ? "bg-[var(--tr-ink)] text-[var(--tr-paper)] shadow-stamp-sm"
+                  : "bg-[var(--tr-paper)] text-[var(--tr-ink)] hover:bg-[var(--tr-paper-2)]")
               }
             >
               {s.label} · hemat {Math.round(s.discount * 100)}%
@@ -106,55 +106,54 @@ export function BuildBoxClient({ products }: { products: P[] }) {
               <div
                 key={p.id}
                 className={
-                  "rounded-2xl border p-4 transition " +
+                  "rounded-sm border-2 p-4 transition " +
                   (habis
-                    ? "border-ink/15 opacity-50"
+                    ? "border-[var(--tr-ink)]/15 opacity-50"
                     : qty > 0
-                    ? "border-orange bg-orange/5"
-                    : "border-ink/15")
+                      ? "border-[var(--tr-ink)] bg-[var(--tr-mustard-soft)]/30 shadow-stamp-sm"
+                      : "border-[var(--tr-ink)] bg-[var(--tr-paper)]")
                 }
               >
                 <div className="flex gap-3">
                   <div
-                    className="w-16 h-20 rounded-xl shrink-0 grid place-items-center"
+                    className="w-16 h-20 rounded-sm border-2 border-[var(--tr-ink)] shrink-0 grid place-items-center overflow-hidden"
                     style={{ background: p.bgHex }}
                   >
                     {p.photo && /^https?:\/\//.test(p.photo) ? (
+                      // eslint-disable-next-line @next/next/no-img-element
                       <img src={p.photo} alt={p.name} className="w-full h-full object-contain" />
                     ) : (
                       <span className="text-2xl">🥤</span>
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-mono text-[10px] opacity-60 lowercase">
-                      {p.cat || "menu"}
-                    </p>
-                    <p className="font-serif italic text-lg leading-tight">
+                    <p className="eyebrow">{p.cat || "menu"}</p>
+                    <p className="font-display font-bold text-lg leading-tight">
                       {p.name}
                     </p>
-                    <p className="font-mono text-xs">
+                    <p className="font-mono text-xs tabular-nums">
                       Rp {p.priceCents.toLocaleString("id-ID")}
                     </p>
-                    <p className="text-[10px] font-mono opacity-50">
-                      stok {p.stock}
+                    <p className="text-[10px] font-mono text-[var(--tr-text-muted)]">
+                      Stok {p.stock}
                     </p>
                   </div>
                 </div>
-                <div className="mt-3 inline-flex items-center rounded-full border border-ink overflow-hidden">
+                <div className="mt-3 inline-flex items-center rounded-sm border-2 border-[var(--tr-ink)] overflow-hidden">
                   <button
                     onClick={() => change(p.id, -1)}
                     disabled={qty === 0}
-                    className="px-3 py-1 hover:bg-ink hover:text-cream disabled:opacity-50 text-sm"
+                    className="px-3 py-1 hover:bg-[var(--tr-ink)] hover:text-[var(--tr-paper)] disabled:opacity-50 text-sm"
                   >
                     −
                   </button>
-                  <span className="px-3 font-mono text-sm w-8 text-center">
+                  <span className="px-3 font-mono text-sm w-8 text-center tabular-nums border-x-2 border-[var(--tr-ink)]">
                     {qty}
                   </span>
                   <button
                     onClick={() => change(p.id, +1)}
                     disabled={habis || total >= selectedSize.count}
-                    className="px-3 py-1 hover:bg-ink hover:text-cream disabled:opacity-50 text-sm"
+                    className="px-3 py-1 hover:bg-[var(--tr-ink)] hover:text-[var(--tr-paper)] disabled:opacity-50 text-sm"
                   >
                     +
                   </button>
@@ -165,25 +164,29 @@ export function BuildBoxClient({ products }: { products: P[] }) {
         </div>
       </div>
 
-      <aside className="lg:sticky lg:top-28 self-start rounded-3xl border border-ink/20 bg-paper p-6 card-shadow">
-        <p className="eyebrow mb-2">/ kotak kamu</p>
-        <p className="font-serif italic text-2xl mb-4">{selectedSize.label}</p>
+      <aside className="lg:sticky lg:top-28 self-start card-stamp p-6">
+        <p className="eyebrow mb-2">Kotak kamu</p>
+        <p className="font-display font-black text-2xl mb-4">
+          {selectedSize.label}
+        </p>
 
-        <div className="h-2 rounded-full bg-ink/10 overflow-hidden mb-2">
+        <div className="h-2 rounded-sm border-2 border-[var(--tr-ink)] bg-[var(--tr-paper-2)] overflow-hidden mb-2">
           <div
-            className="h-full bg-orange transition-all"
+            className="h-full bg-[var(--tr-brick)] transition-all"
             style={{ width: `${(total / selectedSize.count) * 100}%` }}
           />
         </div>
-        <p className="text-xs font-mono opacity-60 mb-4">
+        <p className="text-xs font-hand text-xl text-[var(--tr-brick-deep)] mb-4">
           {remaining > 0
-            ? `${remaining} botol lagi sampai lengkap.`
-            : `Sip, kotaknya sudah lengkap!`}
+            ? `${remaining} botol lagi sampai lengkap —`
+            : `sip, kotaknya sudah lengkap! —`}
         </p>
 
         <ul className="space-y-1 text-sm mb-4 max-h-48 overflow-auto">
           {Object.keys(picks).length === 0 ? (
-            <li className="opacity-50 italic">Belum ada pilihan.</li>
+            <li className="text-[var(--tr-text-muted)] font-hand text-lg">
+              Belum ada pilihan.
+            </li>
           ) : (
             Object.entries(picks).map(([pid, qty]) => {
               const p = products.find((x) => x.id === Number(pid));
@@ -192,7 +195,7 @@ export function BuildBoxClient({ products }: { products: P[] }) {
                   <span className="truncate">
                     {qty}× {p?.name}
                   </span>
-                  <span className="font-mono">
+                  <span className="font-mono tabular-nums">
                     Rp {((p?.priceCents ?? 0) * qty).toLocaleString("id-ID")}
                   </span>
                 </li>
@@ -201,31 +204,31 @@ export function BuildBoxClient({ products }: { products: P[] }) {
           )}
         </ul>
 
-        <div className="border-t border-ink/15 pt-3 space-y-1 text-sm">
+        <div className="border-t-2 border-[var(--tr-ink)]/20 pt-3 space-y-1 text-sm">
           <div className="flex justify-between">
-            <span className="opacity-70">subtotal</span>
-            <span className="font-mono">Rp {subtotal.toLocaleString("id-ID")}</span>
+            <span className="text-[var(--tr-text-soft)]">Subtotal</span>
+            <span className="font-mono tabular-nums">Rp {subtotal.toLocaleString("id-ID")}</span>
           </div>
           <div className="flex justify-between">
-            <span className="opacity-70">
-              hemat {Math.round(selectedSize.discount * 100)}%
+            <span className="text-[var(--tr-text-soft)]">
+              Hemat {Math.round(selectedSize.discount * 100)}%
             </span>
-            <span className="font-mono text-orange">
+            <span className="font-mono tabular-nums text-[var(--tr-brick)]">
               − Rp {discountAmount.toLocaleString("id-ID")}
             </span>
           </div>
-          <div className="flex justify-between font-serif italic text-2xl mt-2">
-            <span>total</span>
-            <span>Rp {finalTotal.toLocaleString("id-ID")}</span>
+          <div className="flex justify-between font-display font-black text-2xl mt-2">
+            <span>Total</span>
+            <span className="tabular-nums">Rp {finalTotal.toLocaleString("id-ID")}</span>
           </div>
         </div>
 
         <button
           onClick={addAllToCart}
           disabled={total !== selectedSize.count || busy}
-          className="w-full mt-5 btn-primary justify-center disabled:opacity-50"
+          className="btn btn-primary w-full mt-5 justify-center disabled:opacity-50"
         >
-          {busy ? "memproses..." : "tambah ke keranjang"}
+          {busy ? "Memproses…" : "Tambah ke keranjang"}
         </button>
       </aside>
     </div>

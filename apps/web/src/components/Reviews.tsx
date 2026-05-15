@@ -13,7 +13,7 @@ type Review = {
 };
 
 const Stars = ({ value }: { value: number }) => (
-  <span className="font-mono text-orange tracking-wider" aria-label={`${value} dari 5 bintang`}>
+  <span className="font-mono text-[var(--tr-brick)] tracking-wider" aria-label={`${value} dari 5 bintang`}>
     {"★".repeat(value)}
     <span className="opacity-25">{"★".repeat(5 - value)}</span>
   </span>
@@ -83,11 +83,11 @@ export function Reviews({ sku, pname }: { sku: string; pname: string }) {
       : reviews.reduce((s, r) => s + r.rating, 0) / reviews.length;
 
   return (
-    <section className="mt-12 border-t border-ink/10 pt-10">
+    <section className="mt-12 border-t-2 border-[var(--tr-ink)] pt-10">
       <div className="flex items-center justify-between gap-3 flex-wrap mb-6">
         <div>
-          <p className="eyebrow mb-1">/ ulasan pelanggan</p>
-          <p className="font-serif italic text-2xl">
+          <p className="eyebrow mb-1">Ulasan pelanggan</p>
+          <p className="font-display font-black text-2xl sm:text-3xl">
             {reviews.length > 0
               ? `${avg.toFixed(1)} dari 5 · ${reviews.length} ulasan`
               : "Belum ada ulasan untuk botol ini."}
@@ -95,19 +95,16 @@ export function Reviews({ sku, pname }: { sku: string; pname: string }) {
         </div>
         <button
           onClick={() => setShowForm((v) => !v)}
-          className="btn-secondary"
+          className="btn btn-secondary"
         >
-          {showForm ? "tutup form" : "tulis ulasan"}
+          {showForm ? "Tutup form" : "Tulis ulasan"}
         </button>
       </div>
 
       {showForm && !done && (
-        <form
-          onSubmit={submit}
-          className="rounded-3xl border border-ink/20 bg-paper p-6 mb-6 space-y-4"
-        >
+        <form onSubmit={submit} className="card-stamp p-6 mb-6 space-y-4">
           <div className="flex items-center gap-3">
-            <span className="font-mono text-xs lowercase opacity-60">rating</span>
+            <span className="eyebrow">Rating</span>
             {[1, 2, 3, 4, 5].map((n) => (
               <button
                 key={n}
@@ -116,76 +113,93 @@ export function Reviews({ sku, pname }: { sku: string; pname: string }) {
                 className="text-2xl"
                 aria-label={`${n} bintang`}
               >
-                <span className={n <= rating ? "text-orange" : "text-ink/20"}>★</span>
+                <span
+                  className={
+                    n <= rating
+                      ? "text-[var(--tr-brick)]"
+                      : "text-[var(--tr-ink)]/20"
+                  }
+                >
+                  ★
+                </span>
               </button>
             ))}
           </div>
           <div className="grid sm:grid-cols-2 gap-3">
             <input
               required
-              placeholder="nama"
+              placeholder="Nama"
               value={customer}
               onChange={(e) => setCustomer(e.target.value)}
-              className="rounded-full border border-ink px-4 py-2 bg-cream text-sm"
+              className="input text-sm"
             />
             <input
               required
               type="email"
-              placeholder="email"
+              placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="rounded-full border border-ink px-4 py-2 bg-cream text-sm"
+              className="input text-sm"
             />
           </div>
           <textarea
             required
             minLength={5}
-            placeholder="cerita kamu tentang botol ini..."
+            placeholder="Cerita kamu tentang botol ini…"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             rows={4}
-            className="w-full rounded-2xl border border-ink px-4 py-3 bg-cream text-sm"
+            className="input w-full text-sm"
           />
           <button
             type="submit"
             disabled={busy}
-            className="btn-primary disabled:opacity-50"
+            className="btn btn-primary disabled:opacity-50"
           >
-            {busy ? "memproses..." : "kirim ulasan"}
+            {busy ? "Memproses…" : "Kirim ulasan"}
           </button>
-          {err && <p className="text-xs text-orange font-mono">{err}</p>}
+          {err && (
+            <p className="text-xs text-[var(--tr-brick)] font-mono">{err}</p>
+          )}
         </form>
       )}
 
       {done && (
-        <div className="rounded-2xl border border-leaf/40 bg-leaf/5 p-4 mb-6">
-          <p className="font-serif italic text-lg">
+        <div className="rounded-sm border-2 border-[var(--tr-ink)] shadow-stamp-sm bg-[var(--tr-mustard-soft)]/35 p-4 mb-6">
+          <p className="font-display font-bold text-lg">
             Terima kasih! Ulasanmu sudah masuk.
           </p>
         </div>
       )}
 
       {loading ? (
-        <p className="opacity-50 italic">memuat ulasan...</p>
+        <p className="text-[var(--tr-text-muted)] font-hand text-xl">
+          memuat ulasan…
+        </p>
       ) : reviews.length === 0 ? (
-        <p className="opacity-60 text-sm">Jadi yang pertama tulis ulasan ya.</p>
+        <p className="text-[var(--tr-text-muted)] text-sm">
+          Jadi yang pertama tulis ulasan ya.
+        </p>
       ) : (
         <ul className="space-y-4">
           {reviews.slice(0, 8).map((r) => (
-            <li
-              key={r.id}
-              className="rounded-2xl border border-ink/15 bg-paper p-5"
-            >
+            <li key={r.id} className="card-stamp p-5">
               <div className="flex items-center justify-between gap-3 mb-2">
                 <div>
-                  <p className="font-serif italic text-lg">{r.customer}</p>
-                  <p className="font-mono text-xs opacity-50">
-                    {new Date(r.ts).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}
+                  <p className="font-display font-bold text-lg">{r.customer}</p>
+                  <p className="font-mono text-xs text-[var(--tr-text-muted)]">
+                    {new Date(r.ts).toLocaleDateString("id-ID", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })}
                   </p>
                 </div>
                 <Stars value={r.rating} />
               </div>
-              <p className="text-sm leading-relaxed">{r.comment}</p>
+              <p className="text-sm leading-relaxed text-[var(--tr-text-soft)]">
+                {r.comment}
+              </p>
             </li>
           ))}
         </ul>

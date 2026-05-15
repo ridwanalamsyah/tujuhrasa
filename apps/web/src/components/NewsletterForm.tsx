@@ -24,7 +24,7 @@ export function NewsletterForm() {
 
   if (done) {
     return (
-      <p className="font-serif italic text-xl">
+      <p className="font-hand text-2xl text-[var(--tr-brick-deep)]">
         Sip, kami simpan {email}. Cek inbox Jumat sore ya.
       </p>
     );
@@ -38,14 +38,14 @@ export function NewsletterForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="email kamu"
-        className="flex-1 rounded-full border border-ink px-4 py-2 bg-cream"
+        className="input flex-1"
       />
       <button
         type="submit"
         disabled={busy}
-        className="btn-primary disabled:opacity-50"
+        className="btn btn-primary disabled:opacity-50"
       >
-        {busy ? "..." : "daftar gratis"}
+        {busy ? "…" : "Daftar gratis"}
       </button>
     </form>
   );

@@ -24,75 +24,95 @@ const PREORDER = {
 
 export default function GrosirPage() {
   return (
-    <div className="container-tr pt-32 pb-20">
-      <p className="eyebrow mb-3">/ grosir & group buy</p>
-      <h1 className="h-display text-[clamp(36px,6vw,72px)] leading-[1.02] mb-4">
-        Pesan banyak. Dapat diskon banyak.
-      </h1>
-      <p className="max-w-2xl opacity-80 mb-10">
-        Untuk acara, gathering, kantor, sekolah, atau komunitas. Pesan dari 12 botol
-        sudah dapat diskon. Kalau lebih dari 100 botol, kami bisa custom label.
-      </p>
-
-      <section className="mb-12">
-        <p className="eyebrow mb-3">/ tiered diskon</p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {TIERS.map((t) => (
-            <article
-              key={t.qty}
-              className="rounded-2xl border border-ink/20 bg-paper p-5"
-            >
-              <p className="font-serif italic text-xl">{t.qty}</p>
-              <p className="text-3xl font-display text-orange mt-2">{t.disc}</p>
-              <p className="text-xs mt-2 opacity-70">{t.note}</p>
-            </article>
-          ))}
+    <>
+      <section className="bg-[var(--tr-paper)] border-b-2 border-[var(--tr-ink)]">
+        <div className="container-tr py-10 sm:py-14">
+          <div className="flex items-center gap-3 mb-4 flex-wrap">
+            <span className="stamp">Grosir &amp; group buy</span>
+            <span className="font-hand text-2xl text-[var(--tr-brick-deep)]">
+              pesan rame-rame —
+            </span>
+          </div>
+          <h1 className="font-display font-black text-[clamp(36px,6vw,72px)] leading-[0.98] tracking-[-0.02em] mb-4">
+            Pesan banyak.{" "}
+            <em className="text-[var(--tr-brick)]">Diskon banyak.</em>
+          </h1>
+          <p className="max-w-2xl text-[var(--tr-text-soft)] leading-relaxed">
+            Untuk acara, gathering, kantor, sekolah, atau komunitas. Pesan dari
+            12 botol sudah dapat diskon. Kalau lebih dari 100 botol, kami bisa
+            custom label.
+          </p>
         </div>
       </section>
 
-      <section className="mb-12 grid lg:grid-cols-2 gap-6">
-        <article className="rounded-3xl border border-orange/40 bg-orange/5 p-6">
-          <p className="eyebrow mb-2 text-orange">/ pre-order spesial</p>
-          <p className="font-serif italic text-2xl">{PREORDER.title}</p>
-          <p className="opacity-80 mt-2 text-sm">{PREORDER.desc}</p>
-          <p className="font-mono text-sm mt-3">{PREORDER.price}</p>
-          <p className="font-mono text-xs opacity-70">{PREORDER.deadline}</p>
-          <details className="mt-4">
-            <summary className="cursor-pointer btn-primary inline-block">
-              ikut pre-order
-            </summary>
-            <div className="mt-4">
-              <GrosirForm type="pre-order" />
-            </div>
-          </details>
-        </article>
+      <div className="container-tr py-12 sm:py-16 space-y-12">
+        <section>
+          <p className="eyebrow mb-3">Tiered diskon</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {TIERS.map((t) => (
+              <article key={t.qty} className="card-stamp p-5">
+                <p className="font-display font-bold text-lg">{t.qty}</p>
+                <p className="text-4xl font-display font-black text-[var(--tr-brick)] mt-2 leading-none tabular-nums">
+                  {t.disc}
+                </p>
+                <p className="text-xs mt-2 text-[var(--tr-text-soft)] leading-relaxed">
+                  {t.note}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
 
-        <article className="rounded-3xl border border-leaf/40 bg-leaf/5 p-6">
-          <p className="eyebrow mb-2 text-leaf">/ group buy</p>
-          <p className="font-serif italic text-2xl">
-            Kumpulin tetangga, pesan barengan
-          </p>
-          <p className="opacity-80 mt-2 text-sm">
-            Buat grup WA, kumpulkan minimum 24 botol antar tetangga RT/kantor.
-            Otomatis dapat diskon 8%, gratis ongkir untuk satu titik antar.
-          </p>
-          <details className="mt-4">
-            <summary className="cursor-pointer btn-secondary inline-block">
-              daftar group buy
-            </summary>
-            <div className="mt-4">
-              <GrosirForm type="group-buy" />
-            </div>
-          </details>
-        </article>
-      </section>
+        <section className="grid lg:grid-cols-2 gap-6">
+          <article className="card-stamp p-6 sm:p-7 bg-[var(--tr-mustard-soft)]/35">
+            <p className="eyebrow mb-2">Pre-order spesial</p>
+            <p className="font-display font-bold text-2xl leading-snug">{PREORDER.title}</p>
+            <p className="text-[var(--tr-text-soft)] mt-2 text-sm leading-relaxed">
+              {PREORDER.desc}
+            </p>
+            <p className="font-mono text-sm mt-3 border-t-2 border-[var(--tr-ink)]/15 pt-3">
+              {PREORDER.price}
+            </p>
+            <p className="font-mono text-xs text-[var(--tr-text-muted)] mt-1">
+              {PREORDER.deadline}
+            </p>
+            <details className="mt-4">
+              <summary className="cursor-pointer btn btn-primary inline-block list-none">
+                Ikut pre-order
+              </summary>
+              <div className="mt-4">
+                <GrosirForm type="pre-order" />
+              </div>
+            </details>
+          </article>
 
-      <section className="mb-12">
-        <p className="eyebrow mb-3">/ pesan grosir reguler</p>
-        <div className="rounded-3xl border border-ink/20 bg-paper p-6">
-          <GrosirForm type="grosir" />
-        </div>
-      </section>
-    </div>
+          <article className="card-stamp p-6 sm:p-7 bg-[var(--tr-paper-2)]">
+            <p className="eyebrow mb-2">Group buy</p>
+            <p className="font-display font-bold text-2xl leading-snug">
+              Kumpulin tetangga, pesan barengan
+            </p>
+            <p className="text-[var(--tr-text-soft)] mt-2 text-sm leading-relaxed">
+              Buat grup WA, kumpulkan minimum 24 botol antar tetangga RT/kantor.
+              Otomatis dapat diskon 8%, gratis ongkir untuk satu titik antar.
+            </p>
+            <details className="mt-4">
+              <summary className="cursor-pointer btn btn-secondary inline-block list-none">
+                Daftar group buy
+              </summary>
+              <div className="mt-4">
+                <GrosirForm type="group-buy" />
+              </div>
+            </details>
+          </article>
+        </section>
+
+        <section>
+          <p className="eyebrow mb-3">Pesan grosir reguler</p>
+          <div className="card-stamp p-6 sm:p-7">
+            <GrosirForm type="grosir" />
+          </div>
+        </section>
+      </div>
+    </>
   );
 }

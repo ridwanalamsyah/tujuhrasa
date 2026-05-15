@@ -35,38 +35,40 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="container-tr pt-32 pb-20">
-      <div className="max-w-md mx-auto rounded-3xl border border-ink/20 p-10 bg-paper card-shadow">
-        <p className="eyebrow mb-3">/ admin</p>
-        <h1 className="h-display text-4xl mb-2">Pintu samping.</h1>
-        <p className="opacity-70 text-sm mb-6">
-          Masukkan password untuk membuka dapur belakang. Hanya kamu yang punya
-          kunci ini.
+    <div className="container-tr py-16 sm:py-24">
+      <div className="max-w-md mx-auto card-stamp p-8 sm:p-10">
+        <span className="stamp mb-3 inline-block">Admin</span>
+        <h1 className="font-display font-black text-4xl sm:text-5xl leading-[0.98] tracking-[-0.02em] mb-2">
+          Pintu samping.
+        </h1>
+        <p className="font-hand text-xl text-[var(--tr-brick-deep)] mb-6">
+          masukkan password untuk membuka dapur belakang —
         </p>
         <form onSubmit={submit} className="space-y-4">
           <label className="block">
-            <span className="font-mono text-xs opacity-60 lowercase">password</span>
+            <span className="eyebrow block mb-1">Password</span>
             <input
               type="password"
               autoFocus
               autoComplete="current-password"
               value={pw}
               onChange={(e) => setPw(e.target.value)}
-              className="input mt-1"
+              className="input w-full"
               placeholder="••••••••"
               required
             />
           </label>
           {err && (
-            <p className="text-sm text-orange font-mono">{err}</p>
+            <p className="text-sm text-[var(--tr-brick)] font-mono">{err}</p>
           )}
-          <button type="submit" disabled={loading} className="btn-primary w-full">
-            {loading ? "memverifikasi…" : "masuk"}
+          <button type="submit" disabled={loading} className="btn btn-primary w-full">
+            {loading ? "Memverifikasi…" : "Masuk"}
           </button>
         </form>
-        <p className="mt-6 text-xs opacity-50 leading-relaxed">
-          Tip: ganti password lewat env <code className="font-mono">ADMIN_PASSWORD</code>{" "}
-          di file <code className="font-mono">.env</code>.
+        <p className="mt-6 text-xs text-[var(--tr-text-muted)] leading-relaxed">
+          Tip: ganti password lewat env{" "}
+          <code className="font-mono text-[var(--tr-ink)]">ADMIN_PASSWORD</code>{" "}
+          di file <code className="font-mono text-[var(--tr-ink)]">.env</code>.
         </p>
       </div>
     </div>
