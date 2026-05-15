@@ -49,8 +49,12 @@ export function CartItemRow({
   };
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 py-5 border-b border-ink/15">
-      <Link href={`/shop/${product.slug}`} className="shrink-0 rounded-xl p-2" style={{ background: product.bgHex || pal.bg, width: 96 }}>
+    <div className="flex flex-col sm:flex-row gap-4 p-4 sm:p-5 card-stamp bg-[var(--tr-paper)]">
+      <Link
+        href={`/shop/${product.slug}`}
+        className="shrink-0 rounded-sm p-2 border-2 border-[var(--tr-ink)]"
+        style={{ background: product.bgHex || pal.bg, width: 96 }}
+      >
         <Bottle
           svg={product.bottleSvg}
           name={product.name}
@@ -65,40 +69,52 @@ export function CartItemRow({
           liquidPct={product.liquidPct ?? 0.7}
         />
       </Link>
-      <div className="flex-1">
-        <p className="font-mono text-xs opacity-60 lowercase">{product.rasa || product.cat || "menu"}</p>
-        <Link href={`/shop/${product.slug}`} className="font-serif italic text-2xl tr-link">
+      <div className="flex-1 min-w-0">
+        <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--tr-text-muted)]">
+          {product.rasa || product.cat || "menu"}
+        </p>
+        <Link
+          href={`/shop/${product.slug}`}
+          className="font-display font-bold text-lg sm:text-xl text-[var(--tr-ink)] tr-link inline-block leading-tight mt-1"
+        >
           {product.name}
         </Link>
-        <p className="font-mono text-sm mt-1">
-          Rp {product.priceCents.toLocaleString("id-ID")} <span className="opacity-50">/ botol</span>
+        <p className="font-mono text-sm mt-2 text-[var(--tr-text-soft)]">
+          Rp {product.priceCents.toLocaleString("id-ID")}{" "}
+          <span className="opacity-50">/ botol</span>
         </p>
       </div>
       <div className="flex items-center gap-3">
-        <div className="inline-flex items-center rounded-full border border-ink overflow-hidden">
+        <div className="inline-flex items-center rounded-sm border-2 border-[var(--tr-ink)] overflow-hidden bg-[var(--tr-paper)]">
           <button
             onClick={() => update(quantity - 1)}
             disabled={pending}
-            className="px-3 py-2 hover:bg-ink hover:text-cream disabled:opacity-50"
+            className="px-3 py-2 hover:bg-[var(--tr-ink)] hover:text-[var(--tr-paper)] disabled:opacity-50 font-mono"
             aria-label="kurangi"
-          >−</button>
-          <span className="px-3 font-mono text-sm w-8 text-center">{quantity}</span>
+          >
+            −
+          </button>
+          <span className="px-3 font-mono text-sm w-8 text-center border-x-2 border-[var(--tr-ink)]">
+            {quantity}
+          </span>
           <button
             onClick={() => update(quantity + 1)}
             disabled={pending}
-            className="px-3 py-2 hover:bg-ink hover:text-cream disabled:opacity-50"
+            className="px-3 py-2 hover:bg-[var(--tr-ink)] hover:text-[var(--tr-paper)] disabled:opacity-50 font-mono"
             aria-label="tambah"
-          >+</button>
+          >
+            +
+          </button>
         </div>
         <button
           onClick={() => update(0)}
           disabled={pending}
-          className="font-mono text-xs opacity-60 hover:opacity-100 hover:text-orange transition lowercase"
+          className="font-mono text-[11px] uppercase tracking-widest text-[var(--tr-text-muted)] hover:text-[var(--tr-brick)] transition"
         >
-          hapus
+          Hapus
         </button>
       </div>
-      <div className="font-serif italic text-2xl text-right min-w-[110px]">
+      <div className="font-display font-black text-xl sm:text-2xl text-right min-w-[110px] tabular-nums text-[var(--tr-ink)]">
         Rp {(product.priceCents * quantity).toLocaleString("id-ID")}
       </div>
     </div>

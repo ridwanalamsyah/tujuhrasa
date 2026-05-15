@@ -132,14 +132,14 @@ export function CheckoutForm({ subtotalIdr }: { subtotalIdr: number }) {
   return (
     <form ref={formRef} onSubmit={submit} className="space-y-5">
       {hasSaved && (
-        <div className="rounded-2xl border border-leaf/40 bg-leaf/5 px-4 py-3 flex items-center justify-between gap-3 text-sm">
-          <span>
-            ✓ data alamat & email tersimpan. Form sudah otomatis terisi.
+        <div className="rounded-sm border-2 border-[var(--tr-ink)] bg-[var(--tr-mustard-soft)]/30 px-4 py-3 flex items-center justify-between gap-3 text-sm shadow-stamp-sm">
+          <span className="font-display">
+            <span className="font-bold">Tersimpan.</span> Data alamat &amp; email otomatis terisi.
           </span>
           <button
             type="button"
             onClick={clearSaved}
-            className="font-mono text-xs underline opacity-70 hover:opacity-100"
+            className="font-mono text-[11px] uppercase tracking-widest underline opacity-70 hover:opacity-100"
           >
             ganti
           </button>
@@ -159,7 +159,7 @@ export function CheckoutForm({ subtotalIdr }: { subtotalIdr: number }) {
       <Field name="notes" label="catatan kurir (opsional)" placeholder="rumah cat hijau, di sebelah warung" />
 
       <div>
-        <p className="eyebrow mb-1">kode promo (opsional)</p>
+        <p className="eyebrow mb-2">Kode promo (opsional)</p>
         <div className="flex gap-2">
           <input
             type="text"
@@ -169,42 +169,42 @@ export function CheckoutForm({ subtotalIdr }: { subtotalIdr: number }) {
               setPromo(null);
             }}
             placeholder="TETANGGA / GRATISONGKIR / TUJUHRIBU"
-            className="flex-1 rounded-xl border border-ink/30 bg-paper px-4 py-3 font-body uppercase tracking-wide focus:outline-none focus:border-ink focus:ring-1 focus:ring-ink"
+            className="flex-1 rounded-sm border-2 border-[var(--tr-ink)] bg-[var(--tr-paper)] px-4 py-3 font-mono text-sm uppercase tracking-wide focus:outline-none focus:shadow-stamp-sm focus:-translate-x-[1px] focus:-translate-y-[1px] transition"
           />
           <button
             type="button"
             onClick={checkPromo}
             disabled={!promoCode.trim() || promoChecking}
-            className="rounded-xl border border-ink px-4 py-3 font-body text-sm hover:bg-ink hover:text-cream transition disabled:opacity-50"
+            className="rounded-sm border-2 border-[var(--tr-ink)] bg-[var(--tr-paper)] px-4 py-3 font-mono text-[11px] uppercase tracking-widest hover:bg-[var(--tr-ink)] hover:text-[var(--tr-paper)] hover:shadow-stamp-sm hover:-translate-x-[1px] hover:-translate-y-[1px] transition disabled:opacity-50"
           >
-            {promoChecking ? "cek…" : "pakai"}
+            {promoChecking ? "cek…" : "Pakai"}
           </button>
         </div>
         {promo && promo.ok && (
-          <p className="mt-2 text-sm font-mono text-olive">
+          <p className="mt-2 text-sm font-mono text-[var(--tr-leaf)]">
             ✓ {promo.code} dipakai · potongan Rp {promo.discount.toLocaleString("id-ID")}
             {promo.source === "erp" && " (dari ERP)"}
           </p>
         )}
         {promo && !promo.ok && (
-          <p className="mt-2 text-sm font-mono text-orange">× {promo.reason}</p>
+          <p className="mt-2 text-sm font-mono text-[var(--tr-brick)]">× {promo.reason}</p>
         )}
       </div>
 
       <div>
-        <p className="eyebrow mb-3">metode pembayaran</p>
+        <p className="eyebrow mb-3">Metode pembayaran</p>
         <div className="grid sm:grid-cols-2 gap-2">
           {payments.map((p, i) => (
             <label
               key={p.v}
-              className="cursor-pointer rounded-2xl border border-ink/20 px-4 py-3 has-[:checked]:border-ink has-[:checked]:bg-ink has-[:checked]:text-cream transition flex items-center gap-3"
+              className="cursor-pointer rounded-sm border-2 border-[var(--tr-ink)] bg-[var(--tr-paper)] px-4 py-3 has-[:checked]:bg-[var(--tr-ink)] has-[:checked]:text-[var(--tr-paper)] has-[:checked]:shadow-stamp-sm transition flex items-center gap-3 font-display font-semibold text-[14px]"
             >
               <input
                 type="radio"
                 name="paymentMethod"
                 value={p.v}
                 defaultChecked={i === 0}
-                className="accent-ink"
+                className="accent-[var(--tr-brick)]"
               />
               <span>{p.l}</span>
             </label>
@@ -212,12 +212,20 @@ export function CheckoutForm({ subtotalIdr }: { subtotalIdr: number }) {
         </div>
       </div>
 
-      {err && <p className="text-orange text-sm font-mono">{err}</p>}
+      {err && (
+        <p className="text-[var(--tr-brick)] text-sm font-mono border-2 border-[var(--tr-brick)] rounded-sm px-3 py-2 bg-[var(--tr-brick)]/10">
+          {err}
+        </p>
+      )}
 
-      <button type="submit" disabled={pending} className="btn-primary w-full justify-center">
-        {pending ? "memproses…" : "konfirmasi & bayar →"}
+      <button
+        type="submit"
+        disabled={pending}
+        className="btn btn-primary w-full justify-center disabled:opacity-60 disabled:cursor-not-allowed"
+      >
+        {pending ? "Memproses…" : "Konfirmasi & bayar →"}
       </button>
-      <p className="text-xs opacity-60 text-center">
+      <p className="text-xs text-[var(--tr-text-muted)] text-center">
         Demo: pembayaran disimulasikan, tidak ada transaksi nyata.
       </p>
     </form>
@@ -227,13 +235,13 @@ export function CheckoutForm({ subtotalIdr }: { subtotalIdr: number }) {
 function Field({ label, name, type = "text", placeholder, required }: { label: string; name: string; type?: string; placeholder?: string; required?: boolean }) {
   return (
     <label className="block">
-      <span className="eyebrow block mb-1">{label}</span>
+      <span className="eyebrow block mb-1.5">{label}</span>
       <input
         name={name}
         type={type}
         placeholder={placeholder}
         required={required}
-        className="w-full rounded-xl border border-ink/30 bg-paper px-4 py-3 font-body focus:outline-none focus:border-ink focus:ring-1 focus:ring-ink"
+        className="w-full rounded-sm border-2 border-[var(--tr-ink)] bg-[var(--tr-paper)] px-4 py-3 font-body text-[15px] focus:outline-none focus:shadow-stamp-sm focus:-translate-x-[1px] focus:-translate-y-[1px] transition"
       />
     </label>
   );

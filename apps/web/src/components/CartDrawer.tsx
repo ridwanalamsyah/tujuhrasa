@@ -169,21 +169,21 @@ export function CartDrawer({
       aria-label="Keranjang belanja"
     >
       <div
-        className="drawer-overlay absolute inset-0 bg-ink/40 backdrop-blur-sm"
+        className="drawer-overlay absolute inset-0 bg-[var(--tr-ink)]/55"
         onClick={onClose}
       />
-      <aside className="drawer-panel absolute top-0 right-0 h-full w-full sm:max-w-md bg-cream border-l border-ink/15 flex flex-col card-shadow">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-ink/10">
+      <aside className="drawer-panel absolute top-0 right-0 h-full w-full sm:max-w-md bg-[var(--tr-cream)] border-l-2 border-[var(--tr-ink)] flex flex-col">
+        <div className="flex items-center justify-between px-5 py-4 border-b-2 border-[var(--tr-ink)] bg-[var(--tr-paper)]">
           <div>
-            <p className="eyebrow">/ keranjang</p>
-            <p className="font-serif italic text-2xl leading-tight">
+            <p className="eyebrow">Keranjang</p>
+            <p className="font-display font-bold text-2xl leading-tight text-[var(--tr-ink)]">
               {count > 0 ? `${count} botol siap pulang` : "Masih kosong"}
             </p>
           </div>
           <button
             onClick={onClose}
             aria-label="tutup"
-            className="rounded-full p-2 hover:bg-ink hover:text-cream transition"
+            className="rounded-sm p-2 border-2 border-[var(--tr-ink)] hover:bg-[var(--tr-ink)] hover:text-[var(--tr-paper)] transition"
           >
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
               <path d="M6 6l12 12M18 6L6 18" />
@@ -193,21 +193,24 @@ export function CartDrawer({
 
         <div className="flex-1 overflow-y-auto px-5 py-4">
           {loading && !data ? (
-            <p className="text-sm opacity-60 py-8 text-center">memuat…</p>
+            <p className="text-sm opacity-60 py-8 text-center font-mono">memuat…</p>
           ) : items.length === 0 ? (
             <div className="py-12 text-center">
-              <p className="font-serif italic text-2xl mb-2">
+              <p className="font-display-italic text-3xl mb-2">
                 Mejamu masih sepi.
               </p>
-              <p className="text-sm opacity-70 mb-6">
+              <p className="font-hand text-2xl text-[var(--tr-brick-deep)] mb-2">
+                ayo ambil satu —
+              </p>
+              <p className="text-sm text-[var(--tr-text-muted)] mb-6">
                 Pilih satu botol dulu, sisanya kami pikirkan bersama.
               </p>
               <Link
                 href="/shop"
                 onClick={onClose}
-                className="btn-primary"
+                className="btn btn-primary"
               >
-                jelajah botol →
+                Jelajah botol →
               </Link>
             </div>
           ) : (
@@ -215,7 +218,7 @@ export function CartDrawer({
               {items.map((it) => (
                 <li
                   key={it.id}
-                  className="flex gap-3 items-start rounded-2xl p-3 border border-ink/10"
+                  className="flex gap-3 items-start rounded-sm p-3 border-2 border-[var(--tr-ink)] shadow-stamp-sm"
                   style={{ background: it.product.bgHex }}
                 >
                   {(() => {
@@ -237,37 +240,37 @@ export function CartDrawer({
                     );
                   })()}
                   <div className="flex-1 min-w-0">
-                    <p className="font-mono text-[10px] opacity-60 lowercase">
+                    <p className="font-mono text-[10px] uppercase tracking-widest opacity-60">
                       {it.product.rasa || it.product.cat || "menu"}
                     </p>
                     <Link
                       href={`/shop/${it.product.slug}`}
                       onClick={onClose}
-                      className="font-serif italic text-lg leading-tight tr-link"
+                      className="font-display font-bold text-base leading-tight tr-link inline-block mt-1"
                     >
                       {it.product.name}
                     </Link>
-                    <p className="font-mono text-xs mt-1">{fmt(it.product.priceCents)}</p>
+                    <p className="font-mono text-xs mt-1.5">{fmt(it.product.priceCents)}</p>
                     <div className="mt-2 flex items-center gap-2">
-                      <div className="inline-flex items-center rounded-full border border-ink/40 overflow-hidden bg-cream">
+                      <div className="inline-flex items-center rounded-sm border-2 border-[var(--tr-ink)] overflow-hidden bg-[var(--tr-paper)]">
                         <button
                           aria-label="kurangi"
                           disabled={pending}
                           onClick={() => updateQty(it.id, Math.max(1, it.quantity - 1))}
-                          className="px-2 py-1 hover:bg-ink hover:text-cream transition"
+                          className="px-2 py-1 hover:bg-[var(--tr-ink)] hover:text-[var(--tr-paper)] transition"
                         >−</button>
-                        <span className="px-2 font-mono text-xs w-7 text-center">{it.quantity}</span>
+                        <span className="px-2 font-mono text-xs w-7 text-center border-x-2 border-[var(--tr-ink)]">{it.quantity}</span>
                         <button
                           aria-label="tambah"
                           disabled={pending}
                           onClick={() => updateQty(it.id, Math.min(20, it.quantity + 1))}
-                          className="px-2 py-1 hover:bg-ink hover:text-cream transition"
+                          className="px-2 py-1 hover:bg-[var(--tr-ink)] hover:text-[var(--tr-paper)] transition"
                         >+</button>
                       </div>
                       <button
                         onClick={() => removeItem(it.id)}
                         disabled={pending}
-                        className="ml-auto font-mono text-[10px] uppercase tracking-wider opacity-60 hover:opacity-100 hover:text-orange transition"
+                        className="ml-auto font-mono text-[10px] uppercase tracking-widest opacity-60 hover:opacity-100 hover:text-[var(--tr-brick)] transition"
                       >
                         hapus
                       </button>
@@ -280,35 +283,35 @@ export function CartDrawer({
         </div>
 
         {items.length > 0 && (
-          <div className="border-t border-ink/10 px-5 py-4 bg-paper">
-            <div className="flex items-baseline justify-between text-sm mb-1">
-              <span className="opacity-70">subtotal</span>
+          <div className="border-t-2 border-[var(--tr-ink)] px-5 py-5 bg-[var(--tr-paper)]">
+            <div className="flex items-baseline justify-between text-sm mb-1.5">
+              <span className="opacity-70">Subtotal</span>
               <span className="font-mono">{fmt(subtotal)}</span>
             </div>
-            <div className="flex items-baseline justify-between text-sm mb-1">
-              <span className="opacity-70">ongkir</span>
+            <div className="flex items-baseline justify-between text-sm mb-1.5">
+              <span className="opacity-70">Ongkir</span>
               <span className="font-mono">
-                {shipping === 0 ? "gratis" : fmt(shipping)}
+                {shipping === 0 ? <span className="text-[var(--tr-brick)] font-bold">gratis</span> : fmt(shipping)}
               </span>
             </div>
-            <div className="flex items-baseline justify-between mt-2 pt-2 border-t border-ink/10">
-              <span className="font-serif italic text-lg">total</span>
-              <span className="font-mono text-lg">{fmt(total)}</span>
+            <div className="flex items-baseline justify-between mt-3 pt-3 border-t-2 border-[var(--tr-ink)]">
+              <span className="font-display font-bold text-xl">Total</span>
+              <span className="font-display font-black text-xl tabular-nums">{fmt(total)}</span>
             </div>
-            <div className="mt-4 flex flex-col gap-2">
+            <div className="mt-5 flex flex-col gap-2">
               <Link
                 href="/checkout"
                 onClick={onClose}
-                className="btn-primary w-full justify-center"
+                className="btn btn-primary w-full justify-center"
               >
-                lanjut ke checkout →
+                Lanjut ke checkout →
               </Link>
               <Link
                 href="/cart"
                 onClick={onClose}
-                className="text-center font-mono text-xs lowercase opacity-60 hover:opacity-100"
+                className="text-center font-mono text-[11px] uppercase tracking-widest opacity-60 hover:opacity-100"
               >
-                buka keranjang lengkap
+                Buka keranjang lengkap
               </Link>
             </div>
           </div>
