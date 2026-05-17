@@ -9,7 +9,7 @@ export const metadata = {
 const SERTS = [
   { name: "Halal MUI", id: "ID-MUI-2024-08-2156", body: "Majelis Ulama Indonesia", expires: "Agustus 2027" },
   { name: "BPOM", id: "MD 145523128001", body: "Badan POM RI", expires: "permanen, batch tested" },
-  { name: "PIRT", id: "P-IRT 215327101789", body: "Dinas Kesehatan Jakarta", expires: "Mei 2027" },
+  { name: "PIRT", id: "P-IRT 215327101789", body: "Dinas Kesehatan Kota Bandung", expires: "Mei 2027" },
   { name: "Organic by control union (kopi)", id: "CU-851523", body: "Control Union Indonesia", expires: "Juni 2026" },
 ];
 
@@ -22,8 +22,8 @@ const PETANI = [
 ];
 
 const CARBON_ITEMS = [
-  { metric: "Emisi per botol (cradle-to-customer)", value: "0,38 kg CO₂e", note: "termasuk biji, susu, listrik kafe, kurir Jabodetabek" },
-  { metric: "Reduksi tahun ini vs 2024", value: "−18%", note: "ganti motor kurir ke listrik untuk Jaksel + listrik kafe pakai PLTS atap" },
+  { metric: "Emisi per botol (cradle-to-customer)", value: "0,38 kg CO₂e", note: "termasuk biji, susu, listrik dapur kampus, kurir Bandung" },
+  { metric: "Reduksi tahun ini vs 2024", value: "−18%", note: "GoSend / GrabExpress sekitar Bandung + listrik dapur pakai panel surya kampus" },
   { metric: "Botol kaca return rate", value: "67%", note: "67% pelanggan mengembalikan botol kaca, sisanya dikompensasi reforestasi" },
   { metric: "Pohon ditanam (kompensasi)", value: "1.247 pohon", note: "via Trees4Trees Jawa Tengah" },
 ];
@@ -31,21 +31,21 @@ const CARBON_ITEMS = [
 const BOTTLE_PROGRAM = [
   { step: "01", title: "Beli botol", desc: "harga botol Rp 10rb sudah termasuk Rp 2rb deposit botol kaca." },
   { step: "02", title: "Habiskan kopinya 😊", desc: "boleh disimpan di kulkas sampai 5 hari setelah botol dibuka." },
-  { step: "03", title: "Cuci & kembalikan", desc: "ke kafe Tebet, atau kurir kami akan jemput saat order berikutnya." },
+  { step: "03", title: "Cuci & kembalikan", desc: "ke booth kami di kampus UIN SGD Bandung, atau kurir akan jemput saat order berikutnya." },
   { step: "04", title: "Dapat Rp 2rb balik", desc: "auto-credit ke poin loyalti kamu (2 poin = Rp 2rb diskon order berikutnya)." },
 ];
 
 const FAQ = [
   { q: "Berapa lama botol bisa disimpan?", a: "Sebelum dibuka: 21 hari di kulkas (4°C). Setelah dibuka: 3-5 hari." },
-  { q: "Pengantarannya gimana?", a: "Jabodetabek pakai kurir motor sendiri, di luar Jabodetabek pakai JNE COD/Yes / Sicepat — semua botol pakai cooler box es gel selama transit." },
-  { q: "Berapa lama dari pesan sampai sampai?", a: "Jabodetabek: 2-4 jam (order sebelum jam 14:00). Luar Jabodetabek: 1-2 hari kerja." },
+  { q: "Pengantarannya gimana?", a: "Sekitar Bandung pakai GoSend / GrabExpress, di luar Bandung pakai JNE Yes / Sicepat — semua botol pakai cooler box es gel selama transit." },
+  { q: "Berapa lama dari pesan sampai sampai?", a: "Sekitar Bandung: 1–3 jam (order sebelum jam 17:00). Luar Bandung: 1–2 hari kerja." },
   { q: "Bisa custom rasa untuk acara?", a: "Bisa, minimum 100 botol. Kontak via /grosir atau WA langsung." },
   { q: "Kalau botolnya pecah pas sampai?", a: "Foto botol pecah, kirim ke WA kami — kami ganti botol baru atau refund 100%." },
   { q: "Pakai pengawet?", a: "Tidak. Hanya pasteurisasi flash (95°C 30 detik) lalu langsung disimpan di 4°C." },
   { q: "Halal?", a: "Iya, kopi & susu sapi sudah bersertifikat MUI 2024-2027. Kafein dalam batas aman puasa." },
   { q: "Bisa langganan?", a: "Bisa. Cek halaman /langganan untuk paket weekly / biweekly / monthly." },
   { q: "Apa beda dengan kopi botolan lain?", a: "Kami pakai biji kopi single-origin Indonesia, bukan kopi instan / robusta murah. Botol kaca, bukan plastik. Diantar dingin, bukan suhu ruang." },
-  { q: "Ada cabangnya di luar Jakarta?", a: "Belum. Kafe baru ada di Tebet. Tapi kami antar ke seluruh Indonesia via kurir cold-chain." },
+  { q: "Ada cabangnya di luar Bandung?", a: "Belum. Dapur produksi di sekitar UIN Sunan Gunung Djati Bandung. Tapi kami antar ke seluruh Indonesia via kurir cold-chain." },
 ];
 import Link from "next/link";
 import { NewsletterForm } from "@/components/NewsletterForm";

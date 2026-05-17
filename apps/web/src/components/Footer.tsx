@@ -8,15 +8,15 @@ export function Footer() {
           <p className="font-display font-black text-5xl lg:text-6xl leading-none">
             Tujuh<br />Rasa.
           </p>
-          <p className="font-hand text-2xl mt-3 text-[var(--tr-mustard-soft)]">
-            (tujuh rasa, satu meja)
+          <p className="font-hand text-2xl mt-3 text-[var(--tr-matcha-soft)]">
+            taste the vibe, feel the rasa —
           </p>
           <p className="mt-6 text-sm leading-relaxed text-[var(--tr-paper)]/70 max-w-sm">
-            Kopi botolan nusantara. Diseduh segar setiap pagi di kedai kami,
-            dibotolkan ke kaca, diantar ke pintu rumahmu hari yang sama.
+            Kopi &amp; matcha botolan halal dari mahasiswa UIN Sunan Gunung
+            Djati Bandung untuk generasi muda. PET 250ml, segar setiap hari.
           </p>
           <p className="mt-6 font-mono text-[11px] text-[var(--tr-paper)]/50 tracking-widest uppercase">
-            Est. 2025 · Jakarta
+            Est. Mei 2025 · Bandung
           </p>
         </div>
 
@@ -61,8 +61,8 @@ export function Footer() {
 
       <div className="border-t border-[var(--tr-paper)]/15">
         <div className="container-tr py-5 flex flex-wrap justify-between gap-3 text-[11px] font-mono uppercase tracking-widest text-[var(--tr-paper)]/50">
-          <p>© {new Date().getFullYear()} Tujuh Rasa. Diseduh dengan sabar.</p>
-          <p>PT Tujuh Rasa Nusantara · Jl. Tetangga No. 7</p>
+          <p>© {new Date().getFullYear()} Tujuh Rasa. Halal &amp; thayyib.</p>
+          <p>UIN Sunan Gunung Djati · Bandung</p>
         </div>
       </div>
     </footer>

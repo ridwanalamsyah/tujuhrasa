@@ -5,11 +5,11 @@ export default function TentangPage() {
         <div className="container-tr pt-12 pb-10 lg:pt-16 lg:pb-12">
           <p className="eyebrow mb-3">Tentang kami</p>
           <h1 className="font-display font-black text-[clamp(48px,8vw,120px)] leading-[0.92] tracking-[-0.025em]">
-            Tujuh rasa,<br />
-            <span className="text-[var(--tr-brick)]">satu meja besar.</span>
+            Halal-first,<br />
+            <span className="text-[var(--tr-brick)]">student-made.</span>
           </h1>
           <p className="font-hand text-3xl text-[var(--tr-brick-deep)] mt-4">
-            duduk dulu, kita ngobrol —
+            taste the vibe, feel the rasa —
           </p>
         </div>
       </section>
@@ -17,23 +17,24 @@ export default function TentangPage() {
       <section className="container-tr pt-14 pb-20 max-w-4xl">
         <div className="grid lg:grid-cols-2 gap-8 mb-14">
           <p className="text-lg sm:text-xl leading-relaxed">
-            Tujuh Rasa berawal dari kedai kecil di Kebayoran Lama, Jakarta
-            Selatan. Dari sebuah meja yang setiap pagi diisi tujuh tetangga:
-            pak satpam, ibu warung, kurir, mahasiswa, dua anak SMA yang
-            nongkrong dan satu turis yang tersesat.
+            Tujuh Rasa lahir Mei 2025 dari mahasiswa kewirausahaan UIN Sunan
+            Gunung Djati Bandung. Berangkat dari pertanyaan sederhana: kenapa
+            minuman kekinian harus mahal, sulit dicari halalnya, dan jauh
+            dari kantong mahasiswa?
           </p>
           <p className="text-base sm:text-lg leading-relaxed text-[var(--tr-text-soft)]">
-            Kami sadar — kopi tidak harus mahal untuk jadi spesial. Yang
-            spesial adalah <span className="tr-highlight">orang-orang yang ditemui</span> di sekitarnya.
-            Jadi kami botolkan kopi, biar yang tidak sempat mampir tetap bisa
-            ikut duduk di meja kami, di mana pun mereka berada.
+            Kami racik tujuh rasa kekinian — kopi susu gula aren, matcha,
+            cokelat, taro, susu kurma — dengan bahan halal &amp;{" "}
+            <span className="tr-highlight">thayyib</span>, harga 10–13 ribu,
+            antar GoSend / GrabExpress sekitar Bandung. Sesuai prinsip
+            muamalah: jujur, adil, transparan.
           </p>
         </div>
 
         <div className="grid sm:grid-cols-3 gap-4 my-12">
           {[
-            { n: "7", l: "varian rasa nusantara" },
-            { n: "12", l: "petani mitra di 4 daerah" },
+            { n: "7", l: "varian rasa kekinian" },
+            { n: "100%", l: "halal & thayyib" },
             { n: "0", l: "bahan pengawet" },
           ].map((s) => (
             <div key={s.l} className="card-stamp p-6">
@@ -52,11 +53,11 @@ export default function TentangPage() {
         </h2>
         <ul className="space-y-0 border-t-2 border-[var(--tr-ink)]">
           {[
-            "Botol diseduh segar setiap pagi — tidak ada stok lama.",
-            "Biji dibeli langsung dari petani Indonesia dengan harga adil.",
-            "Tidak ada bahan pengawet, tidak ada perasa buatan.",
-            "Botol kaca bisa ditukar kembali — kami bersihkan & gunakan ulang.",
-            "Pengiriman lokal tetangga: sebisa mungkin sepeda atau motor listrik.",
+            "Diracik segar setiap hari — PET 250ml steril, tidak ada stok lama.",
+            "Bahan baku bersertifikat halal & thayyib, ditelusuri sumbernya.",
+            "Harga 10–13 ribu — ramah kantong mahasiswa, transparan tanpa hidden fee.",
+            "Mahasiswa-run, mahasiswa-untuk-mahasiswa: 100% tim kampus.",
+            "Antar Bandung pakai GoSend / GrabExpress — 1–3 jam ke kos atau kelas.",
           ].map((p, i) => (
             <li
               key={i}
@@ -75,9 +76,9 @@ export default function TentangPage() {
         </h2>
         <div className="grid sm:grid-cols-3 gap-4">
           {[
-            { n: "Rara", r: "Co-founder, kepala dapur", c: "var(--tr-brick)" },
-            { n: "Bayu", r: "Roaster", c: "var(--tr-leaf)" },
-            { n: "Yudha", r: "Operasional kurir", c: "var(--tr-cocoa)" },
+            { n: "Rara", r: "Co-founder & operations", c: "var(--tr-brick)" },
+            { n: "Bayu", r: "Brewer & R&D rasa", c: "var(--tr-leaf)" },
+            { n: "Yudha", r: "Logistik kampus", c: "var(--tr-cocoa)" },
           ].map((m) => (
             <div
               key={m.n}

@@ -17,7 +17,7 @@ export default async function ShopPage({
     getProductsForDisplay({ cat }),
     getCategories(),
   ]);
-  const sourceLabel = products[0]?.source === "erp" ? "live · ERP" : "lokal";
+  const sourceLabel = products[0]?.source === "erp" ? "sinkron ERP" : "lokal";
   const today = new Date().toLocaleDateString("id-ID", {
     weekday: "long",
     day: "numeric",
@@ -43,13 +43,14 @@ export default async function ShopPage({
                 <span className="text-[var(--tr-brick)]">hari ini.</span>
               </h1>
               <p className="font-hand text-3xl text-[var(--tr-brick-deep)] mt-3">
-                diseduh pagi ini ↓
+                diracik segar di Bandung ↓
               </p>
             </div>
             <p className="text-base sm:text-lg leading-relaxed text-[var(--tr-text-soft)] max-w-md">
-              Semua minuman langsung dari kedai. Harga, stok, dan kategori
-              sinkron <span className="tr-highlight">live dari ERP kafe</span> —
-              klik untuk lihat resep barista &amp; SOP.
+              Tujuh varian rasa kekinian, dibuat segar di dapur kampus UIN SGD.
+              Halal &amp; thayyib, harga{" "}
+              <span className="tr-highlight">10–13 ribu</span>, antar GoSend /
+              GrabExpress sekitar Bandung. Klik untuk lihat detail rasa.
             </p>
           </div>
         </div>

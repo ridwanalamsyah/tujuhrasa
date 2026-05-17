@@ -42,6 +42,13 @@
   --tr-leaf: #5b7a3d;
   --tr-leaf-soft: #b7c79c;
   --tr-leaf-deep: #3f5828;
+  /* Matcha pastel (real product color) */
+  --tr-matcha: #cfd8a8;
+  --tr-matcha-soft: #e2e8c4;
+  --tr-matcha-deep: #8a9b5a;
+  /* Susu / kopi cream (real product color) */
+  --tr-susu: #e9dec3;
+  --tr-susu-deep: #b9a472;
   --tr-plum: #6e3550;
   --tr-plum-soft: #c2a0b1;
   --tr-sky: #3f6a7a;

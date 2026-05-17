@@ -39,7 +39,7 @@ export function OrderTracker({
 
   return (
     <div className="card-stamp p-6">
-      <p className="eyebrow mb-3">Status pesanan · live</p>
+      <p className="eyebrow mb-3">Status pesanan</p>
       <ol className="grid grid-cols-5 gap-2">
         {STAGES.map((s, i) => {
           const reached = i <= idx;

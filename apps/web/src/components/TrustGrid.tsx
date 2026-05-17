@@ -18,8 +18,8 @@ const ITEMS = [
   },
   {
     icon: Truck,
-    title: "Gratis di atas 150rb",
-    desc: "Untuk wilayah Jabodetabek. Lain ongkir hemat.",
+    title: "Gratis di atas 75rb",
+    desc: "Antar GoSend / GrabExpress sekitar Bandung.",
   },
 ];
 

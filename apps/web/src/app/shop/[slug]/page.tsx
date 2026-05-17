@@ -107,7 +107,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
               </span>
             )}
             {product.source === "erp" && (
-              <span className="pill text-[10px]">● live ERP</span>
+              <span className="pill text-[10px]">sinkron ERP</span>
             )}
           </div>
 

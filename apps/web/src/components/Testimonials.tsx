@@ -5,27 +5,27 @@ import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 const ITEMS = [
   {
     quote:
-      "Botolnya bener-bener kayak baru dibikin di kafe. Matchanya gak pahit, manisnya pas. Anak saya minta tiap minggu.",
-    author: "Bu Rini",
-    role: "Mama 2 anak · Tebet",
+      "Halal jelas, harga 10rban, rasa kafe. Buat bekal ke kelas pagi enak banget, gak perlu mampir kantin lagi.",
+    author: "Salma",
+    role: "Mahasiswi UIN SGD · Cibiru",
   },
   {
     quote:
-      "Order pagi, sebelum jam 3 sore udah sampai kantor. Buat meeting Senin & Kamis, ini wajib.",
-    author: "Pak Rio",
-    role: "Founder · co-working SCBD",
+      "Order siang, sore sampai kos pakai GoSend. Matcha-nya beneran fresh, gak terlalu manis. Wajib banget pas weekend.",
+    author: "Faris",
+    role: "Mahasiswa Tel-U · Dayeuhkolot",
   },
   {
     quote:
-      "Saya alergi susu sapi — barista WA balas dalam 5 menit kasih opsi pakai oat milk. Ini level layanan kafe boutique.",
-    author: "Kak Dina",
-    role: "Blogger food · Kemang",
+      "Saya cari kopi yang halal MUI dan gak ada perasa buatan. Tujuh Rasa pas banget, dan ramah kantong anak kos.",
+    author: "Hanif",
+    role: "Mahasiswa ITB · Lembong",
   },
   {
     quote:
-      "Akhirnya kopi botol Indonesia yang gak terlalu manis tapi tetap khas. Kopi susu gula aren-nya juara.",
-    author: "Mas Eko",
-    role: "Pelanggan tetap · Bintaro",
+      "Kopi susu gula arennya juara. Tim kampusnya juga responsif di WA. Senang dukung produk mahasiswa Bandung.",
+    author: "Bu Lia",
+    role: "Dosen UIN SGD · Bandung",
   },
 ];
 

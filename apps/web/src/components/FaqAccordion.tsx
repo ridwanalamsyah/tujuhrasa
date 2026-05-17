@@ -9,11 +9,11 @@ const FAQS = [
   },
   {
     q: "Berapa lama waktu pengiriman?",
-    a: "Untuk Jabodetabek, pesan sebelum jam 14:00 WIB → sampai hari yang sama (3-5 jam). Lebih dari 14:00 → besok pagi. Untuk kota lain, 1-2 hari kerja.",
+    a: "Sekitar Bandung pakai GoSend / GrabExpress — estimasi 1–3 jam tergantung jarak dari kampus UIN SGD. Pesan sebelum jam 17:00 WIB. Untuk kota lain, antar lewat ekspedisi dingin 1–2 hari kerja.",
   },
   {
-    q: "Apakah ada langganan bulanan?",
-    a: "Ada. Pilih paket weekly/biweekly/monthly, 4-12 botol per pengiriman. Bisa pause/cancel kapan saja, otomatis ditagih lewat e-wallet/VA pilihanmu.",
+    q: "Apakah ada langganan mingguan?",
+    a: "Ada. Paket weekly/biweekly mulai 49rb/minggu, 4–12 botol per pengiriman. Bisa pause / cancel kapan saja, ditagih otomatis lewat e-wallet atau VA.",
   },
   {
     q: "Botol kosong gimana?",
@@ -25,11 +25,11 @@ const FAQS = [
   },
   {
     q: "Pembayaran apa saja yang diterima?",
-    a: "BCA Virtual Account, GoPay, OVO, DANA, ShopeePay, kartu kredit/debit, dan COD untuk wilayah Jabodetabek (min Rp 100rb).",
+    a: "BCA Virtual Account, GoPay, OVO, DANA, ShopeePay, kartu kredit/debit, dan COD untuk wilayah Bandung kota (min Rp 50rb). Boleh checkout sebagai guest tanpa harus buat akun.",
   },
   {
     q: "Apakah ada cabang fisik?",
-    a: "Saat ini kami melayani via pengiriman saja, dari dapur kafe pusat. Tapi sering nongol di event pop-up — pantau IG kami.",
+    a: "Saat ini Tujuh Rasa beroperasi dari kampus UIN Sunan Gunung Djati Bandung. Sering nongol di event pop-up kampus dan komunitas — pantau IG @tujuh.rasa.",
   },
   {
     q: "Cara dapat poin & reward?",

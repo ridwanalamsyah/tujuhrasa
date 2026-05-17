@@ -9,7 +9,7 @@ export function GrosirForm({
 }) {
   const [name, setName] = useState("");
   const [wa, setWa] = useState("");
-  const [city, setCity] = useState("Jakarta");
+  const [city, setCity] = useState("Bandung");
   const [email, setEmail] = useState("");
   const [qty, setQty] = useState(24);
   const [notes, setNotes] = useState("");

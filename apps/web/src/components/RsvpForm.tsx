@@ -11,7 +11,7 @@ export function RsvpForm({
 }) {
   const [name, setName] = useState("");
   const [wa, setWa] = useState("");
-  const [city, setCity] = useState("Jakarta");
+  const [city, setCity] = useState("Bandung");
   const [email, setEmail] = useState("");
   const [guests, setGuests] = useState(1);
   const [notes, setNotes] = useState("");

@@ -1,18 +1,16 @@
 import Link from "next/link";
+import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { Bottle } from "@/components/Bottle";
 import { formatRp } from "@/lib/cart";
 import { getProductsForDisplay } from "@/lib/products";
-import { fetchLiveStats } from "@/lib/erp";
-import { LiveActivityStrip } from "@/components/LiveActivityStrip";
-import { LiveCounters } from "@/components/LiveCounters";
-import { KafeSedangSeduh } from "@/components/KafeSedangSeduh";
 import { AutoRefresh } from "@/components/AutoRefresh";
-import { HeroBottles } from "@/components/HeroBottles";
 import { TrustGrid } from "@/components/TrustGrid";
 import { Testimonials } from "@/components/Testimonials";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { CoffeePassportTeaser } from "@/components/CoffeePassportTeaser";
+import { HeroTujuhRasa } from "@/components/HeroTujuhRasa";
+import { Reveal } from "@/components/Reveal";
 
 export const dynamic = "force-dynamic";
 
@@ -25,12 +23,10 @@ async function safeJournal() {
 }
 
 export default async function HomePage() {
-  const [all, posts, liveStats] = await Promise.all([
+  const [all, posts] = await Promise.all([
     getProductsForDisplay(),
     safeJournal(),
-    fetchLiveStats(),
   ]);
-  const featured = all.slice(0, 4);
   const today = new Date().toLocaleDateString("id-ID", {
     weekday: "long",
     day: "numeric",
@@ -39,132 +35,54 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* ─────────────── HERO ─────────────── */}
-      <section className="border-b-2 border-[var(--tr-ink)] bg-[var(--tr-cream)]">
-        <div className="container-tr pt-12 pb-16 lg:pt-20 lg:pb-24">
-          <div className="grid lg:grid-cols-[1.15fr_1fr] gap-10 lg:gap-16 items-start">
-            <div>
-              {/* Date stamp row */}
-              <div className="flex items-center gap-3 mb-6 flex-wrap">
-                <span className="stamp">
-                  <span aria-hidden>●</span> {today}
-                </span>
-                <LiveActivityStrip initial={liveStats.recentActivities} />
-              </div>
+      <HeroTujuhRasa today={today} />
 
-              <h1 className="font-display font-black text-[clamp(56px,10vw,148px)] leading-[0.92] tracking-[-0.03em]">
-                Kopi titip<br />
-                <span className="text-[var(--tr-brick)]">tetangga.</span>
-              </h1>
-
-              <p className="font-hand text-3xl sm:text-4xl text-[var(--tr-brick-deep)] mt-4">
-                tujuh rasa, satu meja —
-              </p>
-
-              <p className="mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-[var(--tr-text-soft)]">
-                Kopi, matcha, dan wedang dari{" "}
-                <span className="tr-highlight">resep kedai kami</span> —
-                diseduh pagi ini, diantar sebelum sore. Stok &amp; harga
-                live dari sistem kafe, jadi kamu tidak akan pesan yang
-                habis.
-              </p>
-
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <Link href="/shop" className="btn btn-primary">
-                  Lihat menu hari ini →
-                </Link>
-                <Link href="/langganan" className="btn btn-secondary">
-                  Langganan bulanan
-                </Link>
-              </div>
-
-              <ul className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl">
-                {[
-                  { k: "01", v: "Diseduh pagi ini" },
-                  { k: "02", v: "Diantar hari ini" },
-                  { k: "03", v: "Stok live ERP" },
-                  { k: "04", v: "Bebas pengawet" },
-                ].map((s) => (
-                  <li
-                    key={s.k}
-                    className="border-t-2 border-[var(--tr-ink)] pt-3"
-                  >
-                    <p className="font-mono text-[10px] tracking-widest text-[var(--tr-text-muted)] uppercase">
-                      {s.k}
-                    </p>
-                    <p className="text-sm font-display font-bold mt-0.5">{s.v}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <HeroBottles items={featured} />
-          </div>
-        </div>
-      </section>
-
-      <AutoRefresh intervalMs={30000} />
+      <AutoRefresh intervalMs={60000} />
 
       {/* ─────────────── TRUST GRID ─────────────── */}
       <TrustGrid />
 
-      {/* ─────────────── LIVE COUNTERS + KAFE ─────────────── */}
-      <section className="container-tr pb-12 grid lg:grid-cols-[1.4fr_1fr] gap-6">
-        <KafeSedangSeduh
-          initial={liveStats.inProgress}
-          todayBarista={liveStats.todayBarista}
-          open={liveStats.open}
-          openHourLabel={liveStats.openHourLabel}
-        />
-        <LiveCounters
-          initial={{
-            bottlesToday: liveStats.bottlesToday,
-            ordersToday: liveStats.ordersToday,
-            revenueWeek: liveStats.revenueWeek,
-            activeMenu: liveStats.activeMenu,
-            totalCustomers: liveStats.totalCustomers,
-          }}
-        />
-      </section>
-
       {/* ─────────────── WHY US ─────────────── */}
       <section className="bg-[var(--tr-paper)] border-y-2 border-[var(--tr-ink)]">
         <div className="container-tr py-16 lg:py-24">
-          <div className="grid lg:grid-cols-2 gap-10 items-end mb-12">
-            <div>
-              <p className="eyebrow mb-3">Kenapa kami</p>
-              <h2 className="font-display font-black text-[clamp(36px,5vw,72px)] leading-[0.96] tracking-tight">
-                Kopi yang sopan,<br />
-                <span className="text-[var(--tr-brick)]">tetangga yang ramah.</span>
-              </h2>
+          <Reveal>
+            <div className="grid lg:grid-cols-2 gap-10 items-end mb-12">
+              <div>
+                <p className="eyebrow mb-3">Kenapa Tujuh Rasa</p>
+                <h2 className="font-display font-black text-[clamp(36px,5vw,72px)] leading-[0.96] tracking-tight">
+                  Buatan kampus,<br />
+                  <span className="text-[var(--tr-cocoa)]">rasa premium.</span>
+                </h2>
+              </div>
+              <p className="text-base sm:text-lg leading-relaxed max-w-md justify-self-start lg:justify-self-end text-[var(--tr-text-soft)]">
+                Dari mahasiswa UIN Sunan Gunung Djati Bandung untuk generasi
+                muda. Diracik segar, halal &amp; thayyib, dengan bahan alami
+                tanpa pengawet — sesuai prinsip muamalah dan etika syariah.
+              </p>
             </div>
-            <p className="text-base sm:text-lg leading-relaxed max-w-md justify-self-start lg:justify-self-end text-[var(--tr-text-soft)]">
-              Kami percaya kopi yang baik tidak perlu jauh. Dibuat di kafe,
-              dibotolkan ke kaca, sampai ke tangan kamu sebelum sore. Tidak
-              ada perantara, tidak ada bahan pengawet.
-            </p>
-          </div>
+          </Reveal>
 
+          <Reveal delay={0.1}>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-0 border-2 border-[var(--tr-ink)] rounded-md overflow-hidden bg-[var(--tr-paper-2)]">
             {[
               {
-                t: "Diseduh segar",
-                d: "Setiap pagi, dari biji yang baru disangrai kemarin sore.",
+                t: "Diracik segar",
+                d: "Pre-order setiap pagi — dari bahan alami, tidak ada stok lama.",
                 n: "01",
               },
               {
-                t: "Antar hari ini",
-                d: "Pesan sebelum 14:00 — antar di hari yang sama, gratis di atas Rp 150rb.",
+                t: "Halal & thayyib",
+                d: "Proses produksi sesuai prinsip syariah; bahan bersertifikat halal.",
                 n: "02",
               },
               {
-                t: "Botol bisa ditukar",
-                d: "Tukar 5 botol kosong = 1 botol gratis. Kami sterilkan ulang.",
+                t: "PET 250ml steril",
+                d: "Botol food-grade PET steril, mudah dibawa ke kelas atau kantor.",
                 n: "03",
               },
               {
-                t: "Sinkron dengan kafe",
-                d: "Stok, harga, & resep diambil real-time dari ERP kafe.",
+                t: "Antar Bandung",
+                d: "GoSend / GrabExpress sekitar UIN SGD &amp; kampus mitra di Bandung.",
                 n: "04",
               },
             ].map((c, i) => (
@@ -190,26 +108,29 @@ export default async function HomePage() {
               </div>
             ))}
           </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ─────────────── LINEUP ─────────────── */}
       <section className="bg-[var(--tr-cream)]">
         <div className="container-tr py-16 lg:py-24">
+          <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
             <div>
-              <p className="eyebrow mb-3">Menu hari ini</p>
+              <p className="eyebrow mb-3">Menu Tujuh Rasa</p>
               <h2 className="font-display font-black text-[clamp(32px,4.5vw,64px)] leading-[0.96] tracking-tight">
-                Pilih minumanmu.
+                Pilih botolmu.
               </h2>
-              <p className="font-hand text-2xl text-[var(--tr-brick-deep)] mt-3">
-                semua dari kedai kami sendiri ↓
+              <p className="font-hand text-2xl text-[var(--tr-cocoa)] mt-3">
+                mulai 10 ribu rupiah ↓
               </p>
             </div>
             <Link href="/shop" className="btn btn-secondary">
               Lihat semua →
             </Link>
           </div>
+          </Reveal>
 
           {all.length === 0 ? (
             <div className="card-stamp p-10 text-center">
@@ -219,6 +140,7 @@ export default async function HomePage() {
               </p>
             </div>
           ) : (
+            <Reveal delay={0.05}>
             <div
               className={
                 "grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-3 " +
@@ -276,6 +198,7 @@ export default async function HomePage() {
                 );
               })}
             </div>
+            </Reveal>
           )}
         </div>
       </section>
@@ -283,28 +206,29 @@ export default async function HomePage() {
       {/* ─────────────── HOW IT WORKS ─────────────── */}
       <section className="border-y-2 border-[var(--tr-ink)] bg-[var(--tr-paper-2)]">
         <div className="container-tr py-16 lg:py-24 grid lg:grid-cols-[1fr_1.2fr] gap-12 items-center">
+          <Reveal>
           <div>
-            <p className="eyebrow mb-3">Cara kerja</p>
+            <p className="eyebrow mb-3">Cara pesan</p>
             <h2 className="font-display font-black text-[clamp(32px,4.5vw,64px)] leading-[0.96] tracking-tight">
               Tiga langkah,<br />
-              tiga jam sampai pintu.
+              jam-jaman sampai kos.
             </h2>
             <ol className="mt-10 space-y-6">
               {[
                 {
                   n: "01",
                   t: "Pilih botolmu",
-                  d: "Pilih dari menu kedai — kopi susu, matcha, brown sugar, taro, pandan, atau yang sedang musim.",
+                  d: "Kopi susu gula aren, matcha, cokelat, taro, susu kurma — atau combo build-a-box.",
                 },
                 {
                   n: "02",
                   t: "Pesan & bayar",
-                  d: "GoPay, OVO, BCA VA, atau bayar di tempat. Aman & instan.",
+                  d: "Pakai akun atau guest checkout. GoPay, OVO, BCA VA, atau bayar saat barang sampai.",
                 },
                 {
                   n: "03",
-                  t: "Sambut kurirnya",
-                  d: "Antar hari yang sama untuk pesanan sebelum jam 14:00. Gratis di atas Rp 150rb.",
+                  t: "Tunggu kurirnya",
+                  d: "Antar GoSend / GrabExpress sekitar Bandung — estimasi 1–3 jam untuk wilayah dekat kampus.",
                 },
               ].map((s) => (
                 <li
@@ -324,49 +248,33 @@ export default async function HomePage() {
               ))}
             </ol>
           </div>
+          </Reveal>
 
-          <div className="card-stamp bg-[var(--tr-paper)] p-7 sm:p-8">
-            <div className="flex items-center justify-between mb-3">
-              <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--tr-text-muted)]">
-                Hari ini, 14:23
+          <Reveal delay={0.15}>
+          <div className="relative h-[460px] lg:h-[520px] rounded-md overflow-hidden border-2 border-[var(--tr-ink)] shadow-[6px_8px_0_var(--tr-ink)]">
+            <Image
+              src="/brand/community-1.jpg"
+              alt="Mahasiswa Tujuh Rasa di kampus Bandung"
+              fill
+              sizes="(min-width:1024px) 50vw, 90vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--tr-ink)]/70 via-transparent to-transparent" />
+            <div className="absolute bottom-5 left-5 right-5">
+              <p className="font-hand text-3xl text-[var(--tr-paper)] mb-2">
+                rasakan rasa kita —
               </p>
-              <span className="stamp">Live</span>
+              <p className="font-display font-bold text-2xl text-[var(--tr-paper)] leading-tight">
+                Dari kampus UIN Sunan Gunung Djati,<br />untuk Bandung.
+              </p>
             </div>
-            <p className="font-display-italic text-xl sm:text-2xl mt-1">
-              &ldquo;botol baru saja keluar dari kafe 🛵&rdquo;
-            </p>
-            <div className="mt-6 grid grid-cols-3 gap-2.5 text-xs">
-              <div className="rounded-sm border-2 border-[var(--tr-ink)] p-3 bg-[var(--tr-paper-2)]">
-                <p className="text-[var(--tr-text-muted)] font-mono uppercase tracking-widest text-[9px]">
-                  Pesanan
-                </p>
-                <p className="font-display font-bold text-base mt-1">#TR0028</p>
-              </div>
-              <div className="rounded-sm border-2 border-[var(--tr-ink)] p-3 bg-[var(--tr-paper-2)]">
-                <p className="text-[var(--tr-text-muted)] font-mono uppercase tracking-widest text-[9px]">
-                  Botol
-                </p>
-                <p className="font-display font-bold text-base mt-1">3</p>
-              </div>
-              <div className="rounded-sm border-2 border-[var(--tr-ink)] p-3 bg-[var(--tr-paper-2)]">
-                <p className="text-[var(--tr-text-muted)] font-mono uppercase tracking-widest text-[9px]">
-                  ETA
-                </p>
-                <p className="font-display font-bold text-base mt-1">21 mnt</p>
-              </div>
-            </div>
-            <div className="mt-6 h-3 bg-[var(--tr-paper-2)] border-2 border-[var(--tr-ink)] rounded-sm overflow-hidden">
-              <div className="h-full bg-[var(--tr-brick)] w-2/3 border-r-2 border-[var(--tr-ink)]" />
-            </div>
-            <div className="mt-3 flex justify-between text-[10px] font-mono uppercase tracking-widest text-[var(--tr-text-muted)]">
-              <span>● disangrai</span>
-              <span>● dibotolkan</span>
-              <span className="text-[var(--tr-brick-deep)]">
-                ● dalam jalan
-              </span>
-              <span className="opacity-40">○ sampai</span>
+            <div className="absolute top-4 right-4 bg-[var(--tr-paper)] border-2 border-[var(--tr-ink)] rounded-sm px-2.5 py-1 shadow-[2px_3px_0_var(--tr-ink)]">
+              <p className="font-mono text-[10px] uppercase tracking-widest">
+                est. Mei 2025
+              </p>
             </div>
           </div>
+          </Reveal>
         </div>
       </section>
 
@@ -434,32 +342,38 @@ export default async function HomePage() {
       <FaqAccordion />
 
       {/* ─────────────── CTA ─────────────── */}
-      <section className="bg-[var(--tr-brick)] text-[var(--tr-paper)] border-y-2 border-[var(--tr-ink)]">
-        <div className="container-tr py-20 lg:py-28 text-center">
-          <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-[var(--tr-mustard-soft)] mb-4">
-            Langganan
-          </p>
-          <h2 className="font-display font-black text-[clamp(36px,6vw,96px)] leading-[0.94] tracking-tight max-w-3xl mx-auto">
-            Botol favoritmu,<br />
-            tiap bulan, hangat di pintu.
-          </h2>
-          <p className="font-hand text-3xl mt-6 text-[var(--tr-mustard-soft)]">
-            mulai 89rb/bulan, batalkan kapan saja
-          </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <Link
-              href="/langganan"
-              className="btn bg-[var(--tr-paper)] text-[var(--tr-ink)] border-[var(--tr-ink)]"
-            >
-              Pilih paket →
-            </Link>
-            <Link
-              href="/shop"
-              className="btn bg-transparent text-[var(--tr-paper)] border-[var(--tr-paper)]"
-            >
-              Coba satu-satu dulu
-            </Link>
-          </div>
+      <section className="bg-[var(--tr-cocoa)] text-[var(--tr-paper)] border-y-2 border-[var(--tr-ink)] relative overflow-hidden">
+        <div
+          aria-hidden
+          className="absolute -right-32 -top-32 w-[420px] h-[420px] rounded-full bg-[var(--tr-matcha)] opacity-30"
+        />
+        <div className="container-tr py-20 lg:py-28 text-center relative">
+          <Reveal>
+            <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-[var(--tr-matcha-soft)] mb-4">
+              Langganan kampus
+            </p>
+            <h2 className="font-display font-black text-[clamp(36px,6vw,96px)] leading-[0.94] tracking-tight max-w-3xl mx-auto">
+              Botol mingguan,<br />
+              sampai meja kostmu.
+            </h2>
+            <p className="font-hand text-3xl mt-6 text-[var(--tr-matcha-soft)]">
+              mulai 49rb/minggu — batalkan kapan saja
+            </p>
+            <div className="mt-10 flex flex-wrap justify-center gap-3">
+              <Link
+                href="/langganan"
+                className="btn bg-[var(--tr-paper)] text-[var(--tr-ink)] border-[var(--tr-ink)]"
+              >
+                Pilih paket →
+              </Link>
+              <Link
+                href="/shop"
+                className="btn bg-transparent text-[var(--tr-paper)] border-[var(--tr-paper)]"
+              >
+                Coba satu-satu dulu
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>
