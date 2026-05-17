@@ -1,63 +1,86 @@
-/* Tujuh Rasa — design tokens (Tuku + Notion hybrid)
- * Hand-drawn warmth (cream paper, ink, orange) + Notion clarity (generous spacing, clear hierarchy).
+/* Tujuh Rasa — design tokens (Kopi Tuku + handwriting cafe)
+ * Kraft paper warmth + Tuku maroon + chalkboard ink + handwritten accents.
  * Light & dark via prefers-color-scheme auto. No toggle UI.
  */
 
 :root {
-  /* ── Surfaces (paper warm, ink dark) ── */
-  --tr-cream: #faf6ec;
-  --tr-paper: #fefcf6;
-  --tr-paper-2: #f4ede0;
-  --tr-paper-3: #ede4d1;
-  --tr-ink: #2a241e;
-  --tr-ink-soft: #4b4138;
-  --tr-ink-muted: #7a6f63;
-  --tr-ink-subtle: #a89e90;
-  --tr-line: rgba(42, 36, 30, 0.12);
-  --tr-line-strong: rgba(42, 36, 30, 0.22);
-  --tr-shadow-card: 0 1px 0 rgba(42, 36, 30, 0.04), 0 8px 24px rgba(42, 36, 30, 0.06);
-  --tr-shadow-card-hover: 0 4px 0 rgba(42, 36, 30, 0.05), 0 12px 32px rgba(42, 36, 30, 0.1);
-  --tr-shadow-sketch: 1px 1px 0 rgba(42, 36, 30, 0.85);
+  /* ── Surfaces (kraft paper, warm cream, ivory) ── */
+  --tr-cream: #f3ecda;        /* kraft paper base */
+  --tr-paper: #fbf6e9;        /* warm ivory, elevated */
+  --tr-paper-2: #ece2c8;      /* dusty kraft */
+  --tr-paper-3: #d8ca9f;      /* deeper kraft */
+  --tr-ink: #1a1410;          /* chalkboard dark, near-black warm */
+  --tr-ink-soft: #3d342c;
+  --tr-ink-muted: #6f6358;
+  --tr-ink-subtle: #9a8e7e;
+  --tr-line: rgba(26, 20, 16, 0.14);
+  --tr-line-strong: rgba(26, 20, 16, 0.28);
+
+  /* Stamp-style hard shadow (Tuku sticker/menu board feel) */
+  --tr-shadow-stamp: 3px 4px 0 var(--tr-ink);
+  --tr-shadow-stamp-hover: 5px 6px 0 var(--tr-ink);
+  --tr-shadow-stamp-sm: 2px 3px 0 var(--tr-ink);
+
+  /* Soft paper shadow for cards */
+  --tr-shadow-card: 0 1px 0 rgba(26, 20, 16, 0.04), 0 4px 16px rgba(26, 20, 16, 0.05);
+  --tr-shadow-card-hover: 0 2px 0 rgba(26, 20, 16, 0.05), 0 8px 24px rgba(26, 20, 16, 0.08);
 
   /* ── Brand accents ── */
-  --tr-orange: #e07a2c;       /* primary CTA, sunset orange */
-  --tr-orange-soft: #f4c08a;
-  --tr-orange-deep: #b75e1a;
-  --tr-leaf: #5b7a3d;         /* matcha, fresh leaf */
+  --tr-brick: #8c2e1f;         /* Tuku maroon — primary CTA */
+  --tr-brick-soft: #c9826e;
+  --tr-brick-deep: #6a1d12;
+  --tr-mustard: #c89b3c;        /* gula aren / warm yellow */
+  --tr-mustard-soft: #e6c989;
+  --tr-mustard-deep: #8e6921;
+
+  /* Legacy orange kept for compatibility (mapped to brick) */
+  --tr-orange: var(--tr-brick);
+  --tr-orange-soft: var(--tr-brick-soft);
+  --tr-orange-deep: var(--tr-brick-deep);
+
+  /* Rasa palette */
+  --tr-leaf: #5b7a3d;
   --tr-leaf-soft: #b7c79c;
   --tr-leaf-deep: #3f5828;
-  --tr-plum: #7a3f5e;         /* taro, plum */
-  --tr-plum-soft: #c9a3b8;
-  --tr-sky: #4b7a8e;          /* pandan, sky */
-  --tr-sky-soft: #a3c1cf;
-  --tr-cocoa: #6a4928;        /* coffee, brown */
-  --tr-cocoa-soft: #c4a482;
-  --tr-cream-deep: #d7b96e;   /* gula aren */
+  /* Matcha pastel (real product color) */
+  --tr-matcha: #cfd8a8;
+  --tr-matcha-soft: #e2e8c4;
+  --tr-matcha-deep: #8a9b5a;
+  /* Susu / kopi cream (real product color) */
+  --tr-susu: #e9dec3;
+  --tr-susu-deep: #b9a472;
+  --tr-plum: #6e3550;
+  --tr-plum-soft: #c2a0b1;
+  --tr-sky: #3f6a7a;
+  --tr-sky-soft: #9bb8c5;
+  --tr-cocoa: #4a2f1f;
+  --tr-cocoa-soft: #a88761;
+  --tr-cream-deep: #c89b3c;
 
   /* ── Status ── */
   --tr-success: #5b7a3d;
-  --tr-warn: #b75e1a;
-  --tr-danger: #a83e3a;
-  --tr-info: #4b7a8e;
+  --tr-warn: #c89b3c;
+  --tr-danger: #8c2e1f;
+  --tr-info: #3f6a7a;
 
   /* ── Type ── */
-  --tr-font-serif: "Cormorant Garamond", "Crimson Pro", Georgia, serif;
+  --tr-font-serif: "Fraunces", "Times New Roman", serif;
   --tr-font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --tr-font-hand: "Caveat", "Patrick Hand", "Comic Sans MS", cursive;
+  --tr-font-hand: "Caveat", "Patrick Hand", cursive;
   --tr-font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
 
-  /* ── Motion ── */
+  /* ── Motion (slower, gentler) ── */
   --tr-ease: cubic-bezier(0.32, 0.72, 0, 1);
-  --tr-fast: 140ms var(--tr-ease);
-  --tr-base: 240ms var(--tr-ease);
-  --tr-slow: 480ms var(--tr-ease);
+  --tr-fast: 120ms var(--tr-ease);
+  --tr-base: 200ms var(--tr-ease);
+  --tr-slow: 400ms var(--tr-ease);
 
-  /* ── Radius (slightly imperfect for hand-drawn feel) ── */
-  --tr-r-xs: 6px;
-  --tr-r-sm: 10px;
-  --tr-r-md: 14px;
-  --tr-r-lg: 20px;
-  --tr-r-xl: 28px;
+  /* ── Radius (clean rectangles, not pills) ── */
+  --tr-r-xs: 4px;
+  --tr-r-sm: 6px;
+  --tr-r-md: 10px;
+  --tr-r-lg: 14px;
+  --tr-r-xl: 20px;
   --tr-r-full: 9999px;
 
   /* ── Spacing ── */
@@ -73,26 +96,28 @@
   --tr-text-subtle: var(--tr-ink-subtle);
   --tr-border: var(--tr-line);
   --tr-border-strong: var(--tr-line-strong);
-  --tr-accent: var(--tr-orange);
-  --tr-accent-soft: var(--tr-orange-soft);
-  --tr-accent-deep: var(--tr-orange-deep);
+  --tr-accent: var(--tr-brick);
+  --tr-accent-soft: var(--tr-brick-soft);
+  --tr-accent-deep: var(--tr-brick-deep);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Dark mode: warm dark paper (not black, more like dim cafe) */
-    --tr-bg: #1c1812;
-    --tr-bg-elev: #25201a;
+    /* Dark mode: dim cafe / chalkboard */
+    --tr-bg: #1a1612;
+    --tr-bg-elev: #251f18;
     --tr-bg-soft: #2e2820;
-    --tr-text: #f0e8d8;
-    --tr-text-soft: #d4ccbc;
-    --tr-text-muted: #9e9486;
+    --tr-text: #f0e8d4;
+    --tr-text-soft: #d4ccba;
+    --tr-text-muted: #9c9282;
     --tr-text-subtle: #6e6558;
-    --tr-border: rgba(240, 232, 216, 0.12);
-    --tr-border-strong: rgba(240, 232, 216, 0.22);
+    --tr-border: rgba(240, 232, 212, 0.14);
+    --tr-border-strong: rgba(240, 232, 212, 0.28);
+    --tr-shadow-stamp: 3px 4px 0 #000;
+    --tr-shadow-stamp-hover: 5px 6px 0 #000;
+    --tr-shadow-stamp-sm: 2px 3px 0 #000;
     --tr-shadow-card: 0 1px 0 rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
     --tr-shadow-card-hover: 0 4px 0 rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.4);
-    --tr-shadow-sketch: 1px 1px 0 rgba(240, 232, 216, 0.5);
   }
 }
 

@@ -43,15 +43,15 @@ export function CategoryFilter({
             key={c.key}
             onClick={() => set(c.key)}
             className={
-              "inline-flex items-center gap-2 rounded-full px-4 py-2 font-mono text-xs lowercase transition border " +
+              "inline-flex items-center gap-2 rounded-sm px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-widest transition border-2 " +
               (active
-                ? "bg-ink text-cream border-ink"
-                : "bg-cream text-ink border-ink/30 hover:border-ink")
+                ? "bg-[var(--tr-ink)] text-[var(--tr-paper)] border-[var(--tr-ink)] shadow-stamp-sm"
+                : "bg-[var(--tr-paper)] text-[var(--tr-ink)] border-[var(--tr-ink)] hover:shadow-stamp-sm hover:-translate-x-[1px] hover:-translate-y-[1px]")
             }
           >
             <span
-              className="inline-block w-2 h-2 rounded-full"
-              style={{ background: c.key === "all" ? "#5b1a14" : colorFor(c.key) }}
+              className="inline-block w-2 h-2 rounded-sm border border-[var(--tr-ink)]"
+              style={{ background: c.key === "all" ? "var(--tr-brick)" : colorFor(c.key) }}
             />
             {c.label}
           </button>

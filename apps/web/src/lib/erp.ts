@@ -203,6 +203,14 @@ export type WebOrderPayload = {
   paymentChannel?: string;
   promoCode?: string;
   status: "paid" | "unpaid" | "partial";
+  /**
+   * Dual-path checkout flag:
+   * - `true`: pembeli pilih jalur "buat akun" → customer di ERP ditandai member
+   *   (poin loyalti aktif, alamat tersimpan).
+   * - `false` / undefined: pembeli pilih jalur "guest" → tetap dibuat customer
+   *   row di ERP tapi flagged guest agar tidak masuk pipeline retention.
+   */
+  isMember?: boolean;
 };
 
 export type ErpPushResult = {
@@ -237,9 +245,14 @@ export async function pushOrderToErp(
       (c) => (c.wa && c.wa === payload.wa) || (c.email && c.email === payload.email)
     );
     let customerId: string;
+    const isMember = payload.isMember === true;
     if (existingCustomer) {
       existingCustomer.totalSpend = (existingCustomer.totalSpend ?? 0) + payload.totalIdr;
       existingCustomer.orderCount = (existingCustomer.orderCount ?? 0) + 1;
+      // If user upgrades from guest → member on later order, promote them.
+      if (isMember) {
+        (existingCustomer as Customer & { isMember?: boolean }).isMember = true;
+      }
       customerId = existingCustomer.id;
     } else {
       customerId = nextCustomerId(state.customers);
@@ -252,7 +265,9 @@ export async function pushOrderToErp(
         totalSpend: payload.totalIdr,
         orderCount: 1,
         joinedAt: ts,
-      });
+        // Tag asal customer agar ERP tahu retention pipeline mana yang dipakai.
+        ...(isMember ? { isMember: true } : { isMember: false, isGuest: true }),
+      } as Customer);
     }
 
     // Allocate ongkir/disc proportionally across items (so each ERP order row reflects share)

@@ -11,7 +11,7 @@ export function RsvpForm({
 }) {
   const [name, setName] = useState("");
   const [wa, setWa] = useState("");
-  const [city, setCity] = useState("Jakarta");
+  const [city, setCity] = useState("Bandung");
   const [email, setEmail] = useState("");
   const [guests, setGuests] = useState(1);
   const [notes, setNotes] = useState("");
@@ -52,10 +52,12 @@ export function RsvpForm({
 
   if (done) {
     return (
-      <div className="rounded-2xl bg-cream border border-ink/20 p-4 text-sm">
-        <p className="font-serif italic text-lg">Sampai jumpa di kafe ya, {name}!</p>
-        <p className="opacity-70 mt-1">
-          Konfirmasi akan kami kirim via WhatsApp ke {wa}.
+      <div className="rounded-sm border-2 border-[var(--tr-ink)] shadow-stamp-sm bg-[var(--tr-mustard-soft)]/35 p-4 text-sm">
+        <p className="font-display font-black text-lg">
+          Sampai jumpa di kafe ya, {name}!
+        </p>
+        <p className="font-hand text-lg text-[var(--tr-brick-deep)] mt-1">
+          konfirmasi akan kami kirim via WhatsApp ke {wa} —
         </p>
       </div>
     );
@@ -65,25 +67,25 @@ export function RsvpForm({
     <form onSubmit={submit} className="space-y-2">
       <input
         required
-        placeholder="nama"
+        placeholder="Nama"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="w-full rounded-full border border-ink px-3 py-2 bg-cream text-sm"
+        className="input w-full text-sm"
       />
       <input
         required
-        placeholder="nomor WA"
+        placeholder="Nomor WA"
         value={wa}
         onChange={(e) => setWa(e.target.value)}
-        className="w-full rounded-full border border-ink px-3 py-2 bg-cream text-sm"
+        className="input w-full text-sm"
       />
       <div className="flex gap-2">
         <input
           required
-          placeholder="kota"
+          placeholder="Kota"
           value={city}
           onChange={(e) => setCity(e.target.value)}
-          className="flex-1 rounded-full border border-ink px-3 py-2 bg-cream text-sm"
+          className="input flex-1 text-sm"
         />
         <input
           type="number"
@@ -91,32 +93,34 @@ export function RsvpForm({
           max={10}
           value={guests}
           onChange={(e) => setGuests(parseInt(e.target.value || "1") || 1)}
-          className="w-16 rounded-full border border-ink px-3 py-2 bg-cream text-sm text-center"
+          className="input w-16 text-sm text-center tabular-nums"
           aria-label="jumlah orang"
         />
       </div>
       <input
         type="email"
-        placeholder="email (opsional)"
+        placeholder="Email (opsional)"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="w-full rounded-full border border-ink px-3 py-2 bg-cream text-sm"
+        className="input w-full text-sm"
       />
       <textarea
-        placeholder="catatan (opsional)"
+        placeholder="Catatan (opsional)"
         value={notes}
         onChange={(e) => setNotes(e.target.value)}
         rows={2}
-        className="w-full rounded-2xl border border-ink px-3 py-2 bg-cream text-sm"
+        className="input w-full text-sm"
       />
       <button
         type="submit"
         disabled={submitting}
-        className="w-full btn-primary disabled:opacity-50"
+        className="btn btn-primary w-full disabled:opacity-50"
       >
-        {submitting ? "memproses..." : "kirim rsvp"}
+        {submitting ? "Memproses…" : "Kirim RSVP"}
       </button>
-      {err && <p className="text-xs font-mono text-orange">{err}</p>}
+      {err && (
+        <p className="text-xs font-mono text-[var(--tr-brick)]">{err}</p>
+      )}
     </form>
   );
 }

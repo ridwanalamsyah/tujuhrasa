@@ -22,6 +22,9 @@ const CheckoutSchema = z.object({
   paymentMethod: z.enum(["gopay", "ovo", "bca-va", "cod"]),
   promoCode: z.string().optional(),
   birthDate: z.string().optional(),
+  // dual-path: 'member' = bikin/login akun (set cookie, simpan poin),
+  // 'guest' = bayar langsung tanpa akun. Order tetap masuk ke ERP keduanya.
+  accountMode: z.enum(["member", "guest"]).optional(),
 });
 
 function nextOrderNumber() {
@@ -188,6 +191,18 @@ export async function POST(req: Request) {
   await prisma.cartItem.deleteMany({ where: { cartId: cart.id } });
   cookies().delete(CART_COOKIE);
 
+  // Dual-path: kalau user pilih 'member', set cookie ringan supaya next visit
+  // langsung pre-select mode 'account'. Tidak menggantikan auth sebenarnya
+  // (magic-link / OTP) — itu di-track terpisah di Sprint 1.
+  if (parsed.data.accountMode === "member") {
+    cookies().set("tr_member", parsed.data.customerEmail, {
+      httpOnly: false,
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24 * 90,
+      path: "/",
+    });
+  }
+
   // Push to ERP (best effort, async). Don't block order creation if ERP fails.
   if (erpEnabled) {
     const result = await pushOrderToErp({
@@ -211,6 +226,7 @@ export async function POST(req: Request) {
       paymentChannel: pay.channel,
       promoCode: promoCodeApplied ?? undefined,
       status: order.status === "paid" ? "paid" : "unpaid",
+      isMember: parsed.data.accountMode === "member",
     });
     if (result.ok) {
       await prisma.order.update({

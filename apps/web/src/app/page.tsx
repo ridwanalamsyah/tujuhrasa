@@ -1,19 +1,16 @@
 import Link from "next/link";
+import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { Bottle } from "@/components/Bottle";
 import { formatRp } from "@/lib/cart";
 import { getProductsForDisplay } from "@/lib/products";
-import { fetchLiveStats } from "@/lib/erp";
-import { LiveActivityStrip } from "@/components/LiveActivityStrip";
-import { LiveCounters } from "@/components/LiveCounters";
-import { KafeSedangSeduh } from "@/components/KafeSedangSeduh";
 import { AutoRefresh } from "@/components/AutoRefresh";
-import { HeroBottles } from "@/components/HeroBottles";
 import { TrustGrid } from "@/components/TrustGrid";
 import { Testimonials } from "@/components/Testimonials";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { CoffeePassportTeaser } from "@/components/CoffeePassportTeaser";
-import { SquiggleDividerInline } from "@/components/SquiggleDivider";
+import { HeroTujuhRasa } from "@/components/HeroTujuhRasa";
+import { Reveal } from "@/components/Reveal";
 
 export const dynamic = "force-dynamic";
 
@@ -26,257 +23,124 @@ async function safeJournal() {
 }
 
 export default async function HomePage() {
-  const [all, posts, liveStats] = await Promise.all([
+  const [all, posts] = await Promise.all([
     getProductsForDisplay(),
     safeJournal(),
-    fetchLiveStats(),
   ]);
-  const featured = all.slice(0, 4);
-  const marqueeWords =
-    all.length > 0
-      ? all.map((p) => p.name)
-      : ["kopi", "matcha", "wedang", "susu"];
+  const today = new Date().toLocaleDateString("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  });
 
   return (
     <>
-      {/* ─────────────── HERO ─────────────── */}
-      <section className="relative pt-28 sm:pt-32 pb-16 lg:pb-24 overflow-hidden">
-        {/* Decorative squiggles in background */}
-        <div aria-hidden className="absolute inset-0 pointer-events-none -z-0">
-          <svg
-            className="absolute -top-4 -left-10 w-72 sm:w-96 opacity-30 text-[var(--tr-orange)]"
-            viewBox="0 0 200 50"
-            fill="none"
-          >
-            <path
-              d="M5 40 Q 30 5, 60 30 T 110 30 T 160 30 T 195 30"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
-          <svg
-            className="absolute top-20 right-0 w-72 opacity-30 text-[var(--tr-leaf)]"
-            viewBox="0 0 200 50"
-            fill="none"
-          >
-            <path
-              d="M5 30 Q 30 5, 60 25 T 110 25 T 160 25 T 195 25"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
-        </div>
+      <HeroTujuhRasa today={today} />
 
-        <div className="container-tr relative grid lg:grid-cols-[1.15fr_1fr] gap-10 lg:gap-16 items-center">
-          <div>
-            <div className="mb-6">
-              <LiveActivityStrip initial={liveStats.recentActivities} />
-            </div>
-            <p className="eyebrow mb-4">est. 2025 — kafe & kopi botolan</p>
-            <h1 className="h-display text-[clamp(48px,8.5vw,128px)] leading-[0.95]">
-              Tujuh{" "}
-              <span className="relative inline-block">
-                rasa
-                <svg
-                  aria-hidden
-                  viewBox="0 0 200 16"
-                  preserveAspectRatio="none"
-                  className="absolute left-0 -bottom-2 w-full h-4 text-[var(--tr-orange)]"
-                  fill="none"
-                >
-                  <path
-                    d="M2 8 Q 20 2, 40 8 T 80 8 T 120 8 T 160 8 T 198 8"
-                    stroke="currentColor"
-                    strokeWidth="3.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>
-              ,<br />
-              <span className="text-[var(--tr-text-soft)]">satu meja.</span>
-            </h1>
-            <p className="mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-[var(--tr-text-soft)]">
-              Kopi, matcha, dan wedang dari{" "}
-              <span className="tr-highlight">resep kedai kami</span> —
-              diseduh pagi ini, diantar sebelum sore. Stok &amp; harga
-              live dari sistem kafe, jadi kamu tidak akan pesan yang
-              habis.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/shop" className="btn btn-primary">
-                Lihat menu hari ini
-                <svg
-                  viewBox="0 0 24 24"
-                  width="14"
-                  height="14"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                >
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
-              </Link>
-              <Link href="/langganan" className="btn btn-secondary">
-                Langganan bulanan
-              </Link>
-              <span className="hand-caption text-[var(--tr-orange-deep)] mt-2 sm:mt-0 sm:self-end">
-                ← coba ini dulu!
-              </span>
-            </div>
-            <ul className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl">
-              {[
-                { k: "01", v: "Diseduh pagi ini" },
-                { k: "02", v: "Diantar hari ini" },
-                { k: "03", v: "Stok live dari kafe" },
-                { k: "04", v: "Bebas pengawet" },
-              ].map((s) => (
-                <li
-                  key={s.k}
-                  className="border-t-2 border-[var(--tr-ink)] pt-3"
-                >
-                  <p className="font-mono text-xs text-[var(--tr-text-muted)]">
-                    {s.k}
-                  </p>
-                  <p className="text-sm font-medium">{s.v}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <HeroBottles items={featured} />
-        </div>
-      </section>
-
-      <AutoRefresh intervalMs={30000} />
+      <AutoRefresh intervalMs={60000} />
 
       {/* ─────────────── TRUST GRID ─────────────── */}
       <TrustGrid />
 
-      {/* ─────────────── LIVE COUNTERS + KAFE ─────────────── */}
-      <section className="container-tr pb-12 grid lg:grid-cols-[1.4fr_1fr] gap-6">
-        <KafeSedangSeduh
-          initial={liveStats.inProgress}
-          todayBarista={liveStats.todayBarista}
-          open={liveStats.open}
-          openHourLabel={liveStats.openHourLabel}
-        />
-        <LiveCounters
-          initial={{
-            bottlesToday: liveStats.bottlesToday,
-            ordersToday: liveStats.ordersToday,
-            revenueWeek: liveStats.revenueWeek,
-            activeMenu: liveStats.activeMenu,
-            totalCustomers: liveStats.totalCustomers,
-          }}
-        />
-      </section>
-
-      {/* ─────────────── MARQUEE ─────────────── */}
-      <section className="bg-[var(--tr-ink)] text-[var(--tr-cream)] py-6 overflow-hidden border-y border-[var(--tr-ink)] relative">
-        <div className="flex marquee-track gap-12 whitespace-nowrap h-display text-2xl sm:text-3xl">
-          {Array.from({ length: 2 }).map((_, k) => (
-            <div key={k} className="flex gap-12 shrink-0">
-              {[...marqueeWords, ...marqueeWords].map((w, i) => (
-                <span key={i} className="flex items-center gap-12">
-                  <span>{w}</span>
-                  <span className="text-[var(--tr-orange)]">●</span>
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <SquiggleDividerInline color="var(--tr-orange)" />
-
       {/* ─────────────── WHY US ─────────────── */}
-      <section className="container-tr py-12 lg:py-20">
-        <div className="grid lg:grid-cols-2 gap-10 items-end mb-12">
-          <div>
-            <p className="eyebrow mb-3">/ kenapa kami</p>
-            <h2 className="h-display text-[clamp(36px,5vw,64px)] leading-[1.05]">
-              Kopi yang sopan,<br />
-              <em className="text-[var(--tr-text-soft)]">
-                tetangga yang ramah.
-              </em>
-            </h2>
-          </div>
-          <p className="text-base leading-relaxed max-w-md justify-self-start lg:justify-self-end text-[var(--tr-text-soft)]">
-            Kami percaya kopi yang baik tidak perlu jauh. Dibuat di kafe,
-            dibotolkan ke kaca, sampai ke tangan kamu sebelum sore. Tidak
-            ada perantara, tidak ada bahan pengawet.
-          </p>
-        </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {[
-            {
-              t: "Diseduh segar",
-              d: "Setiap pagi, dari biji yang baru disangrai kemarin sore.",
-              icon: "☕",
-            },
-            {
-              t: "Antar hari ini",
-              d: "Pesan sebelum jam 14:00 — antar di hari yang sama, gratis di atas Rp 150rb.",
-              icon: "🛵",
-            },
-            {
-              t: "Botol bisa ditukar",
-              d: "Tukar 5 botol kosong = 1 botol gratis. Kami sterilkan ulang.",
-              icon: "🧴",
-            },
-            {
-              t: "Tersinkron dengan kafe",
-              d: "Stok, harga, & resep diambil real-time dari sistem kafe.",
-              icon: "🔄",
-            },
-          ].map((c, i) => (
-            <div
-              key={c.t}
-              className="rounded-2xl border-2 border-[var(--tr-ink)] bg-[var(--tr-bg-elev)] p-6 hover:-translate-y-1 transition shadow-[3px_4px_0_var(--tr-ink)] hover:shadow-[5px_6px_0_var(--tr-ink)]"
-              style={{
-                transform: `rotate(${i % 2 ? "0.4deg" : "-0.4deg"})`,
-              }}
-            >
-              <div className="text-3xl mb-3">{c.icon}</div>
-              <h3 className="font-serif italic text-xl mb-2">{c.t}</h3>
-              <p className="text-sm text-[var(--tr-text-muted)] leading-relaxed">
-                {c.d}
+      <section className="bg-[var(--tr-paper)] border-y-2 border-[var(--tr-ink)]">
+        <div className="container-tr py-16 lg:py-24">
+          <Reveal>
+            <div className="grid lg:grid-cols-2 gap-10 items-end mb-12">
+              <div>
+                <p className="eyebrow mb-3">Kenapa Tujuh Rasa</p>
+                <h2 className="font-display font-black text-[clamp(36px,5vw,72px)] leading-[0.96] tracking-tight">
+                  Buatan kampus,<br />
+                  <span className="text-[var(--tr-cocoa)]">rasa premium.</span>
+                </h2>
+              </div>
+              <p className="text-base sm:text-lg leading-relaxed max-w-md justify-self-start lg:justify-self-end text-[var(--tr-text-soft)]">
+                Dari mahasiswa UIN Sunan Gunung Djati Bandung untuk generasi
+                muda. Diracik segar, halal &amp; thayyib, dengan bahan alami
+                tanpa pengawet — sesuai prinsip muamalah dan etika syariah.
               </p>
             </div>
-          ))}
+          </Reveal>
+
+          <Reveal delay={0.1}>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-0 border-2 border-[var(--tr-ink)] rounded-md overflow-hidden bg-[var(--tr-paper-2)]">
+            {[
+              {
+                t: "Diracik segar",
+                d: "Pre-order setiap pagi — dari bahan alami, tidak ada stok lama.",
+                n: "01",
+              },
+              {
+                t: "Halal & thayyib",
+                d: "Proses produksi sesuai prinsip syariah; bahan bersertifikat halal.",
+                n: "02",
+              },
+              {
+                t: "PET 250ml steril",
+                d: "Botol food-grade PET steril, mudah dibawa ke kelas atau kantor.",
+                n: "03",
+              },
+              {
+                t: "Antar Bandung",
+                d: "GoSend / GrabExpress sekitar UIN SGD &amp; kampus mitra di Bandung.",
+                n: "04",
+              },
+            ].map((c, i) => (
+              <div
+                key={c.t}
+                className={
+                  "bg-[var(--tr-paper)] p-6 lg:p-7 " +
+                  (i < 2 ? "border-b-2 sm:border-b-2 lg:border-b-0 " : "") +
+                  (i % 2 === 0 ? "sm:border-r-2 " : "") +
+                  "border-[var(--tr-ink)] " +
+                  (i < 3 ? "lg:border-r-2 lg:border-b-0 " : "")
+                }
+              >
+                <p className="font-mono text-[10px] tracking-widest text-[var(--tr-brick)] uppercase mb-3">
+                  {c.n}
+                </p>
+                <h3 className="font-display font-black text-xl leading-tight mb-2">
+                  {c.t}
+                </h3>
+                <p className="text-sm text-[var(--tr-text-muted)] leading-relaxed">
+                  {c.d}
+                </p>
+              </div>
+            ))}
+          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ─────────────── LINEUP ─────────────── */}
-      <section className="bg-[var(--tr-paper-2)] py-16 lg:py-24 border-y border-[var(--tr-border)]">
-        <div className="container-tr">
+      <section className="bg-[var(--tr-cream)]">
+        <div className="container-tr py-16 lg:py-24">
+          <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
             <div>
-              <p className="eyebrow mb-3">/ menu hari ini</p>
-              <h2 className="h-display text-[clamp(32px,4.5vw,52px)] leading-[1.05]">
-                Pilih minumanmu.
+              <p className="eyebrow mb-3">Menu Tujuh Rasa</p>
+              <h2 className="font-display font-black text-[clamp(32px,4.5vw,64px)] leading-[0.96] tracking-tight">
+                Pilih botolmu.
               </h2>
-              <p className="hand-caption text-[var(--tr-orange-deep)] mt-2">
-                semua dari kedai kami sendiri ↓
+              <p className="font-hand text-2xl text-[var(--tr-cocoa)] mt-3">
+                mulai 10 ribu rupiah ↓
               </p>
             </div>
             <Link href="/shop" className="btn btn-secondary">
               Lihat semua →
             </Link>
           </div>
+          </Reveal>
 
           {all.length === 0 ? (
-            <div className="rounded-2xl border border-[var(--tr-border)] bg-[var(--tr-bg-elev)] p-10 text-center">
-              <p className="font-serif italic text-2xl">Belum ada produk.</p>
-              <p className="text-[var(--tr-text-muted)] mt-2">
+            <div className="card-stamp p-10 text-center">
+              <p className="font-display-italic text-2xl">Belum ada produk.</p>
+              <p className="text-[var(--tr-text-muted)] mt-2 text-sm">
                 Tambahkan produk lewat dashboard ERP-mu.
               </p>
             </div>
           ) : (
+            <Reveal delay={0.05}>
             <div
               className={
                 "grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-3 " +
@@ -287,26 +151,23 @@ export default async function HomePage() {
                   : "lg:grid-cols-3")
               }
             >
-              {all.map((p, idx) => {
+              {all.map((p) => {
                 const habis = p.stock <= 0;
                 const tipis = p.stock > 0 && p.stock <= 5;
                 return (
                   <Link
                     key={p.id}
                     href={`/shop/${p.slug}`}
-                    className="group relative rounded-2xl p-4 transition hover:-translate-y-1 border-2 border-transparent hover:border-[var(--tr-ink)]"
-                    style={{
-                      background: p.bgHex,
-                      transform: `rotate(${idx % 2 ? "0.3deg" : "-0.3deg"})`,
-                    }}
+                    className="group relative card-stamp p-4"
+                    style={{ background: p.bgHex }}
                   >
                     {habis && (
-                      <span className="absolute top-2 right-2 z-10 rounded-full bg-[var(--tr-ink)] text-[var(--tr-cream)] font-mono text-[9px] px-2 py-0.5 tracking-widest uppercase">
+                      <span className="absolute top-2 right-2 z-10 rounded-sm bg-[var(--tr-ink)] text-[var(--tr-paper)] font-mono text-[9px] px-2 py-0.5 tracking-widest uppercase border border-[var(--tr-ink)]">
                         habis
                       </span>
                     )}
                     {tipis && (
-                      <span className="absolute top-2 right-2 z-10 rounded-full bg-[var(--tr-orange)] text-white font-mono text-[9px] px-2 py-0.5 tracking-widest uppercase">
+                      <span className="absolute top-2 right-2 z-10 rounded-sm bg-[var(--tr-brick)] text-[var(--tr-paper)] font-mono text-[9px] px-2 py-0.5 tracking-widest uppercase border border-[var(--tr-ink)]">
                         tipis · {p.stock}
                       </span>
                     )}
@@ -324,190 +185,195 @@ export default async function HomePage() {
                       liquidPct={p.liquidPct}
                       className="aspect-[5/9] flex items-center justify-center"
                     />
-                    <p className="font-mono text-[10px] opacity-60 mt-3 lowercase">
+                    <p className="font-mono text-[10px] opacity-60 mt-3 lowercase tracking-widest">
                       {p.cat}
                     </p>
-                    <p className="font-serif italic text-lg leading-tight mt-1">
+                    <p className="font-display font-bold text-base leading-tight mt-1">
                       {p.name}
                     </p>
-                    <p className="font-mono text-xs mt-2">
+                    <p className="font-mono text-xs mt-2 font-medium">
                       {formatRp(p.priceCents)}
                     </p>
                   </Link>
                 );
               })}
             </div>
+            </Reveal>
           )}
         </div>
       </section>
 
       {/* ─────────────── HOW IT WORKS ─────────────── */}
-      <section className="container-tr py-16 lg:py-24 grid lg:grid-cols-[1fr_1.2fr] gap-12 items-center">
-        <div>
-          <p className="eyebrow mb-3">/ cara kerja</p>
-          <h2 className="h-display text-[clamp(32px,4.5vw,52px)] leading-[1.05]">
-            Tiga langkah,<br />
-            tiga jam sampai pintu.
-          </h2>
-          <ol className="mt-8 space-y-5">
-            {[
-              {
-                n: "01",
-                t: "Pilih botolmu",
-                d: "Pilih dari menu kedai — kopi susu, matcha, brown sugar, taro, pandan, atau yang sedang musim.",
-              },
-              {
-                n: "02",
-                t: "Pesan & bayar",
-                d: "GoPay, OVO, BCA VA, atau bayar di tempat. Aman & instan.",
-              },
-              {
-                n: "03",
-                t: "Sambut kurirnya",
-                d: "Antar hari yang sama untuk pesanan sebelum jam 14:00. Gratis di atas Rp 150rb.",
-              },
-            ].map((s) => (
-              <li
-                key={s.n}
-                className="flex gap-5 border-t border-[var(--tr-line-strong)] pt-4"
-              >
-                <span className="font-mono text-xs text-[var(--tr-text-muted)] w-8 shrink-0 mt-1">
-                  {s.n}
-                </span>
-                <div>
-                  <p className="font-serif italic text-2xl">{s.t}</p>
-                  <p className="text-sm text-[var(--tr-text-soft)] mt-1 max-w-md">
-                    {s.d}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
+      <section className="border-y-2 border-[var(--tr-ink)] bg-[var(--tr-paper-2)]">
+        <div className="container-tr py-16 lg:py-24 grid lg:grid-cols-[1fr_1.2fr] gap-12 items-center">
+          <Reveal>
+          <div>
+            <p className="eyebrow mb-3">Cara pesan</p>
+            <h2 className="font-display font-black text-[clamp(32px,4.5vw,64px)] leading-[0.96] tracking-tight">
+              Tiga langkah,<br />
+              jam-jaman sampai kos.
+            </h2>
+            <ol className="mt-10 space-y-6">
+              {[
+                {
+                  n: "01",
+                  t: "Pilih botolmu",
+                  d: "Kopi susu gula aren, matcha, cokelat, taro, susu kurma — atau combo build-a-box.",
+                },
+                {
+                  n: "02",
+                  t: "Pesan & bayar",
+                  d: "Pakai akun atau guest checkout. GoPay, OVO, BCA VA, atau bayar saat barang sampai.",
+                },
+                {
+                  n: "03",
+                  t: "Tunggu kurirnya",
+                  d: "Antar GoSend / GrabExpress sekitar Bandung — estimasi 1–3 jam untuk wilayah dekat kampus.",
+                },
+              ].map((s) => (
+                <li
+                  key={s.n}
+                  className="flex gap-5 border-t-2 border-[var(--tr-ink)] pt-5"
+                >
+                  <span className="font-display font-black text-3xl text-[var(--tr-brick)] w-12 shrink-0 leading-none">
+                    {s.n}
+                  </span>
+                  <div>
+                    <p className="font-display font-bold text-xl">{s.t}</p>
+                    <p className="text-sm text-[var(--tr-text-soft)] mt-1.5 max-w-md leading-relaxed">
+                      {s.d}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+          </Reveal>
 
-        <div className="relative">
-          <div className="rounded-3xl border-2 border-[var(--tr-ink)] bg-[var(--tr-bg-elev)] p-8 shadow-[6px_6px_0_var(--tr-orange)]">
-            <p className="font-mono text-xs text-[var(--tr-text-muted)] mb-1">
-              Hari ini, 14:23
-            </p>
-            <p className="font-serif italic text-2xl">
-              &ldquo;botol baru saja keluar dari kafe 🛵&rdquo;
-            </p>
-            <div className="mt-6 grid grid-cols-3 gap-3 text-xs">
-              <div className="rounded-xl border border-[var(--tr-border)] p-3">
-                <p className="text-[var(--tr-text-muted)] font-mono">
-                  Pesanan
-                </p>
-                <p className="font-serif italic text-lg">#TR0028</p>
-              </div>
-              <div className="rounded-xl border border-[var(--tr-border)] p-3">
-                <p className="text-[var(--tr-text-muted)] font-mono">
-                  Botol
-                </p>
-                <p className="font-serif italic text-lg">3</p>
-              </div>
-              <div className="rounded-xl border border-[var(--tr-border)] p-3">
-                <p className="text-[var(--tr-text-muted)] font-mono">ETA</p>
-                <p className="font-serif italic text-lg">21 mnt</p>
-              </div>
+          <Reveal delay={0.15}>
+          <div className="relative h-[460px] lg:h-[520px] rounded-md overflow-hidden border-2 border-[var(--tr-ink)] shadow-[6px_8px_0_var(--tr-ink)]">
+            <Image
+              src="/brand/community-1.jpg"
+              alt="Mahasiswa Tujuh Rasa di kampus Bandung"
+              fill
+              sizes="(min-width:1024px) 50vw, 90vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--tr-ink)]/70 via-transparent to-transparent" />
+            <div className="absolute bottom-5 left-5 right-5">
+              <p className="font-hand text-3xl text-[var(--tr-paper)] mb-2">
+                rasakan rasa kita —
+              </p>
+              <p className="font-display font-bold text-2xl text-[var(--tr-paper)] leading-tight">
+                Dari kampus UIN Sunan Gunung Djati,<br />untuk Bandung.
+              </p>
             </div>
-            <div className="mt-6 h-2 bg-[var(--tr-paper-2)] rounded-full overflow-hidden">
-              <div className="h-full bg-[var(--tr-orange)] w-2/3" />
-            </div>
-            <div className="mt-3 flex justify-between text-xs font-mono text-[var(--tr-text-muted)]">
-              <span>● disangrai</span>
-              <span>● dibotolkan</span>
-              <span className="text-[var(--tr-orange-deep)]">
-                ● dalam perjalanan
-              </span>
-              <span className="opacity-40">○ sampai</span>
+            <div className="absolute top-4 right-4 bg-[var(--tr-paper)] border-2 border-[var(--tr-ink)] rounded-sm px-2.5 py-1 shadow-[2px_3px_0_var(--tr-ink)]">
+              <p className="font-mono text-[10px] uppercase tracking-widest">
+                est. Mei 2025
+              </p>
             </div>
           </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ─────────────── TESTIMONIALS ─────────────── */}
       <Testimonials />
 
-      <SquiggleDividerInline color="var(--tr-leaf)" />
-
       {/* ─────────────── COFFEE PASSPORT ─────────────── */}
       <CoffeePassportTeaser />
 
       {/* ─────────────── JURNAL ─────────────── */}
-      <section className="bg-[var(--tr-ink)] text-[var(--tr-cream)] py-16 lg:py-24">
-        <div className="container-tr">
-          <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
-            <div>
-              <p className="eyebrow text-[var(--tr-cream)]/60 mb-3">
-                / jurnal
-              </p>
-              <h2 className="h-display text-[clamp(32px,4.5vw,52px)] leading-[1.05]">
-                Cerita dari kedai.
-              </h2>
-            </div>
-            <Link
-              href="/cerita"
-              className="font-mono text-xs lowercase tr-link opacity-80"
-            >
-              semua cerita →
-            </Link>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {posts.map((p) => (
+      {posts.length > 0 && (
+        <section className="bg-[var(--tr-ink)] text-[var(--tr-paper)] border-y-2 border-[var(--tr-ink)]">
+          <div className="container-tr py-16 lg:py-24">
+            <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
+              <div>
+                <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-[var(--tr-mustard-soft)] mb-3">
+                  Jurnal
+                </p>
+                <h2 className="font-display font-black text-[clamp(32px,4.5vw,64px)] leading-[0.96] tracking-tight">
+                  Cerita dari kedai.
+                </h2>
+              </div>
               <Link
-                key={p.id}
-                href={`/cerita/${p.slug}`}
-                className="group block rounded-2xl border border-[var(--tr-cream)]/15 overflow-hidden hover:border-[var(--tr-cream)]/40 transition hover:-translate-y-1"
+                href="/cerita"
+                className="font-mono text-xs uppercase tracking-widest tr-link text-[var(--tr-mustard-soft)]"
               >
-                <div
-                  className="aspect-[4/3] flex items-end p-6"
-                  style={{ background: p.cover }}
-                >
-                  <p className="font-mono text-xs opacity-80">
-                    {new Date(p.createdAt).toLocaleDateString("id-ID")}
-                  </p>
-                </div>
-                <div className="p-6">
-                  <p className="font-serif italic text-2xl leading-tight">
-                    {p.title}
-                  </p>
-                  <p className="opacity-70 text-sm mt-2 line-clamp-2">
-                    {p.excerpt}
-                  </p>
-                  <p className="mt-4 font-mono text-xs opacity-60">
-                    {p.author}
-                  </p>
-                </div>
+                Semua cerita →
               </Link>
-            ))}
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-5">
+              {posts.map((p) => (
+                <Link
+                  key={p.id}
+                  href={`/cerita/${p.slug}`}
+                  className="group block rounded-md border-2 border-[var(--tr-paper)] overflow-hidden hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[3px_4px_0_var(--tr-paper)] transition-all"
+                >
+                  <div
+                    className="aspect-[4/3] flex items-end p-5 border-b-2 border-[var(--tr-paper)]"
+                    style={{ background: p.cover }}
+                  >
+                    <p className="font-mono text-[10px] uppercase tracking-widest opacity-80">
+                      {new Date(p.createdAt).toLocaleDateString("id-ID")}
+                    </p>
+                  </div>
+                  <div className="p-5 bg-[var(--tr-ink)]">
+                    <p className="font-display font-bold text-xl leading-tight">
+                      {p.title}
+                    </p>
+                    <p className="opacity-70 text-sm mt-2 line-clamp-2">
+                      {p.excerpt}
+                    </p>
+                    <p className="mt-4 font-mono text-[10px] uppercase tracking-widest opacity-50">
+                      {p.author}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ─────────────── FAQ ─────────────── */}
       <FaqAccordion />
 
       {/* ─────────────── CTA ─────────────── */}
-      <section className="container-tr py-20 lg:py-28 text-center">
-        <p className="eyebrow mb-4">/ langganan</p>
-        <h2 className="h-display text-[clamp(36px,6vw,80px)] leading-[1.02] max-w-3xl mx-auto">
-          Botol favoritmu, tiap bulan,
-          <br />
-          <span className="tr-highlight">sampai depan pintu.</span>
-        </h2>
-        <p className="mt-5 max-w-xl mx-auto text-base text-[var(--tr-text-soft)]">
-          Atau coba paket pertama 4 botol — pilih sendiri rasanya. Bisa
-          di-pause, bisa dibatalkan kapan saja.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3 justify-center">
-          <Link href="/langganan" className="btn btn-primary">
-            Mulai langganan
-          </Link>
-          <Link href="/shop" className="btn btn-secondary">
-            Lihat menu
-          </Link>
+      <section className="bg-[var(--tr-cocoa)] text-[var(--tr-paper)] border-y-2 border-[var(--tr-ink)] relative overflow-hidden">
+        <div
+          aria-hidden
+          className="absolute -right-32 -top-32 w-[420px] h-[420px] rounded-full bg-[var(--tr-matcha)] opacity-30"
+        />
+        <div className="container-tr py-20 lg:py-28 text-center relative">
+          <Reveal>
+            <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-[var(--tr-matcha-soft)] mb-4">
+              Langganan kampus
+            </p>
+            <h2 className="font-display font-black text-[clamp(36px,6vw,96px)] leading-[0.94] tracking-tight max-w-3xl mx-auto">
+              Botol mingguan,<br />
+              sampai meja kostmu.
+            </h2>
+            <p className="font-hand text-3xl mt-6 text-[var(--tr-matcha-soft)]">
+              mulai 49rb/minggu — batalkan kapan saja
+            </p>
+            <div className="mt-10 flex flex-wrap justify-center gap-3">
+              <Link
+                href="/langganan"
+                className="btn bg-[var(--tr-paper)] text-[var(--tr-ink)] border-[var(--tr-ink)]"
+              >
+                Pilih paket →
+              </Link>
+              <Link
+                href="/shop"
+                className="btn bg-transparent text-[var(--tr-paper)] border-[var(--tr-paper)]"
+              >
+                Coba satu-satu dulu
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>

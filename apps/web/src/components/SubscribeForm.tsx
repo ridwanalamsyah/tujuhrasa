@@ -58,98 +58,136 @@ export function SubscribeForm() {
     });
   };
 
+  const tileBase =
+    "relative text-left rounded-sm border-2 border-[var(--tr-ink)] p-4 transition";
+  const tileActive =
+    "bg-[var(--tr-ink)] text-[var(--tr-paper)] shadow-stamp";
+  const tileIdle =
+    "bg-[var(--tr-paper)] hover:shadow-stamp-sm hover:-translate-x-[1px] hover:-translate-y-[1px]";
+
   return (
-    <form onSubmit={submit} className="space-y-8">
+    <form onSubmit={submit} className="space-y-8 p-5 sm:p-7">
       <div>
-        <p className="eyebrow mb-3">jadwal pengiriman</p>
+        <p className="eyebrow mb-3">Jadwal pengiriman</p>
         <div className="grid sm:grid-cols-3 gap-3">
           {plans.map((p) => (
             <button
               key={p.v}
               type="button"
               onClick={() => setPlan(p.v)}
-              className={
-                "relative text-left rounded-2xl border-2 p-4 transition " +
-                (plan === p.v ? "border-ink bg-ink text-cream" : "border-ink/20 hover:border-ink/40")
-              }
+              className={tileBase + " " + (plan === p.v ? tileActive : tileIdle)}
             >
               {p.recommended && (
-                <span className="absolute -top-2 right-3 bg-orange text-cream font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full">
+                <span className="absolute -top-2 right-3 bg-[var(--tr-brick)] text-[var(--tr-paper)] font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-sm border border-[var(--tr-ink)]">
                   populer
                 </span>
               )}
-              <p className="font-serif italic text-2xl">{p.l}</p>
-              <p className="text-xs opacity-70 mt-1">{p.note}</p>
+              <p className="font-display font-black text-2xl">{p.l}</p>
+              <p className="text-xs opacity-70 mt-1 font-mono">{p.note}</p>
             </button>
           ))}
         </div>
       </div>
 
       <div>
-        <p className="eyebrow mb-3">isi tiap kotak</p>
+        <p className="eyebrow mb-3">Isi tiap kotak</p>
         <div className="grid sm:grid-cols-3 gap-3">
           {sizes.map((p) => (
             <button
               key={p.v}
               type="button"
               onClick={() => setSize(p.v)}
-              className={
-                "relative text-left rounded-2xl border-2 p-4 transition " +
-                (size === p.v ? "border-ink bg-ink text-cream" : "border-ink/20 hover:border-ink/40")
-              }
+              className={tileBase + " " + (size === p.v ? tileActive : tileIdle)}
             >
               {p.recommended && (
-                <span className="absolute -top-2 right-3 bg-orange text-cream font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full">
+                <span className="absolute -top-2 right-3 bg-[var(--tr-mustard)] text-[var(--tr-ink)] font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-sm border border-[var(--tr-ink)]">
                   pas
                 </span>
               )}
-              <p className="font-serif italic text-2xl">{p.l}</p>
-              <p className="text-xs opacity-70 mt-1">{p.note}</p>
+              <p className="font-display font-black text-2xl">{p.l}</p>
+              <p className="text-xs opacity-70 mt-1 font-mono">{p.note}</p>
             </button>
           ))}
         </div>
       </div>
 
       <div>
-        <p className="eyebrow mb-3">pilih paket</p>
+        <p className="eyebrow mb-3">Pilih paket</p>
         <div className="grid sm:grid-cols-2 gap-2">
           {prefs.map((p) => (
-            <label key={p.v} className={"cursor-pointer rounded-2xl border-2 p-4 transition flex items-center gap-3 " + (pref === p.v ? "border-ink bg-ink text-cream" : "border-ink/20 hover:border-ink/40")}>
+            <label
+              key={p.v}
+              className={
+                "cursor-pointer rounded-sm border-2 border-[var(--tr-ink)] p-4 transition flex items-center gap-3 " +
+                (pref === p.v
+                  ? "bg-[var(--tr-ink)] text-[var(--tr-paper)] shadow-stamp-sm"
+                  : "bg-[var(--tr-paper)] hover:shadow-stamp-sm")
+              }
+            >
               <input
                 type="radio"
                 name="preference"
                 value={p.v}
                 checked={pref === p.v}
                 onChange={() => setPref(p.v)}
+                className="accent-[var(--tr-brick)]"
               />
-              <span className="font-serif italic text-lg">{p.l}</span>
+              <span className="font-display font-semibold text-base">{p.l}</span>
             </label>
           ))}
         </div>
       </div>
 
-      <div className="rounded-3xl bg-paper border border-ink/20 p-6 space-y-4">
-        <p className="eyebrow">data kamu</p>
-        <div className="grid sm:grid-cols-2 gap-4">
-          <input name="customerName" required placeholder="nama lengkap" className="rounded-xl border border-ink/30 bg-cream px-4 py-3" />
-          <input name="customerEmail" required type="email" placeholder="email" className="rounded-xl border border-ink/30 bg-cream px-4 py-3" />
+      <div className="rounded-sm bg-[var(--tr-paper-2)] border-2 border-[var(--tr-ink)] p-6 space-y-3">
+        <p className="eyebrow">Data kamu</p>
+        <div className="grid sm:grid-cols-2 gap-3">
+          <input
+            name="customerName"
+            required
+            placeholder="Nama lengkap"
+            className="rounded-sm border-2 border-[var(--tr-ink)] bg-[var(--tr-paper)] px-4 py-3 focus:outline-none focus:shadow-stamp-sm focus:-translate-x-[1px] focus:-translate-y-[1px] transition"
+          />
+          <input
+            name="customerEmail"
+            required
+            type="email"
+            placeholder="Email"
+            className="rounded-sm border-2 border-[var(--tr-ink)] bg-[var(--tr-paper)] px-4 py-3 focus:outline-none focus:shadow-stamp-sm focus:-translate-x-[1px] focus:-translate-y-[1px] transition"
+          />
         </div>
-        <input name="customerPhone" placeholder="no. WhatsApp (untuk reminder)" className="w-full rounded-xl border border-ink/30 bg-cream px-4 py-3" />
-        <input name="address" required placeholder="alamat lengkap (untuk pengiriman rutin)" className="w-full rounded-xl border border-ink/30 bg-cream px-4 py-3" />
+        <input
+          name="customerPhone"
+          placeholder="No. WhatsApp (untuk reminder)"
+          className="w-full rounded-sm border-2 border-[var(--tr-ink)] bg-[var(--tr-paper)] px-4 py-3 focus:outline-none focus:shadow-stamp-sm focus:-translate-x-[1px] focus:-translate-y-[1px] transition"
+        />
+        <input
+          name="address"
+          required
+          placeholder="Alamat lengkap (untuk pengiriman rutin)"
+          className="w-full rounded-sm border-2 border-[var(--tr-ink)] bg-[var(--tr-paper)] px-4 py-3 focus:outline-none focus:shadow-stamp-sm focus:-translate-x-[1px] focus:-translate-y-[1px] transition"
+        />
       </div>
 
-      {err && <p className="text-orange font-mono text-sm">{err}</p>}
+      {err && (
+        <p className="text-[var(--tr-brick)] font-mono text-sm border-2 border-[var(--tr-brick)] rounded-sm px-3 py-2 bg-[var(--tr-brick)]/10">
+          {err}
+        </p>
+      )}
       {done && (
-        <div className="rounded-2xl bg-orange/10 border border-orange/40 p-5 text-sm">
-          <p className="font-serif italic text-2xl">Selamat datang di langganan!</p>
+        <div className="rounded-sm border-2 border-[var(--tr-ink)] bg-[var(--tr-mustard-soft)]/30 p-5 text-sm shadow-stamp-sm">
+          <p className="font-display font-black text-2xl">Selamat datang di langganan!</p>
           <p className="opacity-80 mt-2">
             Konfirmasi langganan <strong>{done.plan}</strong> sudah kami catat untuk <strong>{done.email}</strong>. Kami akan kirim email konfirmasi sebentar lagi.
           </p>
         </div>
       )}
 
-      <button type="submit" disabled={pending} className="btn-primary w-full justify-center text-base">
-        {pending ? "memproses…" : "mulai langganan →"}
+      <button
+        type="submit"
+        disabled={pending}
+        className="btn btn-primary w-full justify-center text-base disabled:opacity-60"
+      >
+        {pending ? "Memproses…" : "Mulai langganan →"}
       </button>
     </form>
   );

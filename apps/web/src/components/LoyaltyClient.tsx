@@ -137,11 +137,11 @@ export function LoyaltyClient() {
     <div className="space-y-8">
       <form
         onSubmit={lookup}
-        className="rounded-3xl border border-ink/20 bg-paper p-6 grid sm:grid-cols-[1fr_auto] gap-3 items-end"
+        className="card-stamp p-6 grid sm:grid-cols-[1fr_auto] gap-3 items-end"
       >
         <div>
-          <label className="block font-mono text-xs opacity-60 mb-2 lowercase">
-            email yang kamu pakai untuk pesan
+          <label className="eyebrow block mb-2">
+            Email yang kamu pakai untuk pesan
           </label>
           <input
             type="email"
@@ -149,23 +149,25 @@ export function LoyaltyClient() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="email@kamu.com"
-            className="w-full rounded-full border border-ink px-4 py-2 bg-cream"
+            className="input w-full"
           />
         </div>
         <button
           type="submit"
           disabled={loading || !email}
-          className="btn-primary disabled:opacity-50"
+          className="btn btn-primary disabled:opacity-50"
         >
-          {loading ? "memuat..." : "lihat poin saya"}
+          {loading ? "Memuat…" : "Lihat poin saya"}
         </button>
       </form>
 
       {data && !data.found && (
-        <div className="rounded-3xl border border-ink/20 bg-paper p-6">
-          <p className="font-serif italic text-2xl">Belum ada akun untuk email itu.</p>
-          <p className="opacity-70 mt-2">
-            Pesan satu botol dulu aja ya, langsung dapat 10 poin pelanggan baru.
+        <div className="card-stamp p-6">
+          <p className="font-display font-black text-2xl">
+            Belum ada akun untuk email itu.
+          </p>
+          <p className="font-hand text-xl text-[var(--tr-brick-deep)] mt-2">
+            pesan satu botol dulu aja — langsung dapat 10 poin pelanggan baru.
           </p>
         </div>
       )}
@@ -173,62 +175,68 @@ export function LoyaltyClient() {
       {data?.found && data.customer && (
         <>
           {/* Header card: Customer + Tier */}
-          <div className="rounded-3xl border border-ink/20 bg-paper p-6 grid sm:grid-cols-[1fr_auto] gap-6 items-center">
+          <div className="card-stamp p-6 grid sm:grid-cols-[1fr_auto] gap-6 items-center">
             <div>
-              <p className="font-mono text-xs opacity-60 lowercase">halo,</p>
-              <p className="font-serif italic text-3xl">{data.customer.name}</p>
-              <p className="opacity-70 mt-1">{data.customer.city}</p>
+              <p className="eyebrow">Halo,</p>
+              <p className="font-display font-black text-3xl mt-1">
+                {data.customer.name}
+              </p>
+              <p className="text-[var(--tr-text-muted)] mt-1">{data.customer.city}</p>
               <div className="mt-4 flex items-center gap-3 flex-wrap">
-                <span className="rounded-full border border-ink/30 px-3 py-1 text-xs font-mono bg-cream">
-                  tier · {data.tier.name}
-                </span>
+                <span className="stamp">tier · {data.tier.name}</span>
                 {data.tier.next && (
-                  <span className="text-xs font-mono opacity-60">
+                  <span className="text-xs font-mono text-[var(--tr-text-muted)]">
                     {fmtRp(data.tier.next.min - data.customer.totalSpend)} lagi → {data.tier.next.name}
                   </span>
                 )}
               </div>
-              <div className="mt-3 h-1.5 rounded-full bg-ink/10 overflow-hidden">
+              <div className="mt-3 h-2 rounded-sm border-2 border-[var(--tr-ink)] bg-[var(--tr-paper-2)] overflow-hidden">
                 <div
-                  className="h-full bg-orange transition-all"
+                  className="h-full bg-[var(--tr-brick)] transition-all"
                   style={{ width: `${tierProgress * 100}%` }}
                 />
               </div>
             </div>
             <div className="text-center sm:text-right">
-              <p className="font-mono text-[10px] opacity-60 uppercase">poin saldo</p>
-              <p className="font-serif italic text-5xl">{data.pointsBalance}</p>
-              <p className="text-xs opacity-50 font-mono mt-1">
+              <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--tr-text-muted)]">
+                Poin saldo
+              </p>
+              <p className="font-display font-black text-5xl text-[var(--tr-brick)] tabular-nums leading-none mt-1">
+                {data.pointsBalance}
+              </p>
+              <p className="text-xs text-[var(--tr-text-muted)] font-mono mt-2">
                 terkumpul {data.pointsEarned} · ditukar {data.pointsRedeemed}
               </p>
             </div>
           </div>
 
           {/* Daily check-in */}
-          <div className="rounded-3xl border border-ink/20 bg-paper p-6">
+          <div className="card-stamp p-6">
             <div className="flex items-center justify-between gap-3 flex-wrap">
               <div>
-                <p className="eyebrow mb-1">/ check-in harian</p>
-                <p className="font-serif italic text-2xl">
+                <p className="eyebrow mb-1">Check-in harian</p>
+                <p className="font-display font-black text-2xl">
                   Tap sekali tiap hari, dapat poin.
                 </p>
-                <p className="text-sm opacity-70 mt-1">
+                <p className="text-sm text-[var(--tr-text-soft)] mt-1 leading-relaxed">
                   Streak 3 hari = +3 poin · streak 7 hari = +5 poin.
                 </p>
               </div>
-              <button onClick={checkin} className="btn-secondary">
-                check-in hari ini
+              <button onClick={checkin} className="btn btn-secondary">
+                Check-in hari ini
               </button>
             </div>
             {checkinMsg && (
-              <p className="mt-3 font-mono text-sm text-orange">{checkinMsg}</p>
+              <p className="mt-3 font-hand text-xl text-[var(--tr-brick-deep)]">
+                {checkinMsg}
+              </p>
             )}
           </div>
 
           {/* Stamp card */}
-          <div className="rounded-3xl border border-ink/20 bg-paper p-6">
-            <p className="eyebrow mb-2">/ stamp card</p>
-            <p className="font-serif italic text-2xl mb-4">
+          <div className="card-stamp p-6">
+            <p className="eyebrow mb-2">Stamp card</p>
+            <p className="font-display font-black text-2xl mb-4">
               {data.ordersTotal} pesanan · {stampsTotal} botol gratis sudah didapat
             </p>
             <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
@@ -238,26 +246,26 @@ export function LoyaltyClient() {
                   <div
                     key={i}
                     className={
-                      "aspect-square rounded-full border-2 flex items-center justify-center text-xl transition " +
+                      "aspect-square rounded-sm border-2 border-[var(--tr-ink)] flex items-center justify-center text-xl transition font-mono font-bold " +
                       (filled
-                        ? "bg-orange border-orange text-cream"
-                        : "border-ink/20 text-ink/30 bg-cream")
+                        ? "bg-[var(--tr-brick)] text-[var(--tr-paper)] shadow-stamp-sm"
+                        : "bg-[var(--tr-paper-2)] text-[var(--tr-text-muted)]")
                     }
                   >
-                    {filled ? "☕" : i + 1}
+                    {filled ? "✓" : i + 1}
                   </div>
                 );
               })}
             </div>
-            <p className="text-xs font-mono opacity-60 mt-3">
+            <p className="text-xs font-mono text-[var(--tr-text-muted)] mt-3">
               {10 - stamps} botol lagi sampai dapat 1 gratis.
             </p>
           </div>
 
           {/* Redeem points */}
-          <div className="rounded-3xl border border-ink/20 bg-paper p-6">
-            <p className="eyebrow mb-2">/ tukar poin → diskon</p>
-            <p className="font-serif italic text-2xl mb-4">
+          <div className="card-stamp p-6">
+            <p className="eyebrow mb-2">Tukar poin → diskon</p>
+            <p className="font-display font-black text-2xl mb-4">
               1 poin = Rp 1.000 diskon (min. tukar 50 poin).
             </p>
             <div className="flex flex-wrap items-center gap-3">
@@ -267,28 +275,30 @@ export function LoyaltyClient() {
                 max={Math.max(50, data.pointsBalance)}
                 value={redeemPts}
                 onChange={(e) => setRedeemPts(parseInt(e.target.value || "0") || 0)}
-                className="w-24 rounded-full border border-ink px-3 py-2 bg-cream font-mono text-center"
+                className="input w-24 text-center font-mono tabular-nums"
               />
-              <span className="font-serif italic text-xl">
+              <span className="font-display font-bold text-xl tabular-nums">
                 = {fmtRp(redeemPts * 1000)}
               </span>
               <button
                 onClick={redeem}
                 disabled={redeeming || redeemPts > data.pointsBalance || redeemPts < 50}
-                className="btn-primary disabled:opacity-50"
+                className="btn btn-primary disabled:opacity-50"
               >
-                {redeeming ? "memproses..." : "tukar sekarang"}
+                {redeeming ? "Memproses…" : "Tukar sekarang"}
               </button>
             </div>
             {redeemMsg && (
-              <p className="mt-3 font-mono text-sm text-orange">{redeemMsg}</p>
+              <p className="mt-3 font-hand text-xl text-[var(--tr-brick-deep)]">
+                {redeemMsg}
+              </p>
             )}
           </div>
 
           {/* Achievements */}
-          <div className="rounded-3xl border border-ink/20 bg-paper p-6">
-            <p className="eyebrow mb-2">/ achievement</p>
-            <p className="font-serif italic text-2xl mb-4">
+          <div className="card-stamp p-6">
+            <p className="eyebrow mb-2">Achievement</p>
+            <p className="font-display font-black text-2xl mb-4">
               Lencana yang sudah kamu kumpulkan
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -298,10 +308,10 @@ export function LoyaltyClient() {
                   <div
                     key={a.id}
                     className={
-                      "rounded-2xl border p-4 text-center transition " +
+                      "rounded-sm border-2 p-4 text-center transition " +
                       (got
-                        ? "border-orange bg-orange/10"
-                        : "border-ink/15 bg-cream opacity-50")
+                        ? "border-[var(--tr-ink)] bg-[var(--tr-mustard-soft)]/40 shadow-stamp-sm"
+                        : "border-[var(--tr-ink)]/20 bg-[var(--tr-paper-2)] opacity-50")
                     }
                   >
                     <div className="text-3xl mb-1">{got ? a.emoji : "🔒"}</div>
@@ -315,33 +325,34 @@ export function LoyaltyClient() {
           </div>
 
           {/* Spin wheel */}
-          <div className="rounded-3xl border border-ink/20 bg-paper p-6 text-center">
-            <p className="eyebrow mb-2">/ spin keberuntungan</p>
-            <p className="font-serif italic text-2xl mb-4">
+          <div className="card-stamp p-6 text-center">
+            <p className="eyebrow mb-2">Spin keberuntungan</p>
+            <p className="font-display font-black text-2xl mb-4">
               Sekali spin per hari, gratis.
             </p>
             <div className="flex flex-col items-center gap-4">
               <div
                 className={
-                  "w-32 h-32 rounded-full border-4 border-orange relative grid place-items-center " +
+                  "w-32 h-32 rounded-sm border-2 border-[var(--tr-ink)] shadow-stamp bg-[var(--tr-mustard-soft)]/40 relative grid place-items-center " +
                   (spinning ? "animate-spin" : "")
                 }
               >
-                <span className="text-3xl">🎡</span>
+                <span className="text-4xl">🎡</span>
               </div>
               <button
                 onClick={spin}
                 disabled={spinning}
-                className="btn-primary disabled:opacity-50"
+                className="btn btn-primary disabled:opacity-50"
               >
-                {spinning ? "berputar..." : "putar roda"}
+                {spinning ? "Berputar…" : "Putar roda"}
               </button>
               {spinResult && (
                 <div className="text-center">
-                  <p className="font-serif italic text-xl">{spinResult.label}</p>
+                  <p className="font-display font-bold text-xl">{spinResult.label}</p>
                   {spinResult.code && (
                     <p className="font-mono text-sm mt-1">
-                      kode: <span className="bg-cream px-2 py-1 rounded border border-ink/20">{spinResult.code}</span>
+                      kode:{" "}
+                      <span className="stamp">{spinResult.code}</span>
                     </p>
                   )}
                 </div>
@@ -350,24 +361,24 @@ export function LoyaltyClient() {
           </div>
 
           {/* Activities */}
-          <div className="rounded-3xl border border-ink/20 bg-paper p-6">
-            <p className="eyebrow mb-2">/ riwayat poin</p>
+          <div className="card-stamp p-6">
+            <p className="eyebrow mb-2">Riwayat poin</p>
             {data.activities.length === 0 ? (
-              <p className="opacity-60">Belum ada aktivitas.</p>
+              <p className="text-[var(--tr-text-muted)]">Belum ada aktivitas.</p>
             ) : (
-              <ul className="divide-y divide-ink/10">
+              <ul className="divide-y-2 divide-[var(--tr-ink)]/15">
                 {data.activities.slice(0, 12).map((a) => (
                   <li key={a.id} className="py-3 flex items-center justify-between gap-3">
                     <div>
-                      <p className="font-mono text-xs opacity-60">
+                      <p className="font-mono text-[11px] uppercase tracking-widest text-[var(--tr-text-muted)]">
                         {new Date(a.ts).toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" })}
                       </p>
-                      <p className="text-sm">{a.note}</p>
+                      <p className="text-sm mt-0.5">{a.note}</p>
                     </div>
                     <span
                       className={
-                        "font-mono text-sm tabular-nums " +
-                        (a.points > 0 ? "text-leaf" : "text-orange")
+                        "font-mono font-bold text-sm tabular-nums " +
+                        (a.points > 0 ? "text-[var(--tr-leaf)]" : "text-[var(--tr-brick)]")
                       }
                     >
                       {a.points > 0 ? "+" : ""}

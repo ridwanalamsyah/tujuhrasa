@@ -16,9 +16,9 @@ export function AdminLogout() {
     <button
       onClick={logout}
       disabled={pending}
-      className="font-mono text-[10px] uppercase tracking-wider px-3 py-1 rounded-full border border-ink/20 hover:bg-ink hover:text-cream transition disabled:opacity-50"
+      className="font-mono text-[10px] uppercase tracking-widest px-3 py-1 rounded-sm border-2 border-[var(--tr-ink)] hover:bg-[var(--tr-ink)] hover:text-[var(--tr-paper)] transition disabled:opacity-50"
     >
-      {pending ? "keluar…" : "keluar"}
+      {pending ? "Keluar…" : "Keluar"}
     </button>
   );
 }

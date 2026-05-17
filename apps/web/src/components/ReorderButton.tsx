@@ -38,10 +38,10 @@ export function ReorderButton({
     <button
       onClick={reorder}
       disabled={busy}
-      className="text-xs font-mono lowercase border border-ink/30 hover:bg-ink hover:text-cream rounded-full px-3 py-1 transition disabled:opacity-50"
+      className="text-[10px] font-mono uppercase tracking-widest border-2 border-[var(--tr-ink)] hover:bg-[var(--tr-ink)] hover:text-[var(--tr-paper)] rounded-sm px-3 py-1 transition disabled:opacity-50"
       aria-label="ulang pesanan"
     >
-      {busy ? "..." : done ? "✓ di keranjang" : "↻ pesan ulang"}
+      {busy ? "…" : done ? "✓ di keranjang" : "↻ pesan ulang"}
     </button>
   );
 }

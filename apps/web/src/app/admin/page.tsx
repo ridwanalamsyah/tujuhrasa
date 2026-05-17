@@ -30,76 +30,83 @@ export default async function AdminPage() {
   const grossProfit = grossRevenue - totalHpp;
 
   return (
-    <div className="container-tr pt-32 pb-20">
-      <div className="flex items-center gap-3 mb-3">
-        <p className="eyebrow">/ admin</p>
-        <span
-          className={
-            "font-mono text-[10px] uppercase tracking-wider px-2 py-1 rounded-full " +
-            (erpEnabled ? "bg-olive/20 text-olive" : "bg-ink/10 text-ink/60")
-          }
-        >
-          ERP {erpEnabled ? "tersambung" : "off"}
-        </span>
-        <a
-          href="https://tujuhrasa-erp.vercel.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-mono text-[10px] uppercase tracking-wider px-2 py-1 rounded-full border border-ink/20 hover:bg-ink hover:text-cream transition"
-        >
-          buka ERP ↗
-        </a>
-        <div className="ml-auto">
-          <AdminLogout />
+    <>
+      <section className="bg-[var(--tr-paper)] border-b-2 border-[var(--tr-ink)]">
+        <div className="container-tr py-10 sm:py-14">
+          <div className="flex items-center gap-3 mb-4 flex-wrap">
+            <span className="stamp">Admin</span>
+            <span
+              className={
+                "font-mono text-[10px] uppercase tracking-widest px-2 py-1 rounded-sm border-2 border-[var(--tr-ink)] " +
+                (erpEnabled
+                  ? "bg-[var(--tr-leaf)]/20 text-[var(--tr-ink)]"
+                  : "bg-[var(--tr-paper-2)] text-[var(--tr-text-muted)]")
+              }
+            >
+              ERP {erpEnabled ? "tersambung" : "off"}
+            </span>
+            <a
+              href="https://tujuhrasa-erp.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-[10px] uppercase tracking-widest px-2 py-1 rounded-sm border-2 border-[var(--tr-ink)] hover:bg-[var(--tr-ink)] hover:text-[var(--tr-paper)] transition"
+            >
+              Buka ERP ↗
+            </a>
+            <div className="ml-auto">
+              <AdminLogout />
+            </div>
+          </div>
+          <h1 className="font-display font-black text-[clamp(36px,5vw,64px)] leading-[0.98] tracking-[-0.02em] mb-3">
+            Dapur belakang.
+          </h1>
+          <p className="max-w-2xl text-[var(--tr-text-soft)] leading-relaxed">
+            Pesanan, langganan, &amp; poin pelanggan otomatis ter-push ke ERP-mu
+            di Supabase. Produk di bawah dibaca <em>real-time</em> dari{" "}
+            <code className="font-mono text-xs">state.products[]</code> ERP.
+          </p>
         </div>
-      </div>
-      <h1 className="h-display text-[clamp(36px,5vw,64px)] leading-[1.02] mb-2">
-        Dapur belakang.
-      </h1>
-      <p className="opacity-70 mb-10">
-        Pesanan, langganan, & poin pelanggan otomatis ter-push ke ERP-mu di
-        Supabase. Produk di bawah dibaca <em>real-time</em> dari{" "}
-        <code className="font-mono text-xs">state.products[]</code> ERP.
-      </p>
+      </section>
+      <div className="container-tr py-12 sm:py-16">
 
       <div className="grid sm:grid-cols-4 gap-4 mb-10">
-        <Stat label="produk aktif" value={String(products.length)} />
-        <Stat label="pesanan" value={String(totalRevenue._count ?? 0)} />
-        <Stat label="pendapatan" value={formatRp(grossRevenue)} accent />
-        <Stat label="laba kotor" value={formatRp(grossProfit)} />
+        <Stat label="Produk aktif" value={String(products.length)} />
+        <Stat label="Pesanan" value={String(totalRevenue._count ?? 0)} />
+        <Stat label="Pendapatan" value={formatRp(grossRevenue)} accent />
+        <Stat label="Laba kotor" value={formatRp(grossProfit)} />
       </div>
 
       <section className="mb-12">
-        <h2 className="h-display text-2xl mb-4">Produk.</h2>
-        <div className="rounded-2xl border border-ink/20 overflow-hidden bg-paper">
-          <table className="w-full text-sm">
-            <thead className="bg-ink text-cream">
+        <h2 className="font-display font-black text-2xl sm:text-3xl mb-4">Produk.</h2>
+        <div className="rounded-sm border-2 border-[var(--tr-ink)] shadow-stamp-sm overflow-x-auto bg-[var(--tr-paper)]">
+          <table className="w-full text-sm min-w-[640px]">
+            <thead className="bg-[var(--tr-ink)] text-[var(--tr-paper)]">
               <tr>
-                <th className="px-4 py-3 text-left font-mono text-xs lowercase">sku</th>
-                <th className="px-4 py-3 text-left font-mono text-xs lowercase">nama</th>
-                <th className="px-4 py-3 text-left font-mono text-xs lowercase">kategori</th>
-                <th className="px-4 py-3 text-right font-mono text-xs lowercase">harga</th>
-                <th className="px-4 py-3 text-right font-mono text-xs lowercase">hpp</th>
-                <th className="px-4 py-3 text-right font-mono text-xs lowercase">stok</th>
-                <th className="px-4 py-3 text-right font-mono text-xs lowercase">min</th>
+                <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">SKU</th>
+                <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Nama</th>
+                <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Kategori</th>
+                <th className="px-4 py-3 text-right font-mono text-[10px] uppercase tracking-widest">Harga</th>
+                <th className="px-4 py-3 text-right font-mono text-[10px] uppercase tracking-widest">HPP</th>
+                <th className="px-4 py-3 text-right font-mono text-[10px] uppercase tracking-widest">Stok</th>
+                <th className="px-4 py-3 text-right font-mono text-[10px] uppercase tracking-widest">Min</th>
               </tr>
             </thead>
             <tbody>
               {products.map((p) => (
-                <tr key={p.id} className="border-t border-ink/10">
-                  <td className="px-4 py-3 font-mono opacity-70 text-xs">{p.sku}</td>
+                <tr key={p.id} className="border-t-2 border-[var(--tr-ink)]/15 hover:bg-[var(--tr-paper-2)]">
+                  <td className="px-4 py-3 font-mono text-[var(--tr-text-muted)] text-xs">{p.sku}</td>
                   <td className="px-4 py-3">
-                    <Link href={`/shop/${p.slug}`} className="tr-link font-serif italic text-lg">{p.name}</Link>
+                    <Link href={`/shop/${p.slug}`} className="tr-link font-display font-bold text-base">{p.name}</Link>
                   </td>
-                  <td className="px-4 py-3 font-mono text-xs lowercase">{p.cat}</td>
-                  <td className="px-4 py-3 text-right font-mono">{formatRp(p.priceCents)}</td>
-                  <td className="px-4 py-3 text-right font-mono opacity-70">{formatRp(p.gros)}</td>
-                  <td className="px-4 py-3 text-right">
-                    <span className={p.stock <= p.minStk ? "text-orange font-bold" : ""}>
+                  <td className="px-4 py-3 font-mono text-xs">{p.cat}</td>
+                  <td className="px-4 py-3 text-right font-mono tabular-nums">{formatRp(p.priceCents)}</td>
+                  <td className="px-4 py-3 text-right font-mono tabular-nums text-[var(--tr-text-muted)]">{formatRp(p.gros)}</td>
+                  <td className="px-4 py-3 text-right tabular-nums">
+                    <span className={p.stock <= p.minStk ? "text-[var(--tr-brick)] font-bold" : ""}>
                       {p.stock}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-right opacity-50 text-xs">{p.minStk}</td>
+                  <td className="px-4 py-3 text-right text-[var(--tr-text-muted)] text-xs tabular-nums">{p.minStk}</td>
                 </tr>
               ))}
             </tbody>
@@ -108,36 +115,36 @@ export default async function AdminPage() {
       </section>
 
       <section className="mb-12">
-        <h2 className="h-display text-2xl mb-4">Pesanan terakhir.</h2>
+        <h2 className="font-display font-black text-2xl sm:text-3xl mb-4">Pesanan terakhir.</h2>
         {orders.length === 0 ? (
-          <p className="opacity-60 text-sm">Belum ada pesanan.</p>
+          <p className="text-[var(--tr-text-muted)] text-sm">Belum ada pesanan.</p>
         ) : (
-          <div className="rounded-2xl border border-ink/20 overflow-hidden bg-paper">
-            <table className="w-full text-sm">
-              <thead className="bg-ink text-cream">
+          <div className="rounded-sm border-2 border-[var(--tr-ink)] shadow-stamp-sm overflow-x-auto bg-[var(--tr-paper)]">
+            <table className="w-full text-sm min-w-[720px]">
+              <thead className="bg-[var(--tr-ink)] text-[var(--tr-paper)]">
                 <tr>
-                  <th className="px-4 py-3 text-left font-mono text-xs lowercase">no</th>
-                  <th className="px-4 py-3 text-left font-mono text-xs lowercase">tanggal</th>
-                  <th className="px-4 py-3 text-left font-mono text-xs lowercase">pelanggan</th>
-                  <th className="px-4 py-3 text-right font-mono text-xs lowercase">btl</th>
-                  <th className="px-4 py-3 text-right font-mono text-xs lowercase">total</th>
-                  <th className="px-4 py-3 text-left font-mono text-xs lowercase">bayar</th>
-                  <th className="px-4 py-3 text-left font-mono text-xs lowercase">status</th>
-                  <th className="px-4 py-3 text-left font-mono text-xs lowercase">erp</th>
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">No</th>
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Tanggal</th>
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Pelanggan</th>
+                  <th className="px-4 py-3 text-right font-mono text-[10px] uppercase tracking-widest">Btl</th>
+                  <th className="px-4 py-3 text-right font-mono text-[10px] uppercase tracking-widest">Total</th>
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Bayar</th>
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Status</th>
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">ERP</th>
                 </tr>
               </thead>
               <tbody>
                 {orders.map((o) => (
-                  <tr key={o.id} className="border-t border-ink/10">
+                  <tr key={o.id} className="border-t-2 border-[var(--tr-ink)]/15 hover:bg-[var(--tr-paper-2)]">
                     <td className="px-4 py-3 font-mono">
                       <Link href={`/order/${o.orderNumber}`} className="tr-link">#{o.orderNumber}</Link>
                     </td>
-                    <td className="px-4 py-3 opacity-70 text-xs">
+                    <td className="px-4 py-3 text-[var(--tr-text-muted)] text-xs">
                       {new Date(o.createdAt).toLocaleDateString("id-ID", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
                     </td>
-                    <td className="px-4 py-3">{o.customerName}</td>
-                    <td className="px-4 py-3 text-right">{o.items.reduce((s, i) => s + i.quantity, 0)}</td>
-                    <td className="px-4 py-3 text-right font-mono">{formatRp(o.totalCents)}</td>
+                    <td className="px-4 py-3 font-display font-bold">{o.customerName}</td>
+                    <td className="px-4 py-3 text-right tabular-nums">{o.items.reduce((s, i) => s + i.quantity, 0)}</td>
+                    <td className="px-4 py-3 text-right font-mono tabular-nums">{formatRp(o.totalCents)}</td>
                     <td className="px-4 py-3 font-mono text-xs">{o.paymentChannel ?? o.paymentMethod}</td>
                     <td className="px-4 py-3"><StatusPill v={o.status} /></td>
                     <td className="px-4 py-3"><SyncPill v={o.erpSyncStatus} /></td>
@@ -151,28 +158,28 @@ export default async function AdminPage() {
 
       <section className="mb-12 grid lg:grid-cols-2 gap-8">
         <div>
-          <h2 className="h-display text-2xl mb-4">Pembayaran.</h2>
+          <h2 className="font-display font-black text-2xl sm:text-3xl mb-4">Pembayaran.</h2>
           {payments.length === 0 ? (
-            <p className="opacity-60 text-sm">Belum ada pembayaran.</p>
+            <p className="text-[var(--tr-text-muted)] text-sm">Belum ada pembayaran.</p>
           ) : (
-            <div className="rounded-2xl border border-ink/20 overflow-hidden bg-paper">
-              <table className="w-full text-sm">
-                <thead className="bg-ink text-cream">
+            <div className="rounded-sm border-2 border-[var(--tr-ink)] shadow-stamp-sm overflow-x-auto bg-[var(--tr-paper)]">
+              <table className="w-full text-sm min-w-[480px]">
+                <thead className="bg-[var(--tr-ink)] text-[var(--tr-paper)]">
                   <tr>
-                    <th className="px-4 py-3 text-left font-mono text-xs lowercase">tanggal</th>
-                    <th className="px-4 py-3 text-left font-mono text-xs lowercase">metode</th>
-                    <th className="px-4 py-3 text-right font-mono text-xs lowercase">jumlah</th>
-                    <th className="px-4 py-3 text-left font-mono text-xs lowercase">status</th>
+                    <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Tanggal</th>
+                    <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Metode</th>
+                    <th className="px-4 py-3 text-right font-mono text-[10px] uppercase tracking-widest">Jumlah</th>
+                    <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {payments.map((p) => (
-                    <tr key={p.id} className="border-t border-ink/10">
-                      <td className="px-4 py-3 opacity-70 text-xs">
+                    <tr key={p.id} className="border-t-2 border-[var(--tr-ink)]/15 hover:bg-[var(--tr-paper-2)]">
+                      <td className="px-4 py-3 text-[var(--tr-text-muted)] text-xs">
                         {new Date(p.ts).toLocaleDateString("id-ID", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
                       </td>
                       <td className="px-4 py-3 font-mono text-xs">{p.channel ?? p.method}</td>
-                      <td className="px-4 py-3 text-right font-mono">{formatRp(p.amountCents)}</td>
+                      <td className="px-4 py-3 text-right font-mono tabular-nums">{formatRp(p.amountCents)}</td>
                       <td className="px-4 py-3"><StatusPill v={p.status} /></td>
                     </tr>
                   ))}
@@ -183,28 +190,28 @@ export default async function AdminPage() {
         </div>
 
         <div>
-          <h2 className="h-display text-2xl mb-4">Promo aktif.</h2>
-          <div className="rounded-2xl border border-ink/20 overflow-hidden bg-paper">
-            <table className="w-full text-sm">
-              <thead className="bg-ink text-cream">
+          <h2 className="font-display font-black text-2xl sm:text-3xl mb-4">Promo aktif.</h2>
+          <div className="rounded-sm border-2 border-[var(--tr-ink)] shadow-stamp-sm overflow-x-auto bg-[var(--tr-paper)]">
+            <table className="w-full text-sm min-w-[480px]">
+              <thead className="bg-[var(--tr-ink)] text-[var(--tr-paper)]">
                 <tr>
-                  <th className="px-4 py-3 text-left font-mono text-xs lowercase">kode</th>
-                  <th className="px-4 py-3 text-left font-mono text-xs lowercase">tipe</th>
-                  <th className="px-4 py-3 text-right font-mono text-xs lowercase">nilai</th>
-                  <th className="px-4 py-3 text-right font-mono text-xs lowercase">min</th>
-                  <th className="px-4 py-3 text-right font-mono text-xs lowercase">dipakai</th>
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Kode</th>
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Tipe</th>
+                  <th className="px-4 py-3 text-right font-mono text-[10px] uppercase tracking-widest">Nilai</th>
+                  <th className="px-4 py-3 text-right font-mono text-[10px] uppercase tracking-widest">Min</th>
+                  <th className="px-4 py-3 text-right font-mono text-[10px] uppercase tracking-widest">Dipakai</th>
                 </tr>
               </thead>
               <tbody>
                 {promos.map((p) => (
-                  <tr key={p.id} className="border-t border-ink/10">
+                  <tr key={p.id} className="border-t-2 border-[var(--tr-ink)]/15 hover:bg-[var(--tr-paper-2)]">
                     <td className="px-4 py-3 font-mono">{p.code}</td>
                     <td className="px-4 py-3 text-xs">{p.kind}</td>
-                    <td className="px-4 py-3 text-right font-mono">
+                    <td className="px-4 py-3 text-right font-mono tabular-nums">
                       {p.kind === "percent" ? `${p.value}%` : formatRp(p.value)}
                     </td>
-                    <td className="px-4 py-3 text-right font-mono opacity-70">{formatRp(p.minSubtotal)}</td>
-                    <td className="px-4 py-3 text-right">{p.redeemedCount}{p.maxRedemption ? ` / ${p.maxRedemption}` : ""}</td>
+                    <td className="px-4 py-3 text-right font-mono tabular-nums text-[var(--tr-text-muted)]">{formatRp(p.minSubtotal)}</td>
+                    <td className="px-4 py-3 text-right tabular-nums">{p.redeemedCount}{p.maxRedemption ? ` / ${p.maxRedemption}` : ""}</td>
                   </tr>
                 ))}
               </tbody>
@@ -214,31 +221,31 @@ export default async function AdminPage() {
       </section>
 
       <section className="mb-12">
-        <h2 className="h-display text-2xl mb-4">Sync log ERP.</h2>
+        <h2 className="font-display font-black text-2xl sm:text-3xl mb-4">Sync log ERP.</h2>
         {syncLogs.length === 0 ? (
-          <p className="opacity-60 text-sm">Belum ada aktivitas sync.</p>
+          <p className="text-[var(--tr-text-muted)] text-sm">Belum ada aktivitas sync.</p>
         ) : (
-          <div className="rounded-2xl border border-ink/20 overflow-hidden bg-paper">
-            <table className="w-full text-sm">
-              <thead className="bg-ink text-cream">
+          <div className="rounded-sm border-2 border-[var(--tr-ink)] shadow-stamp-sm overflow-x-auto bg-[var(--tr-paper)]">
+            <table className="w-full text-sm min-w-[640px]">
+              <thead className="bg-[var(--tr-ink)] text-[var(--tr-paper)]">
                 <tr>
-                  <th className="px-4 py-3 text-left font-mono text-xs lowercase">waktu</th>
-                  <th className="px-4 py-3 text-left font-mono text-xs lowercase">resource</th>
-                  <th className="px-4 py-3 text-left font-mono text-xs lowercase">id</th>
-                  <th className="px-4 py-3 text-left font-mono text-xs lowercase">status</th>
-                  <th className="px-4 py-3 text-left font-mono text-xs lowercase">pesan</th>
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Waktu</th>
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Resource</th>
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">ID</th>
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Status</th>
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Pesan</th>
                 </tr>
               </thead>
               <tbody>
                 {syncLogs.map((l) => (
-                  <tr key={l.id} className="border-t border-ink/10">
-                    <td className="px-4 py-3 opacity-70 text-xs">
+                  <tr key={l.id} className="border-t-2 border-[var(--tr-ink)]/15 hover:bg-[var(--tr-paper-2)]">
+                    <td className="px-4 py-3 text-[var(--tr-text-muted)] text-xs">
                       {new Date(l.createdAt).toLocaleDateString("id-ID", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
                     </td>
                     <td className="px-4 py-3 font-mono text-xs">{l.resource}</td>
                     <td className="px-4 py-3 font-mono text-xs">{l.resourceId}</td>
                     <td className="px-4 py-3"><SyncPill v={l.status === "success" ? "synced" : "failed"} /></td>
-                    <td className="px-4 py-3 text-xs opacity-70">{l.message}</td>
+                    <td className="px-4 py-3 text-xs text-[var(--tr-text-muted)]">{l.message}</td>
                   </tr>
                 ))}
               </tbody>
@@ -248,29 +255,29 @@ export default async function AdminPage() {
       </section>
 
       <section>
-        <h2 className="h-display text-2xl mb-4">Pelanggan langganan.</h2>
+        <h2 className="font-display font-black text-2xl sm:text-3xl mb-4">Pelanggan langganan.</h2>
         {subs.length === 0 ? (
-          <p className="opacity-60 text-sm">Belum ada pelanggan langganan.</p>
+          <p className="text-[var(--tr-text-muted)] text-sm">Belum ada pelanggan langganan.</p>
         ) : (
-          <div className="rounded-2xl border border-ink/20 overflow-hidden bg-paper">
-            <table className="w-full text-sm">
-              <thead className="bg-ink text-cream">
+          <div className="rounded-sm border-2 border-[var(--tr-ink)] shadow-stamp-sm overflow-x-auto bg-[var(--tr-paper)]">
+            <table className="w-full text-sm min-w-[640px]">
+              <thead className="bg-[var(--tr-ink)] text-[var(--tr-paper)]">
                 <tr>
-                  <th className="px-4 py-3 text-left font-mono text-xs lowercase">nama</th>
-                  <th className="px-4 py-3 text-left font-mono text-xs lowercase">email</th>
-                  <th className="px-4 py-3 text-left font-mono text-xs lowercase">jadwal</th>
-                  <th className="px-4 py-3 text-right font-mono text-xs lowercase">botol/kotak</th>
-                  <th className="px-4 py-3 text-left font-mono text-xs lowercase">preferensi</th>
-                  <th className="px-4 py-3 text-left font-mono text-xs lowercase">erp</th>
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Nama</th>
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Email</th>
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Jadwal</th>
+                  <th className="px-4 py-3 text-right font-mono text-[10px] uppercase tracking-widest">Botol/kotak</th>
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">Preferensi</th>
+                  <th className="px-4 py-3 text-left font-mono text-[10px] uppercase tracking-widest">ERP</th>
                 </tr>
               </thead>
               <tbody>
                 {subs.map((s) => (
-                  <tr key={s.id} className="border-t border-ink/10">
-                    <td className="px-4 py-3 font-serif italic">{s.customerName}</td>
-                    <td className="px-4 py-3 font-mono text-xs opacity-70">{s.customerEmail}</td>
+                  <tr key={s.id} className="border-t-2 border-[var(--tr-ink)]/15 hover:bg-[var(--tr-paper-2)]">
+                    <td className="px-4 py-3 font-display font-bold">{s.customerName}</td>
+                    <td className="px-4 py-3 font-mono text-xs text-[var(--tr-text-muted)]">{s.customerEmail}</td>
                     <td className="px-4 py-3">{s.plan}</td>
-                    <td className="px-4 py-3 text-right">{s.bottlesPerBox}</td>
+                    <td className="px-4 py-3 text-right tabular-nums">{s.bottlesPerBox}</td>
                     <td className="px-4 py-3">{s.preference}</td>
                     <td className="px-4 py-3"><SyncPill v={s.erpSyncStatus} /></td>
                   </tr>
@@ -280,30 +287,50 @@ export default async function AdminPage() {
           </div>
         )}
       </section>
-    </div>
+      </div>
+    </>
   );
 }
 
 function Stat({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
-    <div className={"rounded-2xl border p-6 " + (accent ? "bg-ink text-cream border-ink" : "bg-paper border-ink/20")}>
-      <p className={"eyebrow mb-2 " + (accent ? "text-cream/60" : "")}>{label}</p>
-      <p className="font-serif italic text-3xl">{value}</p>
+    <div
+      className={
+        "rounded-sm border-2 border-[var(--tr-ink)] shadow-stamp-sm p-6 " +
+        (accent
+          ? "bg-[var(--tr-ink)] text-[var(--tr-paper)]"
+          : "bg-[var(--tr-paper)]")
+      }
+    >
+      <p
+        className={
+          "font-mono text-[10px] uppercase tracking-widest mb-2 " +
+          (accent ? "text-[var(--tr-paper)]/60" : "text-[var(--tr-text-muted)]")
+        }
+      >
+        {label}
+      </p>
+      <p className="font-display font-black text-3xl tabular-nums">{value}</p>
     </div>
   );
 }
 
 function StatusPill({ v }: { v: string }) {
   const map: Record<string, string> = {
-    paid: "bg-olive/20 text-olive",
-    settled: "bg-olive/20 text-olive",
-    unpaid: "bg-orange/20 text-orange",
-    pending: "bg-ink/10 text-ink/60",
-    failed: "bg-orange/20 text-orange",
-    cancelled: "bg-ink/30 text-ink/50",
+    paid: "bg-[var(--tr-leaf)]/20 text-[var(--tr-ink)] border-[var(--tr-ink)]",
+    settled: "bg-[var(--tr-leaf)]/20 text-[var(--tr-ink)] border-[var(--tr-ink)]",
+    unpaid: "bg-[var(--tr-mustard-soft)]/40 text-[var(--tr-ink)] border-[var(--tr-ink)]",
+    pending: "bg-[var(--tr-paper-2)] text-[var(--tr-text-muted)] border-[var(--tr-ink)]/40",
+    failed: "bg-[var(--tr-brick)] text-[var(--tr-paper)] border-[var(--tr-ink)]",
+    cancelled: "bg-[var(--tr-ink)]/20 text-[var(--tr-text-muted)] border-[var(--tr-ink)]/40",
   };
   return (
-    <span className={"font-mono text-[10px] uppercase tracking-wider px-2 py-1 rounded-full " + (map[v] ?? "bg-ink/10 text-ink/60")}>
+    <span
+      className={
+        "inline-block font-mono text-[10px] uppercase tracking-widest px-2 py-1 rounded-sm border-2 " +
+        (map[v] ?? "bg-[var(--tr-paper-2)] text-[var(--tr-text-muted)] border-[var(--tr-ink)]/40")
+      }
+    >
       {v}
     </span>
   );
@@ -311,15 +338,20 @@ function StatusPill({ v }: { v: string }) {
 
 function SyncPill({ v }: { v: string }) {
   const map: Record<string, string> = {
-    synced: "bg-olive/20 text-olive",
-    pending: "bg-ink/10 text-ink/60",
-    failed: "bg-orange/20 text-orange",
-    skipped: "bg-ink/10 text-ink/40",
+    synced: "bg-[var(--tr-leaf)]/20 text-[var(--tr-ink)] border-[var(--tr-ink)]",
+    pending: "bg-[var(--tr-paper-2)] text-[var(--tr-text-muted)] border-[var(--tr-ink)]/40",
+    failed: "bg-[var(--tr-brick)] text-[var(--tr-paper)] border-[var(--tr-ink)]",
+    skipped: "bg-[var(--tr-ink)]/10 text-[var(--tr-text-muted)] border-[var(--tr-ink)]/40",
   };
   const label =
     v === "synced" ? "✓ erp" : v === "failed" ? "× gagal" : v === "skipped" ? "off" : v;
   return (
-    <span className={"font-mono text-[10px] uppercase tracking-wider px-2 py-1 rounded-full " + (map[v] ?? "bg-ink/10 text-ink/60")}>
+    <span
+      className={
+        "inline-block font-mono text-[10px] uppercase tracking-widest px-2 py-1 rounded-sm border-2 " +
+        (map[v] ?? "bg-[var(--tr-paper-2)] text-[var(--tr-text-muted)] border-[var(--tr-ink)]/40")
+      }
+    >
       {label}
     </span>
   );
