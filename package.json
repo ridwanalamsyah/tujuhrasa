@@ -13,6 +13,7 @@
     "build:erp": "npm run build --workspace @tujuhrasa/erp",
     "lint": "npm run lint --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
     "setup": "npm install && npm run setup --workspace @tujuhrasa/web"
   },
   "engines": {

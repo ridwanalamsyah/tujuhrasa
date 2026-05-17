@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { CART_COOKIE, getCart, cartTotals } from "@/lib/cart";
+import { CheckoutSchema } from "@/lib/checkout-schema";
 import {
   pushOrderToErp,
   erpEnabled,
@@ -10,22 +10,6 @@ import {
   lookupErpPromo,
   getErpStockBySku,
 } from "@/lib/erp";
-
-const CheckoutSchema = z.object({
-  customerName: z.string().min(2),
-  customerEmail: z.string().email(),
-  customerPhone: z.string().min(7),
-  shippingAddress: z.string().min(5),
-  shippingCity: z.string().min(2),
-  shippingZip: z.string().min(3),
-  notes: z.string().optional(),
-  paymentMethod: z.enum(["gopay", "ovo", "bca-va", "cod"]),
-  promoCode: z.string().optional(),
-  birthDate: z.string().optional(),
-  // dual-path: 'member' = bikin/login akun (set cookie, simpan poin),
-  // 'guest' = bayar langsung tanpa akun. Order tetap masuk ke ERP keduanya.
-  accountMode: z.enum(["member", "guest"]).optional(),
-});
 
 function nextOrderNumber() {
   return "TR" + Date.now().toString().slice(-7);
