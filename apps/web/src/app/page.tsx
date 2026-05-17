@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { Bottle } from "@/components/Bottle";
 import { formatRp } from "@/lib/cart";
@@ -251,28 +250,53 @@ export default async function HomePage() {
           </Reveal>
 
           <Reveal delay={0.15}>
-          <div className="relative h-[460px] lg:h-[520px] rounded-md overflow-hidden border-2 border-[var(--tr-ink)] shadow-[6px_8px_0_var(--tr-ink)]">
-            <Image
-              src="/brand/community-1.jpg"
-              alt="Mahasiswa Tujuh Rasa di kampus Bandung"
-              fill
-              sizes="(min-width:1024px) 50vw, 90vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--tr-ink)]/70 via-transparent to-transparent" />
-            <div className="absolute bottom-5 left-5 right-5">
-              <p className="font-hand text-3xl text-[var(--tr-paper)] mb-2">
-                rasakan rasa kita —
-              </p>
-              <p className="font-display font-bold text-2xl text-[var(--tr-paper)] leading-tight">
-                Dari kampus UIN Sunan Gunung Djati,<br />untuk Bandung.
+          <div
+            className="relative h-[460px] lg:h-[520px] rounded-md overflow-hidden border-2 border-[var(--tr-ink)] shadow-[6px_8px_0_var(--tr-ink)] bg-[var(--tr-ink)] text-[var(--tr-paper)]"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 18% 22%, rgba(207,216,168,0.18) 0, transparent 38%), radial-gradient(circle at 82% 78%, rgba(216,160,86,0.22) 0, transparent 42%), repeating-linear-gradient(135deg, rgba(233,222,195,0.04) 0 2px, transparent 2px 14px)",
+            }}
+          >
+            {/* corner stamps */}
+            <div className="absolute top-4 left-4 bg-[var(--tr-mustard)] text-[var(--tr-ink)] border-2 border-[var(--tr-paper)] rounded-sm px-2.5 py-1 shadow-[2px_3px_0_var(--tr-paper)] rotate-[-3deg]">
+              <p className="font-mono text-[10px] uppercase tracking-widest font-bold">
+                cara kerja
               </p>
             </div>
-            <div className="absolute top-4 right-4 bg-[var(--tr-paper)] border-2 border-[var(--tr-ink)] rounded-sm px-2.5 py-1 shadow-[2px_3px_0_var(--tr-ink)]">
+            <div className="absolute top-4 right-4 bg-[var(--tr-paper)] text-[var(--tr-ink)] border-2 border-[var(--tr-paper)] rounded-sm px-2.5 py-1 shadow-[2px_3px_0_var(--tr-paper)]">
               <p className="font-mono text-[10px] uppercase tracking-widest">
                 est. Mei 2025
               </p>
             </div>
+
+            {/* big typography block */}
+            <div className="absolute inset-0 flex flex-col justify-center px-8 lg:px-10">
+              <p className="font-hand text-4xl lg:text-5xl text-[var(--tr-matcha-soft)] mb-3 rotate-[-2deg]">
+                rasakan rasa kita —
+              </p>
+              <p className="font-display font-black text-[clamp(34px,5vw,56px)] leading-[0.95] tracking-tight text-[var(--tr-paper)]">
+                Dari kampus<br />
+                <span className="text-[var(--tr-mustard-soft)]">UIN Sunan Gunung Djati,</span><br />
+                untuk <span className="underline decoration-[var(--tr-brick)] decoration-4 underline-offset-4">Bandung.</span>
+              </p>
+
+              <div className="mt-6 flex flex-wrap gap-2">
+                <span className="font-mono text-[10px] uppercase tracking-widest border-2 border-[var(--tr-paper)] px-2.5 py-1 rounded-sm">
+                  7 rasa
+                </span>
+                <span className="font-mono text-[10px] uppercase tracking-widest border-2 border-[var(--tr-paper)] px-2.5 py-1 rounded-sm bg-[var(--tr-matcha)] text-[var(--tr-ink)] border-[var(--tr-matcha)]">
+                  halal &amp; thayyib
+                </span>
+                <span className="font-mono text-[10px] uppercase tracking-widest border-2 border-[var(--tr-paper)] px-2.5 py-1 rounded-sm">
+                  10–13K / botol
+                </span>
+              </div>
+            </div>
+
+            {/* bottom hand-note */}
+            <p className="absolute bottom-5 left-8 right-8 font-hand text-2xl text-[var(--tr-mustard-soft)] rotate-[-1deg]">
+              ditulis tangan, diseduh segar.
+            </p>
           </div>
           </Reveal>
         </div>
