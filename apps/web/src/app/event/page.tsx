@@ -13,7 +13,7 @@ const EVENTS = [
     title: "Cupping Session — Pengenalan 7 origin",
     date: "Sabtu, 18 Mei 2026",
     time: "16:00 – 18:00 WIB",
-    location: "Booth Tujuh Rasa · Kampus UIN SGD Bandung",
+    location: "Booth Tujuh Rasa · Cibiru, Bandung",
     description:
       "Cicipi 7 origin biji kopi nusantara — Aceh Gayo, Toraja, Bali Kintamani, Flores, Papua Wamena, Java Preanger, Sumatra Mandheling. Belajar cara identifikasi rasa.",
     capacity: 12,
@@ -24,7 +24,7 @@ const EVENTS = [
     title: "Brew Class — V60, Aeropress, Tubruk",
     date: "Minggu, 9 Juni 2026",
     time: "10:00 – 12:30 WIB",
-    location: "Booth Tujuh Rasa · Kampus UIN SGD Bandung",
+    location: "Booth Tujuh Rasa · Cibiru, Bandung",
     description:
       "Belajar 3 metode brewing dari barista kafe. Kamu bawa pulang resep & 1 alat brew (V60 set).",
     capacity: 8,
@@ -35,7 +35,7 @@ const EVENTS = [
     title: "Ngopi Sore — sesi cerita kopi & komunitas",
     date: "Tiap Jumat sore",
     time: "16:00 – 19:00 WIB",
-    location: "Booth Tujuh Rasa · Kampus UIN SGD Bandung",
+    location: "Booth Tujuh Rasa · Cibiru, Bandung",
     description:
       "Sesi nongkrong gratis. Datang aja, kenalan sama pelanggan lain, sharing cerita kopi nusantara.",
     capacity: 30,

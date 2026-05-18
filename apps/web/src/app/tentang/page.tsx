@@ -17,10 +17,9 @@ export default function TentangPage() {
       <section className="container-tr pt-14 pb-20 max-w-4xl">
         <div className="grid lg:grid-cols-2 gap-8 mb-14">
           <p className="text-lg sm:text-xl leading-relaxed">
-            Tujuh Rasa lahir Mei 2025 dari mahasiswa kewirausahaan UIN Sunan
-            Gunung Djati Bandung. Berangkat dari pertanyaan sederhana: kenapa
-            minuman kekinian harus mahal, sulit dicari halalnya, dan jauh
-            dari kantong mahasiswa?
+            Tujuh Rasa lahir Mei 2025 dari dapur kecil di Bandung. Berangkat
+            dari pertanyaan sederhana: kenapa minuman kekinian harus mahal,
+            sulit dicari halalnya, dan jauh dari kantong mahasiswa?
           </p>
           <p className="text-base sm:text-lg leading-relaxed text-[var(--tr-text-soft)]">
             Kami racik tujuh rasa kekinian — kopi susu gula aren, matcha,

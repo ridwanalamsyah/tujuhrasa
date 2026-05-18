@@ -12,8 +12,8 @@ export function Footer() {
             taste the vibe, feel the rasa —
           </p>
           <p className="mt-6 text-sm leading-relaxed text-[var(--tr-paper)]/70 max-w-sm">
-            Kopi &amp; matcha botolan halal dari mahasiswa UIN Sunan Gunung
-            Djati Bandung untuk generasi muda. PET 250ml, segar setiap hari.
+            Kopi &amp; matcha botolan halal dari dapur kecil di Bandung.
+            PET 250ml, segar setiap hari.
           </p>
           <p className="mt-6 font-mono text-[11px] text-[var(--tr-paper)]/50 tracking-widest uppercase">
             Est. Mei 2025 · Bandung
@@ -62,7 +62,7 @@ export function Footer() {
       <div className="border-t border-[var(--tr-paper)]/15">
         <div className="container-tr py-5 flex flex-wrap justify-between gap-3 text-[11px] font-mono uppercase tracking-widest text-[var(--tr-paper)]/50">
           <p>© {new Date().getFullYear()} Tujuh Rasa. Halal &amp; thayyib.</p>
-          <p>UIN Sunan Gunung Djati · Bandung</p>
+          <p>Bandung &middot; sehari-hari</p>
         </div>
       </div>
     </footer>

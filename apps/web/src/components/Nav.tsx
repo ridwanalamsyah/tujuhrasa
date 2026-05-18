@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -47,21 +48,21 @@ export function Nav({ cartCount }: { cartCount: number }) {
   return (
     <header className="sticky top-0 inset-x-0 z-40 bg-[var(--tr-cream)] border-b-2 border-[var(--tr-ink)]">
       <div className="container-tr flex items-center justify-between h-14 sm:h-16">
-        {/* Wordmark */}
+        {/* Wordmark — "7Rasa" handwriting logo */}
         <Link
           href="/"
-          className="flex items-center gap-2 group"
+          className="flex items-center group"
           aria-label="Tujuh Rasa — beranda"
         >
-          <span
-            className="grid place-items-center w-9 h-9 rounded-sm bg-[var(--tr-brick)] text-[var(--tr-paper)] border-2 border-[var(--tr-ink)] font-display font-black text-base leading-none"
-            aria-hidden
-          >
-            7
-          </span>
-          <span className="hidden sm:inline font-display font-black text-lg leading-none tracking-tight">
-            Tujuh Rasa
-          </span>
+          <Image
+            src="/brand/logo-7rasa.png"
+            alt="Tujuh Rasa"
+            width={648}
+            height={226}
+            priority
+            className="h-9 sm:h-10 w-auto select-none"
+            style={{ filter: "drop-shadow(0 1px 0 rgba(0,0,0,0.04))" }}
+          />
         </Link>
 
         {/* Desktop nav */}

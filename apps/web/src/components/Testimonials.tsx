@@ -7,7 +7,7 @@ const ITEMS = [
     quote:
       "Halal jelas, harga 10rban, rasa kafe. Buat bekal ke kelas pagi enak banget, gak perlu mampir kantin lagi.",
     author: "Salma",
-    role: "Mahasiswi UIN SGD · Cibiru",
+    role: "Mahasiswi · Cibiru, Bandung",
   },
   {
     quote:
@@ -25,7 +25,7 @@ const ITEMS = [
     quote:
       "Kopi susu gula arennya juara. Tim kampusnya juga responsif di WA. Senang dukung produk mahasiswa Bandung.",
     author: "Bu Lia",
-    role: "Dosen UIN SGD · Bandung",
+    role: "Dosen · Bandung",
   },
 ];
 

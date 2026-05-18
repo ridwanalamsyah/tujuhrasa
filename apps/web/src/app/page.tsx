@@ -8,8 +8,10 @@ import { TrustGrid } from "@/components/TrustGrid";
 import { Testimonials } from "@/components/Testimonials";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { CoffeePassportTeaser } from "@/components/CoffeePassportTeaser";
+import Image from "next/image";
 import { HeroTujuhRasa } from "@/components/HeroTujuhRasa";
 import { Reveal } from "@/components/Reveal";
+import { PLACEHOLDER_POSTS } from "@/lib/journal-placeholders";
 
 export const dynamic = "force-dynamic";
 
@@ -54,9 +56,9 @@ export default async function HomePage() {
                 </h2>
               </div>
               <p className="text-base sm:text-lg leading-relaxed max-w-md justify-self-start lg:justify-self-end text-[var(--tr-text-soft)]">
-                Dari mahasiswa UIN Sunan Gunung Djati Bandung untuk generasi
-                muda. Diracik segar, halal &amp; thayyib, dengan bahan alami
-                tanpa pengawet — sesuai prinsip muamalah dan etika syariah.
+                Dari dapur kecil di Bandung untuk teman segenerasi. Diracik
+                segar, halal &amp; thayyib, bahan alami tanpa pengawet —
+                jujur takarannya.
               </p>
             </div>
           </Reveal>
@@ -81,7 +83,7 @@ export default async function HomePage() {
               },
               {
                 t: "Antar Bandung",
-                d: "GoSend / GrabExpress sekitar UIN SGD &amp; kampus mitra di Bandung.",
+                d: "GoSend / GrabExpress sekitar Bandung — kos, kampus, kantor.",
                 n: "04",
               },
             ].map((c, i) => (
@@ -275,9 +277,9 @@ export default async function HomePage() {
                 rasakan rasa kita —
               </p>
               <p className="font-display font-black text-[clamp(34px,5vw,56px)] leading-[0.95] tracking-tight text-[var(--tr-paper)]">
-                Dari kampus<br />
-                <span className="text-[var(--tr-mustard-soft)]">UIN Sunan Gunung Djati,</span><br />
-                untuk <span className="underline decoration-[var(--tr-brick)] decoration-4 underline-offset-4">Bandung.</span>
+                Dari dapur kecil<br />
+                <span className="text-[var(--tr-mustard-soft)]">di pojokan Bandung,</span><br />
+                untuk <span className="underline decoration-[var(--tr-brick)] decoration-4 underline-offset-4">kamu.</span>
               </p>
 
               <div className="mt-6 flex flex-wrap gap-2">
@@ -309,38 +311,67 @@ export default async function HomePage() {
       <CoffeePassportTeaser />
 
       {/* ─────────────── JURNAL ─────────────── */}
-      {posts.length > 0 && (
-        <section className="bg-[var(--tr-ink)] text-[var(--tr-paper)] border-y-2 border-[var(--tr-ink)]">
-          <div className="container-tr py-16 lg:py-24">
-            <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
-              <div>
-                <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-[var(--tr-mustard-soft)] mb-3">
-                  Jurnal
-                </p>
-                <h2 className="font-display font-black text-[clamp(32px,4.5vw,64px)] leading-[0.96] tracking-tight">
-                  Cerita dari kedai.
-                </h2>
-              </div>
-              <Link
-                href="/cerita"
-                className="font-mono text-xs uppercase tracking-widest tr-link text-[var(--tr-mustard-soft)]"
-              >
-                Semua cerita →
-              </Link>
+      <section className="bg-[var(--tr-ink)] text-[var(--tr-paper)] border-y-2 border-[var(--tr-ink)]">
+        <div className="container-tr py-16 lg:py-24">
+          <Reveal>
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
+            <div>
+              <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-[var(--tr-mustard-soft)] mb-3">
+                Jurnal
+              </p>
+              <h2 className="font-display font-black text-[clamp(32px,4.5vw,64px)] leading-[0.96] tracking-tight">
+                Cerita dari kedai.
+              </h2>
+              <p className="font-hand text-2xl text-[var(--tr-matcha-soft)] mt-3 -rotate-[1deg]">
+                catatan-catatan kecil —
+              </p>
             </div>
+            <Link
+              href="/cerita"
+              className="font-mono text-xs uppercase tracking-widest tr-link text-[var(--tr-mustard-soft)]"
+            >
+              Semua cerita →
+            </Link>
+          </div>
+          </Reveal>
 
-            <div className="grid md:grid-cols-3 gap-5">
-              {posts.map((p) => (
+          <Reveal delay={0.1}>
+          <div className="grid md:grid-cols-3 gap-5">
+            {(posts.length > 0
+              ? posts.map((p) => ({
+                  id: String(p.id),
+                  slug: p.slug,
+                  title: p.title,
+                  excerpt: p.excerpt,
+                  author: p.author,
+                  cover: p.cover,
+                  createdAt: new Date(p.createdAt).toISOString(),
+                }))
+              : PLACEHOLDER_POSTS.slice(0, 3)
+            ).map((p) => {
+              const hasImage = /^https?:\/\//.test(p.cover);
+              return (
                 <Link
                   key={p.id}
                   href={`/cerita/${p.slug}`}
                   className="group block rounded-md border-2 border-[var(--tr-paper)] overflow-hidden hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[3px_4px_0_var(--tr-paper)] transition-all"
                 >
-                  <div
-                    className="aspect-[4/3] flex items-end p-5 border-b-2 border-[var(--tr-paper)]"
-                    style={{ background: p.cover }}
-                  >
-                    <p className="font-mono text-[10px] uppercase tracking-widest opacity-80">
+                  <div className="relative aspect-[4/3] border-b-2 border-[var(--tr-paper)] overflow-hidden">
+                    {hasImage ? (
+                      <Image
+                        src={p.cover}
+                        alt=""
+                        fill
+                        sizes="(min-width:768px) 33vw, 100vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                      />
+                    ) : (
+                      <div
+                        className="absolute inset-0"
+                        style={{ background: p.cover }}
+                      />
+                    )}
+                    <p className="absolute left-3 bottom-3 z-10 font-mono text-[10px] uppercase tracking-widest text-[var(--tr-paper)] bg-[var(--tr-ink)]/65 px-2 py-0.5 rounded-sm">
                       {new Date(p.createdAt).toLocaleDateString("id-ID")}
                     </p>
                   </div>
@@ -356,11 +387,12 @@ export default async function HomePage() {
                     </p>
                   </div>
                 </Link>
-              ))}
-            </div>
+              );
+            })}
           </div>
-        </section>
-      )}
+          </Reveal>
+        </div>
+      </section>
 
       {/* ─────────────── FAQ ─────────────── */}
       <FaqAccordion />

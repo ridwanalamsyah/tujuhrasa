@@ -31,7 +31,7 @@ const CARBON_ITEMS = [
 const BOTTLE_PROGRAM = [
   { step: "01", title: "Beli botol", desc: "harga botol Rp 10rb sudah termasuk Rp 2rb deposit botol kaca." },
   { step: "02", title: "Habiskan kopinya 😊", desc: "boleh disimpan di kulkas sampai 5 hari setelah botol dibuka." },
-  { step: "03", title: "Cuci & kembalikan", desc: "ke booth kami di kampus UIN SGD Bandung, atau kurir akan jemput saat order berikutnya." },
+  { step: "03", title: "Cuci & kembalikan", desc: "ke booth kami di Cibiru, Bandung, atau kurir akan jemput saat order berikutnya." },
   { step: "04", title: "Dapat Rp 2rb balik", desc: "auto-credit ke poin loyalti kamu (2 poin = Rp 2rb diskon order berikutnya)." },
 ];
 
@@ -45,7 +45,7 @@ const FAQ = [
   { q: "Halal?", a: "Iya, kopi & susu sapi sudah bersertifikat MUI 2024-2027. Kafein dalam batas aman puasa." },
   { q: "Bisa langganan?", a: "Bisa. Cek halaman /langganan untuk paket weekly / biweekly / monthly." },
   { q: "Apa beda dengan kopi botolan lain?", a: "Kami pakai biji kopi single-origin Indonesia, bukan kopi instan / robusta murah. Botol kaca, bukan plastik. Diantar dingin, bukan suhu ruang." },
-  { q: "Ada cabangnya di luar Bandung?", a: "Belum. Dapur produksi di sekitar UIN Sunan Gunung Djati Bandung. Tapi kami antar ke seluruh Indonesia via kurir cold-chain." },
+  { q: "Ada cabangnya di luar Bandung?", a: "Belum. Dapur produksi di Bandung. Tapi kami antar ke seluruh Indonesia via kurir cold-chain." },
 ];
 import Link from "next/link";
 import { NewsletterForm } from "@/components/NewsletterForm";

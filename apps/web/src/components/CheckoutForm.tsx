@@ -232,13 +232,13 @@ export function CheckoutForm({ subtotalIdr }: { subtotalIdr: number }) {
           <div>
             <p className="font-display font-bold leading-tight">
               {mode === "account"
-                ? "Checkout dengan akun"
-                : "Checkout langsung (tamu)"}
+                ? "Buat akun → dapet poin"
+                : "Bayar tanpa akun"}
             </p>
             <p className="text-xs text-[var(--tr-text-muted)]">
               {mode === "account"
-                ? "Order tersimpan, poin loyalti aktif, alamat diingat."
-                : "Tanpa daftar — pesanan langsung tercatat di ERP."}
+                ? "Poin loyalti aktif, alamat & profil tersimpan."
+                : "Tanpa daftar — langsung bayar, otomatis masuk sistem."}
             </p>
           </div>
         </div>
@@ -363,9 +363,12 @@ function ModePicker({ onPick }: { onPick: (m: Mode) => void }) {
     <div className="space-y-4">
       <p className="eyebrow">Cara checkout</p>
       <p className="text-[var(--tr-text-soft)] max-w-prose">
-        Pilih bagaimana kamu mau lanjut. Apa pun pilihanmu, pesanan otomatis
-        tercatat di sistem Tujuh Rasa dan kurir GoSend/GrabExpress kami segera
-        dikirimkan ke alamat di Bandung &amp; sekitar.
+        Dua jalur, satu sistem. Apa pun pilihanmu, pesananmu otomatis
+        tercatat di Tujuh Rasa dan dikirim via GoSend / GrabExpress sekitar
+        Bandung.
+      </p>
+      <p className="font-hand text-2xl text-[var(--tr-brick-deep)] -rotate-[1deg]">
+        santai aja, bisa upgrade nanti —
       </p>
 
       <div className="grid sm:grid-cols-2 gap-4">
@@ -378,15 +381,16 @@ function ModePicker({ onPick }: { onPick: (m: Mode) => void }) {
             <UserPlus className="h-5 w-5" />
           </span>
           <p className="font-display font-black text-2xl leading-tight">
-            Punya akun.
+            Buat akun → dapet poin.
           </p>
           <p className="font-hand text-2xl text-[var(--tr-brick-deep)] mt-1">
-            simpan poin &amp; alamat —
+            7 poin / botol, alamat tersimpan —
           </p>
           <ul className="mt-4 space-y-2 text-sm text-[var(--tr-text-soft)] leading-relaxed">
             <li>· Riwayat order &amp; resi tersimpan</li>
             <li>· Poin loyalti aktif (7 poin / botol)</li>
             <li>· Alamat &amp; profil otomatis terisi</li>
+            <li>· Diskon ulang tahun &amp; promo member</li>
           </ul>
         </button>
         <button
@@ -398,15 +402,16 @@ function ModePicker({ onPick }: { onPick: (m: Mode) => void }) {
             <Zap className="h-5 w-5" />
           </span>
           <p className="font-display font-black text-2xl leading-tight">
-            Bayar langsung.
+            Bayar tanpa akun.
           </p>
           <p className="font-hand text-2xl text-[var(--tr-cocoa)] mt-1">
-            checkout tamu, no signup —
+            langsung bayar, no signup —
           </p>
           <ul className="mt-4 space-y-2 text-sm text-[var(--tr-text-soft)] leading-relaxed">
             <li>· Tanpa daftar, isi alamat &amp; bayar</li>
             <li>· Order tetap masuk ke ERP otomatis</li>
-            <li>· Bisa upgrade ke akun nanti</li>
+            <li>· Bisa upgrade ke akun kapan saja</li>
+            <li>· Tanpa poin loyalti</li>
           </ul>
         </button>
       </div>

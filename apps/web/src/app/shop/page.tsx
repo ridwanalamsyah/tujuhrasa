@@ -47,7 +47,7 @@ export default async function ShopPage({
               </p>
             </div>
             <p className="text-base sm:text-lg leading-relaxed text-[var(--tr-text-soft)] max-w-md">
-              Tujuh varian rasa kekinian, dibuat segar di dapur kampus UIN SGD.
+              Tujuh varian rasa kekinian, dibuat segar di dapur kecil Bandung.
               Halal &amp; thayyib, harga{" "}
               <span className="tr-highlight">10–13 ribu</span>, antar GoSend /
               GrabExpress sekitar Bandung. Klik untuk lihat detail rasa.

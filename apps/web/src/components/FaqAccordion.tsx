@@ -9,7 +9,7 @@ const FAQS = [
   },
   {
     q: "Berapa lama waktu pengiriman?",
-    a: "Sekitar Bandung pakai GoSend / GrabExpress — estimasi 1–3 jam tergantung jarak dari kampus UIN SGD. Pesan sebelum jam 17:00 WIB. Untuk kota lain, antar lewat ekspedisi dingin 1–2 hari kerja.",
+    a: "Sekitar Bandung pakai GoSend / GrabExpress — estimasi 1–3 jam tergantung jarak dari dapur kami. Pesan sebelum jam 17:00 WIB. Untuk kota lain, antar lewat ekspedisi dingin 1–2 hari kerja.",
   },
   {
     q: "Apakah ada langganan mingguan?",
@@ -29,7 +29,7 @@ const FAQS = [
   },
   {
     q: "Apakah ada cabang fisik?",
-    a: "Saat ini Tujuh Rasa beroperasi dari kampus UIN Sunan Gunung Djati Bandung. Sering nongol di event pop-up kampus dan komunitas — pantau IG @tujuh.rasa.",
+    a: "Saat ini Tujuh Rasa beroperasi dari dapur kecil di Bandung. Sering nongol di event pop-up kampus dan komunitas — pantau IG @tujuh.rasa.",
   },
   {
     q: "Cara dapat poin & reward?",
