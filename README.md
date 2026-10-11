@@ -24,6 +24,7 @@ Dibangun sebagai single-repo Next.js app dengan API routes bawaan, Prisma ORM
 **Admin/Backend**
 - Admin dashboard (`/admin`) — produk live ERP, pesanan, langganan, ringkasan revenue, sync log
 - Admin gate via password (`/admin/login`, env `ADMIN_PASSWORD`, cookie `tr_admin` 7 hari, HMAC-SHA256)
+- ERP (`/erp`) — aplikasi ERP statis dari `apps/erp`, disalin ke `apps/web/public/erp` oleh `scripts/copy-erp.mjs` saat `dev`/`build`. Dikunci password admin yang sama (cookie `tr_admin`), lalu login akun ERP seperti biasa
 - API routes:
   - `GET /api/products` — list (filter by `?cat=Kopi|Matcha|Susu|Seasonal`) — dibaca dari ERP
   - `GET/POST /api/cart` — list/add

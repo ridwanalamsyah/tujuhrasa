@@ -1,5 +1,5 @@
 // Service Worker — cache-first untuk shell statis.
-const CACHE = 'tujuhrasa-v15-nested-nav';
+const CACHE = 'tujuhrasa-v16-merged';
 const ASSETS = [
   './',
   './index.html',
@@ -14,7 +14,7 @@ self.addEventListener('install', (e) => {
 
 self.addEventListener('activate', (e) => {
   e.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+    caches.keys().then((keys) => Promise.all(keys.filter((k) => k.startsWith('tujuhrasa-') && k !== CACHE).map((k) => caches.delete(k))))
   );
   self.clients.claim();
 });
@@ -25,7 +25,7 @@ self.addEventListener('fetch', (e) => {
   if (req.url.includes('accounts.google.com')) return;
   // Network-first untuk asset HTML/CSS/JS (selalu pull versi terbaru), fallback cache jika offline.
   const url = new URL(req.url);
-  const isAsset = /\.(html|css|js|webmanifest)$/i.test(url.pathname) || url.pathname === '/' || url.pathname.endsWith('/');
+  const isAsset = req.mode === 'navigate' || /\.(html|css|js|webmanifest)$/i.test(url.pathname) || url.pathname === '/' || url.pathname.endsWith('/');
   if (isAsset) {
     e.respondWith(
       fetch(req).then((r) => {

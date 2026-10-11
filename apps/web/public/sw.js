@@ -1,5 +1,5 @@
 // Tujuh Rasa Service Worker — minimal app-shell + offline cache
-const CACHE = "tr-cache-v1";
+const CACHE = "tr-cache-v2";
 const SHELL = ["/", "/shop", "/manifest.json", "/icon-192.svg", "/icon-512.svg"];
 
 self.addEventListener("install", (e) => {
@@ -12,7 +12,7 @@ self.addEventListener("install", (e) => {
 self.addEventListener("activate", (e) => {
   e.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
+      Promise.all(keys.filter((k) => k.startsWith("tr-cache-") && k !== CACHE).map((k) => caches.delete(k)))
     )
   );
   self.clients.claim();
@@ -24,6 +24,8 @@ self.addEventListener("fetch", (e) => {
   const url = new URL(req.url);
   // Skip API & supabase
   if (url.pathname.startsWith("/api/")) return;
+  // ERP punya service worker sendiri (/erp/sw.js)
+  if (url.pathname.startsWith("/erp/") || url.pathname === "/erp") return;
   if (url.hostname.includes("supabase.co")) return;
   // Network-first for HTML, cache-first for assets
   if (req.headers.get("accept")?.includes("text/html")) {
