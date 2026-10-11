@@ -46,12 +46,10 @@ export default async function AdminPage() {
               ERP {erpEnabled ? "tersambung" : "off"}
             </span>
             <a
-              href="https://tujuhrasa-erp.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/erp"
               className="font-mono text-[10px] uppercase tracking-widest px-2 py-1 rounded-sm border-2 border-[var(--tr-ink)] hover:bg-[var(--tr-ink)] hover:text-[var(--tr-paper)] transition"
             >
-              Buka ERP ↗
+              Buka ERP →
             </a>
             <div className="ml-auto">
               <AdminLogout />

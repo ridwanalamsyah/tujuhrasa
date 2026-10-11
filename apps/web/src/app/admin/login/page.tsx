@@ -8,7 +8,10 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const sp = useSearchParams();
-  const next = sp.get("next") ?? "/admin";
+  // Hanya terima path lokal (cegah redirect ke situs lain lewat ?next=//...).
+  const rawNext = sp.get("next") ?? "";
+  const next =
+    rawNext.startsWith("/") && !rawNext.startsWith("//") ? rawNext : "/admin";
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,6 +27,11 @@ export default function AdminLoginPage() {
         const j = await res.json().catch(() => ({}));
         setErr(j.error ?? "Password salah.");
         setLoading(false);
+        return;
+      }
+      // ERP bukan halaman Next.js, jadi perlu muat ulang penuh.
+      if (next === "/erp" || next.startsWith("/erp/")) {
+        window.location.assign(next);
         return;
       }
       router.push(next);
