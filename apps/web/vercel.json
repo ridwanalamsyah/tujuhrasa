@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
-  "buildCommand": "node scripts/copy-erp.mjs && prisma generate && prisma db push --accept-data-loss --skip-generate && tsx prisma/seed-prod.ts && next build",
+  "buildCommand": "node scripts/copy-erp.mjs && prisma generate && (prisma db push --accept-data-loss --skip-generate && tsx prisma/seed-prod.ts || echo \"[build] PERINGATAN: database tidak bisa dihubungi, db push & seed dilewati\") && next build",
   "installCommand": "cd ../.. && npm install",
   "regions": ["sin1"]
 }
