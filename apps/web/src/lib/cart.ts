@@ -4,7 +4,7 @@ import { prisma } from "./prisma";
 export const CART_COOKIE = "tujuhrasa_cart";
 
 export async function getOrCreateCart() {
-  const jar = cookies();
+  const jar = await cookies();
   let cartId = jar.get(CART_COOKIE)?.value;
   try {
     if (cartId) {
@@ -32,7 +32,7 @@ export async function getOrCreateCart() {
 }
 
 export async function getCart() {
-  const jar = cookies();
+  const jar = await cookies();
   const cartId = jar.get(CART_COOKIE)?.value;
   if (!cartId) return null;
   try {

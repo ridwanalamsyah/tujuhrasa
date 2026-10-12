@@ -7,11 +7,12 @@ import { formatRp } from "@/lib/cart";
 
 export const dynamic = "force-dynamic";
 
-export default async function ShopPage({
-  searchParams,
-}: {
-  searchParams: { cat?: string };
-}) {
+export default async function ShopPage(
+  props: {
+    searchParams: Promise<{ cat?: string }>;
+  }
+) {
+  const searchParams = await props.searchParams;
   const cat = searchParams.cat;
   const [products, categories] = await Promise.all([
     getProductsForDisplay({ cat }),

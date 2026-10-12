@@ -4,7 +4,8 @@ import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
+export default async function PostPage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const post = await prisma.journalPost.findUnique({ where: { slug: params.slug } });
   if (!post) notFound();
   const related = await prisma.journalPost.findMany({ where: { slug: { not: post.slug } }, take: 2 });

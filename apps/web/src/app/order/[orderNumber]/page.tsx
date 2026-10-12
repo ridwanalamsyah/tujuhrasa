@@ -7,7 +7,8 @@ import { WhatsappShare } from "@/components/WhatsappShare";
 
 export const dynamic = "force-dynamic";
 
-export default async function OrderConfirmation({ params }: { params: { orderNumber: string } }) {
+export default async function OrderConfirmation(props: { params: Promise<{ orderNumber: string }> }) {
+  const params = await props.params;
   const order = await prisma.order.findUnique({
     where: { orderNumber: params.orderNumber },
     include: { items: true },
