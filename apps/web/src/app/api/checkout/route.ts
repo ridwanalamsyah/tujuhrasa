@@ -189,13 +189,13 @@ export async function POST(req: Request) {
 
   // Empty cart, rotate cookie
   await prisma.cartItem.deleteMany({ where: { cartId: cart.id } });
-  cookies().delete(CART_COOKIE);
+  (await cookies()).delete(CART_COOKIE);
 
   // Dual-path: kalau user pilih 'member', set cookie ringan supaya next visit
   // langsung pre-select mode 'account'. Tidak menggantikan auth sebenarnya
   // (magic-link / OTP) — itu di-track terpisah di Sprint 1.
   if (parsed.data.accountMode === "member") {
-    cookies().set("tr_member", parsed.data.customerEmail, {
+    (await cookies()).set("tr_member", parsed.data.customerEmail, {
       httpOnly: false,
       sameSite: "lax",
       maxAge: 60 * 60 * 24 * 90,

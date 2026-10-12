@@ -62,7 +62,7 @@ export async function isValidAdminToken(token: string | undefined): Promise<bool
 }
 
 export async function isAuthed(): Promise<boolean> {
-  const c = cookies().get(COOKIE)?.value;
+  const c = (await cookies()).get(COOKIE)?.value;
   return isValidAdminToken(c);
 }
 

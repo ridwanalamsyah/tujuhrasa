@@ -7,7 +7,8 @@ const PatchSchema = z.object({
   quantity: z.number().int().min(0).max(50),
 });
 
-export async function PATCH(req: Request, { params }: { params: { itemId: string } }) {
+export async function PATCH(req: Request, props: { params: Promise<{ itemId: string }> }) {
+  const params = await props.params;
   const body = await req.json();
   const parsed = PatchSchema.safeParse(body);
   if (!parsed.success) {
@@ -26,7 +27,8 @@ export async function PATCH(req: Request, { params }: { params: { itemId: string
   return NextResponse.json({ cart, ...cartTotals(cart) });
 }
 
-export async function DELETE(_req: Request, { params }: { params: { itemId: string } }) {
+export async function DELETE(_req: Request, props: { params: Promise<{ itemId: string }> }) {
+  const params = await props.params;
   const id = Number(params.itemId);
   await prisma.cartItem.delete({ where: { id } }).catch(() => {});
   const cart = await getOrCreateCart();

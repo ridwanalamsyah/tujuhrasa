@@ -13,7 +13,8 @@ import { getProductForDisplayBySlug, getRelatedProducts } from "@/lib/products";
 
 export const dynamic = "force-dynamic";
 
-export default async function ProductPage({ params }: { params: { slug: string } }) {
+export default async function ProductPage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const product = await getProductForDisplayBySlug(params.slug);
   if (!product) notFound();
 
