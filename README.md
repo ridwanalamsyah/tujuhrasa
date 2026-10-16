@@ -7,6 +7,10 @@ Menu (kopi, matcha, susu, seasonal) dibaca real-time dari ERP Tujuh Rasa di Supa
 Dibangun sebagai single-repo Next.js app dengan API routes bawaan, Prisma ORM
 (stub by-SKU untuk FK keranjang), dan SQLite untuk preview lokal.
 
+> **Website Dahan Kopi** ada di folder [`dahan-kopi/`](dahan-kopi/README.md): project Next.js
+> terpisah (bukan bagian dari npm workspaces di repo ini). Jalankan dengan
+> `cd dahan-kopi && npm install && npm run dev`.
+
 ## Fitur
 
 **Customer-facing**

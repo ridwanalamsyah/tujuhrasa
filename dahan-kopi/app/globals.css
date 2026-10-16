@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+/*
+ * Palet Dahan Kopi (mengikuti buku menu).
+ * Pakai di komponen sebagai kelas Tailwind, mis. `bg-espresso`, `text-coffee`.
+ */
+@theme {
+  --color-espresso: #2b1d16;
+  --color-coffee: #5a3e2b;
+  --color-cream: #f6f1ea;
+  --color-sand: #ede4d8;
+  --color-line: #e2d6c8;
+  --color-muted: #6b5b4f;
+  --color-leaf: #4f6b45;
+  --color-leaf-soft: #a8bf9c;
+  --color-cream-muted: #c9b8a6;
+
+  --shadow-soft: 0 1px 2px rgb(43 29 22 / 0.04), 0 8px 24px -12px rgb(43 29 22 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(43 29 22 / 0.05), 0 18px 40px -18px rgb(43 29 22 / 0.28);
+
+  --radius-card: 0.875rem;
+
+  --ease-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  --animate-rise: rise 0.9s var(--ease-soft) both;
+}
+
+@theme inline {
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-instrument), "Times New Roman", ui-serif, serif;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+:root {
+  --header-h: 4.5rem;
+}
+
+@layer base {
+  html {
+    scroll-padding-top: calc(var(--header-h) + 1.5rem);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    @apply bg-cream font-sans text-espresso antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-coffee);
+    color: var(--color-cream);
+  }
+
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Judul serif condensed uppercase, seperti judul di buku menu. */
+  .heading-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 0.95;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+  }
+
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+}
+
+/* Fade-in saat scroll (lihat components/ui/RevealObserver.tsx). */
+[data-reveal-state="hidden"] {
+  opacity: 0;
+  transform: translateY(1.25rem);
+}
+
+[data-reveal-state="visible"] {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.9s var(--ease-soft),
+    transform 0.9s var(--ease-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal-state] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
