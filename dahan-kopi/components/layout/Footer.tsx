@@ -18,7 +18,7 @@ export function Footer() {
   return (
     <footer
       id="lokasi"
-      className="mt-20 scroll-mt-(--header-h) bg-espresso pb-[calc(2.5rem+env(safe-area-inset-bottom))] pt-14 text-cream lg:mt-32 lg:pb-10 lg:pt-20"
+      className="mt-20 bg-espresso pb-[calc(2.5rem+env(safe-area-inset-bottom))] pt-14 text-cream lg:mt-32 lg:pb-10 lg:pt-20"
     >
       <Container>
         <div className="lg:grid lg:grid-cols-12 lg:gap-6">
@@ -41,7 +41,7 @@ export function Footer() {
             <div className="mt-8">
               <h3 className="text-micro text-cream-muted">{location.hoursLabel}</h3>
               <HoursList className="mt-2 max-w-[22rem]" />
-              <StatusLine onDark className="mt-3 text-small" />
+              <StatusLine onDark live={false} className="mt-3 text-small" />
             </div>
 
             <div className="mt-8">
@@ -82,8 +82,8 @@ export function Footer() {
           <p className="display-3 max-w-[48rem]" lang="en">
             {site.closingTagline}
           </p>
-          <TextLink href={contact.instagram.url} onDark lang="en" className="mt-4 shrink-0 lg:mt-0">
-            {site.closingCta}
+          <TextLink href={contact.instagram.url} onDark className="mt-4 shrink-0 lg:mt-0">
+            <span lang="en">{site.closingCta}</span>
           </TextLink>
         </div>
 

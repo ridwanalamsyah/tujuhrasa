@@ -1,5 +1,8 @@
+import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { TextLink } from "@/components/ui/TextLink";
+
+export const metadata: Metadata = { title: "Halaman tidak ketemu" };
 
 export default function NotFound() {
   return (

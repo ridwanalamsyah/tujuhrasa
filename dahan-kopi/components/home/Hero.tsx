@@ -23,7 +23,7 @@ export function Hero() {
             <span className="sr-only">{site.name}: </span>
             <span lang="en">
               {hero.taglineLines.map((line) => (
-                <span key={line} className="lg:block">
+                <span key={line} className="block">
                   {line}{" "}
                 </span>
               ))}

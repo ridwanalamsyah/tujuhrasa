@@ -37,15 +37,18 @@ export function MenuRow({ item, compact = false }: { item: MenuItem; compact?: b
           {item.description}
           {item.tags && item.tags.length > 0 && (
             <span className="text-[0.8125rem] text-coffee">
-              {item.description ? " · " : ""}
-              {item.tags.join(" / ")}
+              {/* Spasi tak terputus: "aren. · HOT / ICE" pindah baris bersama, tanpa "·" di awal baris. */}
+              <span className="whitespace-nowrap">
+                {item.description ? "\u00a0· " : ""}
+                {item.tags.join(" / ")}
+              </span>
             </span>
           )}
         </p>
       )}
       {item.image && (
         <div className="relative mt-3 aspect-3/2 w-40 overflow-hidden bg-ph-day">
-          <Image src={item.image} alt={item.name} fill sizes="160px" className="object-cover" />
+          <Image src={item.image} alt="" fill sizes="160px" className="object-cover" />
         </div>
       )}
     </li>

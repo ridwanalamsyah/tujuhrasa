@@ -35,8 +35,8 @@ Semua konten ada di **`data/site.ts`**. Komponen tidak perlu disentuh.
 - **Jam buka**: bagian `openingHours`, format 24 jam.
 
   ```ts
-  { label: "Senin – Jumat", days: ["mon", "tue", "wed", "thu", "fri"], open: "08:00", close: "22:00" },
-  { label: "Sabtu – Minggu", days: ["sat", "sun"], open: "08:00", close: "23:00" },
+  { label: "Senin–Jumat", days: ["mon", "tue", "wed", "thu", "fri"], open: "08:00", close: "22:00" },
+  { label: "Sabtu–Minggu", days: ["sat", "sun"], open: "08:00", close: "23:00" },
   ```
 
   Kode hari: `mon` `tue` `wed` `thu` `fri` `sat` `sun`. Hari yang tidak dicantumkan dianggap libur.

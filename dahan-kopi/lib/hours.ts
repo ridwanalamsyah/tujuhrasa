@@ -53,8 +53,8 @@ export function isOpenEveryDay(rules: OpeningHoursRule[] = openingHours): boolea
 }
 
 /**
- * Ringkasan jam buka satu baris, mis. "08.00–22.00, Sabtu – Minggu sampai 23.00".
- * Jika ada hari libur: "Senin – Jumat 08.00–22.00, Sabtu 09.00–15.00".
+ * Ringkasan jam buka satu baris, mis. "08.00–22.00, Sabtu–Minggu sampai 23.00".
+ * Jika ada hari libur: "Senin–Jumat 08.00–22.00, Sabtu 09.00–15.00".
  */
 export function hoursSummary(rules: OpeningHoursRule[] = openingHours): string {
   const [first, ...rest] = rules;

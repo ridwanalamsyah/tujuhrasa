@@ -35,8 +35,14 @@ export function Navbar() {
     if (!open) return;
     const root = document.documentElement;
     const toggle = toggleRef.current;
+    const overlay = overlayRef.current;
     root.style.overflow = "hidden";
-    overlayRef.current?.querySelector<HTMLElement>("nav a")?.focus();
+    // Selama navigasi terbuka, semua di luar panel tidak bisa difokus (header, isi, footer, tombol WA).
+    const outside = [...document.body.children].filter(
+      (el): el is HTMLElement => el instanceof HTMLElement && el !== overlay && !el.inert,
+    );
+    outside.forEach((el) => (el.inert = true));
+    overlay?.querySelector<HTMLElement>("nav a")?.focus({ preventScroll: true });
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         restoreFocus.current = true;
@@ -50,10 +56,10 @@ export function Navbar() {
     desktop.addEventListener("change", onResize);
     return () => {
       root.style.overflow = "";
+      outside.forEach((el) => (el.inert = false));
       window.removeEventListener("keydown", onKey);
       desktop.removeEventListener("change", onResize);
-      // Berjalan setelah header tidak lagi `inert`, jadi fokus bisa dipindahkan.
-      if (restoreFocus.current) toggle?.focus();
+      if (restoreFocus.current) toggle?.focus({ preventScroll: true });
       restoreFocus.current = false;
     };
   }, [open]);
@@ -64,7 +70,7 @@ export function Navbar() {
         href="/"
         aria-label="Dahan Kopi, halaman utama"
         className="-mx-1 inline-flex min-h-11 items-center px-1"
-        onClick={isOverlay ? () => close(false) : undefined}
+        onClick={isOverlay ? () => close(pathname === "/") : undefined}
       >
         <LogoLockup />
       </Link>
@@ -77,16 +83,14 @@ export function Navbar() {
                 <Link
                   href={item.href}
                   aria-current={isActive(pathname, item.href) ? "page" : undefined}
-                  className="inline-flex min-h-11 items-center text-[0.9375rem] font-medium decoration-1 underline-offset-[6px] hover:underline aria-[current=page]:underline"
+                  className="inline-flex min-h-11 min-w-11 items-center justify-center text-[0.9375rem] font-medium decoration-1 underline-offset-[6px] hover:underline aria-[current=page]:underline"
                 >
                   {item.label}
                 </Link>
               </li>
             ))}
           </ul>
-          <Button href={reservation} className="h-10!">
-            {features.reservation.label}
-          </Button>
+          <Button href={reservation}>{features.reservation.label}</Button>
         </nav>
       )}
 
@@ -113,9 +117,7 @@ export function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-line bg-cream" inert={open}>
-        {bar(false)}
-      </header>
+      <header className="sticky top-0 z-40 border-b border-line bg-cream">{bar(false)}</header>
 
       <div
         id="navigasi-mobile"
@@ -133,14 +135,15 @@ export function Navbar() {
       >
         <div className="border-b border-line">{bar(true)}</div>
         <div className="flex flex-1 flex-col px-4 sm:px-6">
-          <nav aria-label="Navigasi mobile" className="pt-10">
+          <nav aria-label="Navigasi halaman" className="pt-10">
             <ul>
               {navigation.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
                     aria-current={isActive(pathname, item.href) ? "page" : undefined}
-                    onClick={() => close(false)}
+                    // Link ke halaman yang sedang dibuka: kembalikan fokus ke tombol menu.
+                    onClick={() => close(isActive(pathname, item.href))}
                     className="display-1 flex min-h-14 items-center leading-[1.1] decoration-2 underline-offset-[0.12em] aria-[current=page]:underline"
                   >
                     {item.label}
@@ -155,7 +158,7 @@ export function Navbar() {
           </Button>
 
           <div className="mt-auto space-y-1 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-10 text-small">
-            <StatusLine />
+            <StatusLine live={false} />
             <p className="text-muted">{address.short}</p>
             <TextLink href={contact.instagram.url}>@{contact.instagram.handle}</TextLink>
           </div>

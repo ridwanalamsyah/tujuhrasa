@@ -26,7 +26,7 @@ export const menuPage = {
   priceNote: "Harga dalam ribu rupiah.",
   pdfLabel: "Unduh buku menu (PDF)",
   deliveryLabel: "Pesan antar:",
-  note: "Harga bisa berubah sewaktu-waktu. Ada menu musiman, tanya di bar.",
+  note: "Harga bisa berubah sewaktu-waktu.",
 };
 
 export const menu: MenuCategory[] = [
@@ -60,11 +60,11 @@ export const menu: MenuCategory[] = [
   {
     id: "manual-brew",
     name: "Manual Brew",
-    description: "Single origin, bergantian",
+    description: "Seduh manual per cangkir",
     items: [
       {
         name: "V60",
-        description: "Seduh tangan, tanyakan biji yang tersedia hari ini.",
+        description: "Diseduh manual dengan dripper V60.",
         price: 30000,
         tags: ["HOT", "ICE"],
         featured: true,

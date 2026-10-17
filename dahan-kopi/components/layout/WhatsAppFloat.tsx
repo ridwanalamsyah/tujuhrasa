@@ -14,6 +14,7 @@ export function WhatsAppFloat() {
   useEffect(() => {
     let lastY = window.scrollY;
     let goingUp = false;
+    let upRun = 0;
     let footerInView = false;
     let frame = 0;
 
@@ -21,9 +22,14 @@ export function WhatsAppFloat() {
       frame = 0;
       const y = window.scrollY;
       const dy = y - lastY;
-      // Naik sedikit saja sudah muncul; turun baru dihitung setelah lebih dari 8px.
-      if (dy < 0 || dy > 8) {
-        goingUp = dy < 0;
+      // Muncul setelah naik ±32px; sembunyi begitu turun lebih dari 8px.
+      if (dy < 0) {
+        upRun -= dy;
+        lastY = y;
+        if (upRun > 32) goingUp = true;
+      } else if (dy > 8) {
+        upRun = 0;
+        goingUp = false;
         lastY = y;
       }
       setVisible(y > window.innerHeight * 0.6 && goingUp && !footerInView);

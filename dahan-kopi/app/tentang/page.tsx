@@ -33,7 +33,9 @@ export default function AboutPage() {
     <>
       <Container className="pb-6 pt-8 lg:grid lg:grid-cols-12 lg:items-end lg:gap-6 lg:pb-12 lg:pt-16">
         <h1 className="display-1 lg:col-span-6">{about.title}</h1>
-        <p className="body-lg mt-3 lg:col-span-5 lg:col-start-8 lg:mt-0">{about.lead}</p>
+        <p className="body-lg mt-3 max-w-[40rem] lg:col-span-5 lg:col-start-8 lg:mt-0">
+          {about.lead}
+        </p>
       </Container>
 
       <Photo image={about.image} ratio="aspect-4/3 lg:aspect-21/9" sizes="100vw" preload />
@@ -53,7 +55,7 @@ export default function AboutPage() {
             </dl>
           )}
         </div>
-        <div className="body-lg mt-5 max-w-[60ch] space-y-5 lg:col-span-6 lg:col-start-6 lg:mt-0">
+        <div className="body-lg mt-5 max-w-[40rem] space-y-5 lg:col-span-6 lg:col-start-6 lg:mt-0">
           {about.paragraphs.map((paragraph, index) =>
             index === lastParagraph && paragraph.endsWith("halaman Menu.") ? (
               <p key={index}>
@@ -81,11 +83,7 @@ export default function AboutPage() {
       </Container>
 
       {/* Ruang: bar → ruang dalam → taman */}
-      <section
-        id="ruang"
-        aria-labelledby="ruang-judul"
-        className="mt-16 scroll-mt-(--header-h) lg:mt-32"
-      >
+      <section id="ruang" aria-labelledby="ruang-judul" className="mt-16 lg:mt-32">
         <Container>
           <h2 id="ruang-judul" className="display-3">
             {about.spacesTitle}
@@ -169,7 +167,7 @@ export default function AboutPage() {
           <h2 id="kontak-judul" className="display-3 lg:col-span-4">
             {about.contactTitle}
           </h2>
-          <div className="mt-4 lg:col-span-6 lg:col-start-6 lg:mt-0">
+          <div className="mt-4 max-w-[40rem] lg:col-span-6 lg:col-start-6 lg:mt-0">
             <p className="body-lg">{about.contactText}</p>
             <Button href={reservationHref()} className="mt-5">
               {about.contactButton}

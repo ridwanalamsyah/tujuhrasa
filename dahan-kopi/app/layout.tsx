@@ -56,7 +56,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="id" className={`${display.variable} ${sans.variable}`}>
+    <html
+      lang="id"
+      data-scroll-behavior="smooth"
+      className={`${display.variable} ${sans.variable}`}
+    >
       <body>
         <a
           href="#konten"

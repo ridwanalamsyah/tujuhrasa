@@ -55,6 +55,12 @@
     line-height: 1.55;
   }
 
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
+  }
+
   ::selection {
     background: var(--color-coffee);
     color: var(--color-cream);
@@ -144,7 +150,7 @@
 
   @media (width >= 64rem) {
     .display-hero {
-      font-size: 3.25rem;
+      font-size: 3rem;
     }
     .display-1 {
       font-size: 4rem;
@@ -163,8 +169,14 @@
     }
   }
 
+  @media (width >= 80rem) {
+    .display-hero {
+      font-size: 3.25rem;
+    }
+  }
+
   /* Daftar fasilitas: "Wi-Fi · Colokan · Parkir" */
-  .dot-list > li + li::before {
+  .dot-list > li:not(:last-child)::after {
     content: "·";
     margin: 0 0.6em;
     color: var(--color-muted);

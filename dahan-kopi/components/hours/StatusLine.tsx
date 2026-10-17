@@ -9,16 +9,19 @@ import { useNow } from "@/lib/use-now";
  */
 export function StatusLine({
   onDark = false,
+  live = true,
   className = "",
 }: {
   onDark?: boolean;
+  /** Umumkan perubahan ke pembaca layar. Matikan untuk salinan kedua di halaman yang sama. */
+  live?: boolean;
   className?: string;
 }) {
   const now = useNow();
   const status = now ? getOpenStatus(now) : null;
 
   return (
-    <p aria-live="polite" className={className}>
+    <p aria-live={live ? "polite" : undefined} className={`tabular-nums ${className}`}>
       {status ? (
         <>
           <span

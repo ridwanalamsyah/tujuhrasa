@@ -23,7 +23,7 @@ export type ImageAsset = {
 };
 
 export type OpeningHoursRule = {
-  /** Teks yang tampil di website, mis. "Senin – Jumat". */
+  /** Teks yang tampil di website, mis. "Senin–Jumat". */
   label: string;
   days: DayKey[];
   /** Format 24 jam "HH:MM". Jika `close` lebih kecil dari `open`, dianggap tutup lewat tengah malam. */

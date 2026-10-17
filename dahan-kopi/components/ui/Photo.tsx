@@ -69,7 +69,7 @@ export function Photo({
           className="absolute inset-x-3 bottom-3 text-[0.75rem] font-medium leading-tight lg:inset-x-4 lg:bottom-4"
         >
           <span className="block truncate">Foto · {image.shot}</span>
-          {file && <span className="block truncate opacity-75">{file}</span>}
+          {file && <span className="block truncate font-normal">{file}</span>}
         </span>
       </div>
     </div>

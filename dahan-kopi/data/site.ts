@@ -98,13 +98,13 @@ export const maps = {
 
 export const openingHours: OpeningHoursRule[] = [
   {
-    label: "Senin – Jumat",
+    label: "Senin–Jumat",
     days: ["mon", "tue", "wed", "thu", "fri"],
     open: "08:00",
     close: "22:00",
   },
   {
-    label: "Sabtu – Minggu",
+    label: "Sabtu–Minggu",
     days: ["sat", "sun"],
     open: "08:00",
     close: "23:00",
@@ -150,26 +150,26 @@ export const story = {
 export const highlights: Highlight[] = [
   {
     title: "Kopi",
-    text: "Espresso, kopi susu, dan manual brew dari bar. Tanya barista biji apa yang diseduh hari ini.",
+    text: "Espresso, kopi susu, dan manual brew, dibikin langsung di bar.",
     image: {
       src: "/images/highlight-coffee.jpg",
       alt: "Secangkir kopi di meja kayu",
       shot: "Kopi di meja kayu, cahaya alami · 4:5",
       tone: "day",
     },
-    menuCategories: ["kopi", "manual-brew"],
+    menuCategories: ["kopi"],
     link: { label: "Menu kopi lengkap", href: "/menu#kopi" },
   },
   {
     title: "Makanan",
-    text: "Makanan berat dan camilan buat teman ngopi, dari pagi sampai malam.",
+    text: "Makanan berat dan camilan buat teman ngopi.",
     image: {
       src: "/images/highlight-food.jpg",
       alt: "Makanan Dahan Kopi di atas meja",
       shot: "Makanan andalan dari atas · 3:2",
       tone: "day",
     },
-    menuCategories: ["makanan", "camilan"],
+    menuCategories: ["makanan"],
     link: { label: "Menu makanan lengkap", href: "/menu#makanan" },
   },
   {

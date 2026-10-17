@@ -6,7 +6,7 @@ import { mapsPlaceUrl } from "@/lib/links";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
 
 /** Deskripsi untuk Google & pratinjau link, dibuat dari data agar alamat dan jam selalu sama. */
-export const siteDescription = `${site.tagline}. ${site.name} di ${address.street}, ${address.locality}, ${address.regency}: bar kopi, ruang dalam serba kayu, dan taman. Buka ${isOpenEveryDay() ? "setiap hari " : ""}${hoursSummary()}.`;
+export const siteDescription = `${site.name}, kedai kopi dengan bar, ruang dalam serba kayu, dan taman di ${address.locality}, ${address.regency}. Buka ${isOpenEveryDay() ? "setiap hari " : ""}${hoursSummary()}.`;
 
 /** Data terstruktur schema.org agar Google memahami info kafe. */
 export function cafeJsonLd() {

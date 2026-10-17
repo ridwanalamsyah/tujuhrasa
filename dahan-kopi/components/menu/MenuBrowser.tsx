@@ -52,7 +52,8 @@ export function MenuBrowser({ categories }: { categories: MenuCategory[] }) {
       changedByClick.current = false;
       return;
     }
-    if (active !== ALL) document.getElementById(active)?.scrollIntoView({ block: "start" });
+    if (active !== ALL)
+      document.getElementById(active)?.scrollIntoView({ block: "start", behavior: "instant" });
   }, [active]);
 
   // Geser tombol kategori aktif ke tengah baris (berguna di layar kecil).
@@ -72,7 +73,7 @@ export function MenuBrowser({ categories }: { categories: MenuCategory[] }) {
     const list = listRef.current;
     const bar = barRef.current;
     if (!list || !bar) return;
-    const offset = bar.getBoundingClientRect().bottom + 8;
+    const offset = bar.getBoundingClientRect().bottom;
     const top = list.getBoundingClientRect().top + window.scrollY - offset;
     if (window.scrollY > top) {
       window.scrollTo({ top, behavior: prefersReducedMotion() ? "auto" : "smooth" });
@@ -99,7 +100,7 @@ export function MenuBrowser({ categories }: { categories: MenuCategory[] }) {
                       href={filter.id === ALL ? "#" : `#${filter.id}`}
                       onClick={(event) => select(event, filter.id)}
                       aria-current={isActive ? "true" : undefined}
-                      className={`relative inline-flex min-h-12 items-center whitespace-nowrap text-[0.9375rem] transition-colors duration-150 after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 ${
+                      className={`relative inline-flex min-h-12 min-w-11 items-center justify-center whitespace-nowrap focus-visible:outline-offset-[-2px] text-[0.9375rem] transition-colors duration-150 after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 ${
                         isActive
                           ? "font-semibold text-espresso after:bg-coffee"
                           : "font-medium text-muted hover:text-espresso"
@@ -126,7 +127,7 @@ export function MenuBrowser({ categories }: { categories: MenuCategory[] }) {
                 id={category.id}
                 aria-labelledby={`${category.id}-judul`}
                 hidden={isHidden}
-                className={`scroll-mt-[calc(var(--header-h)+3.125rem+1.5rem)] pb-8 lg:grid lg:grid-cols-12 lg:gap-6 lg:pb-10 ${
+                className={`scroll-mt-[3.125rem] pb-8 lg:grid lg:grid-cols-12 lg:gap-6 lg:pb-10 ${
                   isFirst ? "" : "border-t border-line pt-8 lg:pt-10"
                 }`}
               >

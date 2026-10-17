@@ -59,7 +59,9 @@ export function Gallery() {
         })}
       </ul>
       <Container className="mt-3">
-        <TextLink href={contact.instagram.url}>{gallery.instagramLabel}</TextLink>
+        <TextLink href={contact.instagram.url} className="text-balance">
+          {gallery.instagramLabel}
+        </TextLink>
       </Container>
     </section>
   );

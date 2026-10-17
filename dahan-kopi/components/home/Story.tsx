@@ -16,7 +16,7 @@ export function Story() {
         className="lg:max-w-[56rem] lg:shrink-0 lg:basis-[58%]"
       />
       <div className="mt-5 px-4 sm:px-6 lg:mt-0 lg:max-w-[26rem] lg:px-0 lg:pr-10">
-        <p className="body-lg">{story.text}</p>
+        <p className="body-lg sm:max-w-[40rem]">{story.text}</p>
         <TextLink href="/tentang" className="mt-2 lg:mt-4">
           {story.linkLabel}
         </TextLink>

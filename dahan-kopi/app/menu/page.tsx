@@ -10,7 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Menu",
-  description: `Menu ${site.name} di Banjaran: ${menu.map((c) => c.name.toLowerCase()).join(", ")}, lengkap dengan harga. Unduh buku menunya dalam PDF.`,
+  description: `Menu ${site.name} di Banjaran: ${new Intl.ListFormat("id", { type: "conjunction" }).format(menu.map((c) => c.name.toLowerCase()))}, lengkap dengan harga. Unduh buku menunya dalam PDF.`,
   path: "/menu",
 });
 
