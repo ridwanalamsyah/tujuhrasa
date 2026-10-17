@@ -1,23 +1,12 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { MenuRow } from "@/components/menu/MenuRow";
 import { Container } from "@/components/ui/Container";
 import { Photo } from "@/components/ui/Photo";
 import { TextLink } from "@/components/ui/TextLink";
-import { menu } from "@/data/menu";
 import { highlights } from "@/data/site";
 import type { Highlight } from "@/lib/types";
 
 const zoom = "transition-transform duration-700 ease-soft motion-safe:group-hover:scale-[1.02]";
-
-/** Hingga 3 item `featured` dari kategori menu yang terkait. */
-function featuredItems(item: Highlight) {
-  return menu
-    .filter((category) => item.menuCategories?.includes(category.id))
-    .flatMap((category) => category.items)
-    .filter((menuItem) => menuItem.featured)
-    .slice(0, 3);
-}
 
 /** Foto yang bisa diklik dengan mouse; link teks di bawahnya jalur untuk keyboard & pembaca layar. */
 function PhotoLink({ href, children }: { href: string; children: ReactNode }) {
@@ -37,20 +26,12 @@ function Caption({
   id: string;
   className?: string;
 }) {
-  const featured = featuredItems(item);
   return (
     <div className={className}>
       <h2 id={id} className="display-3">
         {item.title}
       </h2>
       <p className="mt-2">{item.text}</p>
-      {featured.length > 0 && (
-        <ul className="mt-4 max-w-[22rem]">
-          {featured.map((menuItem) => (
-            <MenuRow key={menuItem.name} item={menuItem} compact />
-          ))}
-        </ul>
-      )}
       <TextLink href={item.link.href} className="mt-3">
         {item.link.label}
       </TextLink>

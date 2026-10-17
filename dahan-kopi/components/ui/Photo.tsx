@@ -2,6 +2,19 @@ import Image from "next/image";
 import { imageExists } from "@/lib/image-exists";
 import type { ImageAsset } from "@/lib/types";
 
+const UNSPLASH = "https://images.unsplash.com/";
+const WIDTHS = [480, 768, 1080, 1440, 1920, 2560];
+
+/** URL foto Unsplash dengan ukuran tertentu (Unsplash mengecilkan & mengompres sendiri). */
+function unsplashUrl(src: string, width: number) {
+  const url = new URL(src);
+  url.searchParams.set("w", String(width));
+  url.searchParams.set("q", "70");
+  url.searchParams.set("auto", "format");
+  url.searchParams.set("fit", "crop");
+  return url.toString();
+}
+
 const tones = {
   garden: "bg-ph-garden text-cream",
   wood: "bg-ph-wood text-cream",
@@ -37,6 +50,26 @@ export function Photo({
 }: Props) {
   const frame = `relative overflow-hidden ${ratio === "fill" ? "h-full w-full" : ratio} ${className}`;
   const revealProps = reveal ? { "data-reveal": "" } : {};
+
+  if (image.src.startsWith(UNSPLASH)) {
+    return (
+      <div className={frame} {...revealProps}>
+        {/* Foto stok sementara dari CDN Unsplash, langsung dimuat browser dalam ukuran yang pas. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={unsplashUrl(image.src, 1440)}
+          srcSet={WIDTHS.map((w) => `${unsplashUrl(image.src, w)} ${w}w`).join(", ")}
+          sizes={sizes}
+          alt={image.alt}
+          loading={preload ? "eager" : "lazy"}
+          fetchPriority={preload ? "high" : undefined}
+          decoding="async"
+          className={`absolute inset-0 h-full w-full bg-ph-day object-cover ${innerClassName}`}
+          style={{ objectPosition: image.focus ?? "50% 50%" }}
+        />
+      </div>
+    );
+  }
 
   if (imageExists(image.src)) {
     return (

@@ -11,7 +11,6 @@
  *  - price       : harga dalam rupiah tanpa titik, mis. 25000
  *  - tags        : ["HOT"], ["ICE"], atau ["HOT", "ICE"] (opsional)
  *  - image       : foto di public/images/menu/ (opsional)
- *  - featured    : true = tampil di beranda (maks. 3 per kelompok)
  *
  *  Cara menambah kategori: salin satu blok kategori, beri `id` unik
  *  (huruf kecil, tanpa spasi). Urutan di sini = urutan di website.
@@ -40,14 +39,12 @@ export const menu: MenuCategory[] = [
         description: "Espresso, susu segar, dan gula aren.",
         price: 25000,
         tags: ["HOT", "ICE"],
-        featured: true,
       },
       {
         name: "Americano",
         description: "Espresso dan air, ringan dan bersih.",
         price: 22000,
         tags: ["HOT", "ICE"],
-        featured: true,
       },
       {
         name: "Caffè Latte",
@@ -67,7 +64,6 @@ export const menu: MenuCategory[] = [
         description: "Diseduh manual dengan dripper V60.",
         price: 30000,
         tags: ["HOT", "ICE"],
-        featured: true,
       },
       {
         name: "Japanese Iced Coffee",
@@ -111,13 +107,11 @@ export const menu: MenuCategory[] = [
         name: "Nasi Goreng Dahan",
         description: "Nasi goreng kampung, telur mata sapi, dan kerupuk.",
         price: 35000,
-        featured: true,
       },
       {
         name: "Chicken Rice Bowl",
         description: "Ayam dengan saus di atas nasi.",
         price: 38000,
-        featured: true,
       },
     ],
   },
@@ -135,7 +129,6 @@ export const menu: MenuCategory[] = [
         name: "Pisang Goreng",
         description: "Pisang goreng dengan gula aren dan keju.",
         price: 22000,
-        featured: true,
       },
       {
         name: "Croissant",

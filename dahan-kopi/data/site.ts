@@ -6,9 +6,9 @@
  *  Tidak perlu menyentuh folder `components/` atau `app/`.
  *
  *  - Teks: ganti isi di antara tanda kutip "...".
- *  - Foto: simpan file di `public/images/` dengan nama yang tertulis
- *    di `src` (mis. "/images/hero-garden.jpg"). Selama file belum ada,
- *    website menampilkan kotak foto sementara berisi keterangan `shot`.
+ *  - Foto: saat ini memakai foto stok Unsplash sebagai contoh. Untuk foto asli,
+ *    simpan file di `public/images/` lalu ganti `src` dengan path-nya
+ *    (nama yang disarankan tertulis di komentar tiap foto, mis. "/images/hero-garden.jpg").
  *  - Jam buka: format 24 jam "HH:MM".
  *  - Kolom yang dikosongkan ("") tidak ditampilkan. Isi hanya dengan info yang benar.
  *  Setelah mengubah, cek dengan `npm run dev` lalu buka http://localhost:3000
@@ -125,8 +125,8 @@ export const hero = {
   /** Tagline dipecah per baris (di layar besar). */
   taglineLines: ["Rooted in Good Coffee,", "Made for Meaningful Moments"],
   image: {
-    src: "/images/hero-garden.jpg",
-    alt: "Taman Dahan Kopi di siang hari",
+    src: "https://images.unsplash.com/photo-1561645179-e087d31418b8", // Unsplash, foto sementara · ganti dengan "/images/hero-garden.jpg"
+    alt: "Meja kayu di antara pohon palem",
     shot: "Taman Dahan Kopi, siang · landscape, min. 2400 px",
     tone: "garden",
     focus: "50% 55%",
@@ -139,8 +139,8 @@ export const story = {
   // Contoh — ganti dengan cerita singkat Dahan Kopi (2–3 kalimat).
   text: "Dahan artinya cabang pohon. Kedai kopi kami ada di Jl. Ciherang, Banjaran: bar kopi dan meja-meja kayu di dalam, taman di luar. Datang buat kopi pagi, makan siang, atau ngobrol sampai malam.",
   image: {
-    src: "/images/story-bar.jpg",
-    alt: "Bar kopi Dahan Kopi dengan barista",
+    src: "https://images.unsplash.com/photo-1464979681340-bdd28a61699e", // Unsplash, foto sementara · ganti dengan "/images/story-bar.jpg"
+    alt: "Barista di balik meja bar kedai kopi",
     shot: "Bar kopi dari depan, barista sedang menyeduh · 4:3",
     tone: "wood",
   } satisfies ImageAsset,
@@ -152,32 +152,30 @@ export const highlights: Highlight[] = [
     title: "Kopi",
     text: "Espresso, kopi susu, dan manual brew, dibikin langsung di bar.",
     image: {
-      src: "/images/highlight-coffee.jpg",
-      alt: "Secangkir kopi di meja kayu",
+      src: "https://images.unsplash.com/photo-1585855584302-713f1c72aad8", // Unsplash, foto sementara · ganti dengan "/images/highlight-coffee.jpg"
+      alt: "Cangkir kopi putih di meja kayu",
       shot: "Kopi di meja kayu, cahaya alami · 4:5",
       tone: "day",
     },
-    menuCategories: ["kopi"],
     link: { label: "Menu kopi lengkap", href: "/menu#kopi" },
   },
   {
     title: "Makanan",
     text: "Makanan berat dan camilan buat teman ngopi.",
     image: {
-      src: "/images/highlight-food.jpg",
-      alt: "Makanan Dahan Kopi di atas meja",
+      src: "https://images.unsplash.com/photo-1744955913865-853beac35448", // Unsplash, foto sementara · ganti dengan "/images/highlight-food.jpg"
+      alt: "Beragam hidangan di atas meja kayu",
       shot: "Makanan andalan dari atas · 3:2",
       tone: "day",
     },
-    menuCategories: ["makanan"],
     link: { label: "Menu makanan lengkap", href: "/menu#makanan" },
   },
   {
     title: "Ruang",
     text: "Duduk di depan bar, di ruang dalam yang serba kayu, atau di taman.",
     image: {
-      src: "/images/highlight-space.jpg",
-      alt: "Taman Dahan Kopi dengan meja-meja",
+      src: "https://images.unsplash.com/photo-1569409611258-a386734494fd", // Unsplash, foto sementara · ganti dengan "/images/highlight-space.jpg"
+      alt: "Meja makan kayu panjang di dalam ruangan",
       shot: "Taman lebar, kelihatan meja-meja · 21:9",
       tone: "garden",
     },
@@ -190,38 +188,38 @@ export const gallery = {
   /** 6 foto. Foto 1 dan 6 tampil besar. */
   images: [
     {
-      src: "/images/gallery-01.jpg",
-      alt: "Pengunjung di taman Dahan Kopi",
+      src: "https://images.unsplash.com/photo-1586122891856-5f90886b0cee", // Unsplash, foto sementara · ganti dengan "/images/gallery-01.jpg"
+      alt: "Pohon palem di dekat bangunan",
       shot: "Taman dengan pengunjung, sore · 1:1",
       tone: "garden",
     },
     {
-      src: "/images/gallery-02.jpg",
-      alt: "Kopi susu di meja kayu",
+      src: "https://images.unsplash.com/photo-1519944990593-1ac66b41ac9a", // Unsplash, foto sementara · ganti dengan "/images/gallery-02.jpg"
+      alt: "Secangkir kopi dari dekat",
       shot: "Kopi susu di meja kayu · 1:1",
       tone: "day",
     },
     {
-      src: "/images/gallery-03.jpg",
-      alt: "Barista menuang susu ke espresso",
+      src: "https://images.unsplash.com/photo-1564992982896-cb2a99f64a25", // Unsplash, foto sementara · ganti dengan "/images/gallery-03.jpg"
+      alt: "Dua gelas kopi di meja kayu",
       shot: "Barista menuang susu · 1:1",
       tone: "wood",
     },
     {
-      src: "/images/gallery-04.jpg",
-      alt: "Sudut ruang dalam dengan kursi kayu",
+      src: "https://images.unsplash.com/photo-1583753075968-1236ccb83c66", // Unsplash, foto sementara · ganti dengan "/images/gallery-04.jpg"
+      alt: "Tanaman pot di meja kayu",
       shot: "Sudut ruang dalam · 1:1",
       tone: "wood",
     },
     {
-      src: "/images/gallery-05.jpg",
-      alt: "Makanan dan minuman di meja",
+      src: "https://images.unsplash.com/photo-1744638628542-12578d73179b", // Unsplash, foto sementara · ganti dengan "/images/gallery-05.jpg"
+      alt: "Kopi dan kue di atas nampan kayu",
       shot: "Makanan dari atas · 1:1",
       tone: "day",
     },
     {
-      src: "/images/gallery-06.jpg",
-      alt: "Dahan Kopi di malam hari",
+      src: "https://images.unsplash.com/photo-1592319866469-a1016ff5fe89", // Unsplash, foto sementara · ganti dengan "/images/gallery-06.jpg"
+      alt: "Cangkir kopi putih di atas tatakan",
       shot: "Taman atau bar malam hari, lampu menyala · 1:1",
       tone: "garden",
     },
@@ -247,8 +245,8 @@ export const about = {
   title: "Tentang Dahan Kopi",
   lead: "Kedai kopi dengan bar, ruang dalam serba kayu, dan taman di Jl. Ciherang, Banjaran, Kabupaten Bandung.",
   image: {
-    src: "/images/about-front.jpg",
-    alt: "Tampak depan Dahan Kopi",
+    src: "https://images.unsplash.com/photo-1745827213105-59dfd024ad2a", // Unsplash, foto sementara · ganti dengan "/images/about-front.jpg"
+    alt: "Meja di jendela kedai kopi",
     shot: "Tampak depan atau pintu masuk · 21:9",
     tone: "wood",
   } satisfies ImageAsset,
@@ -272,8 +270,8 @@ export const about = {
       title: "Bar kopi",
       text: "Duduk di depan bar kalau mau lihat kopimu dibuat.",
       image: {
-        src: "/images/space-bar.jpg",
-        alt: "Bar kopi Dahan Kopi",
+        src: "https://images.unsplash.com/photo-1461988366670-48e401bafb0a", // Unsplash, foto sementara · ganti dengan "/images/space-bar.jpg"
+        alt: "Mesin espresso",
         shot: "Bar kopi · 3:2",
         tone: "wood",
       },
@@ -282,8 +280,8 @@ export const about = {
       title: "Ruang dalam",
       text: "Meja-meja kayu, lebih tenang. Enak buat kerja atau ngobrol lama.",
       image: {
-        src: "/images/space-indoor.jpg",
-        alt: "Ruang dalam Dahan Kopi dengan meja kayu",
+        src: "https://images.unsplash.com/photo-1745794621090-d856c53b0cc2", // Unsplash, foto sementara · ganti dengan "/images/space-indoor.jpg"
+        alt: "Ruang makan dengan meja dan kursi kayu",
         shot: "Ruang dalam, meja kayu · 4:5",
         tone: "wood",
       },
@@ -292,8 +290,8 @@ export const about = {
       title: "Taman",
       text: "Meja di luar, di antara pohon dan tanaman, buat yang suka duduk di udara terbuka.",
       image: {
-        src: "/images/space-garden.jpg",
-        alt: "Taman Dahan Kopi",
+        src: "https://images.unsplash.com/photo-1563135022-66565e1f042a", // Unsplash, foto sementara · ganti dengan "/images/space-garden.jpg"
+        alt: "Dinding penuh tanaman di halaman belakang",
         shot: "Taman · 16:9",
         tone: "garden",
       },

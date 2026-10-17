@@ -41,8 +41,6 @@ export type Highlight = {
   text: string;
   image: ImageAsset;
   link: { label: string; href: string };
-  /** Kategori menu (id dari data/menu.ts) yang item `featured`-nya tampil di bawah teks. */
-  menuCategories?: string[];
 };
 
 export type Space = {
@@ -83,8 +81,6 @@ export type MenuItem = {
   tags?: MenuTag[];
   /** Opsional. Foto di `public/images/menu/`, mis. "/images/menu/kopi-susu.jpg". */
   image?: string;
-  /** `true` = tampil di beranda (maks. 3 per kelompok). */
-  featured?: boolean;
 };
 
 export type MenuCategory = {

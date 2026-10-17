@@ -60,7 +60,6 @@ Buka **`data/menu.ts`**. Isinya sekarang hanya **contoh**; ganti dengan menu asl
   description: "Espresso, susu segar, dan gula aren.", // opsional
   price: 25000,                                        // rupiah, tanpa titik (tampil "25")
   tags: ["HOT", "ICE"],                                // opsional: "HOT" dan/atau "ICE"
-  featured: true,                                      // opsional: tampil di beranda
   image: "/images/menu/kopi-susu-dahan.jpg",           // opsional: foto kecil di bawah deskripsi
 },
 ```
@@ -69,18 +68,26 @@ Buka **`data/menu.ts`**. Isinya sekarang hanya **contoh**; ganti dengan menu asl
 - Tambah item: salin satu blok `{ ... }` di dalam `items`.
 - Tambah kategori: salin satu blok kategori dan beri `id` unik (huruf kecil, tanpa spasi).
   `id` dipakai di link, mis. `/menu#kopi`. Urutan di file = urutan di website.
-- `featured: true`: item tampil di bawah "Kopi" atau "Makanan" di beranda (maks. 3 per kelompok).
 - Teks halaman menu (judul, catatan harga) ada di `menuPage` (file yang sama).
 - **Buku menu PDF**: ganti file `public/menu-dahan.pdf` dengan buku menu asli (nama file tetap sama).
 
 ## Memasukkan foto
 
-Semua foto dicari di **`public/images/`** dengan nama yang sudah tertulis di `data/site.ts`.
-Selama file belum ada, website menampilkan **kotak warna polos** berisi keterangan foto yang
-dibutuhkan dan nama filenya. Begitu file disimpan dengan nama itu, foto asli langsung tampil
-(saat `npm run dev`, atau setelah build/deploy berikutnya). Tata letak tidak berubah.
+Sementara ini website memakai **foto stok dari Unsplash** (gratis dipakai, termasuk komersial,
+di bawah [Unsplash License](https://unsplash.com/license)) yang dimuat langsung dari CDN Unsplash.
+Fotonya hanya contoh suasana, **bukan foto Dahan Kopi**. Ganti dengan foto asli sebelum dipromosikan.
 
-Daftar ini sekaligus panduan memotret:
+Cara mengganti: simpan foto asli di **`public/images/`**, lalu di `data/site.ts` ganti `src` foto
+tersebut dengan path-nya. Nama file yang disarankan tertulis di komentar tiap foto, mis.:
+
+```ts
+src: "/images/hero-garden.jpg",
+```
+
+Tata letak tidak berubah. Jika `src` menunjuk file yang belum ada, tampil kotak warna polos berisi
+keterangan foto yang dibutuhkan.
+
+Daftar foto yang dibutuhkan (sekaligus panduan memotret):
 
 | File                     | Foto yang dibutuhkan                              | Bentuk                |
 | ------------------------ | ------------------------------------------------- | --------------------- |
@@ -88,12 +95,32 @@ Daftar ini sekaligus panduan memotret:
 | `story-bar.jpg`          | Bar kopi dari depan, barista sedang menyeduh      | 4:3                   |
 | `highlight-coffee.jpg`   | Kopi di meja kayu, cahaya alami                   | 4:5 (tegak)           |
 | `highlight-food.jpg`     | Makanan andalan dari atas                         | 3:2                   |
-| `highlight-space.jpg`    | Taman lebar, kelihatan meja-meja                  | 21:9 (sangat lebar)   |
-| `gallery-01.jpg` … `06`  | Taman sore, kopi susu, barista, ruang dalam, makanan, suasana malam | 1:1 |
+| `highlight-space.jpg`    | Ruang/taman lebar, kelihatan meja-meja            | 21:9 (sangat lebar)   |
+| `gallery-01.jpg` … `06`  | Taman, kopi, barista, ruang dalam, makanan, suasana malam | 1:1           |
 | `about-front.jpg`        | Tampak depan atau pintu masuk                     | 21:9                  |
 | `space-bar.jpg`          | Bar kopi                                          | 3:2                   |
 | `space-indoor.jpg`       | Ruang dalam, meja kayu                            | 4:5                   |
 | `space-garden.jpg`       | Taman                                             | 16:9                  |
+
+Foto stok yang dipakai sekarang:
+
+| Slot | Isi foto | Fotografer | Sumber |
+| ---- | -------- | ---------- | ------ |
+| `hero-garden.jpg` | grey wooden table near green palm trees | Annie Spratt | https://unsplash.com/photos/SVFEQ_MOn6Q |
+| `story-bar.jpg` | woman standing on food counter | Robert Bye | https://unsplash.com/photos/F2eHfMwIOxA |
+| `highlight-coffee.jpg` | person holding white ceramic mug on brown wooden table | charlesdeluvio  | https://unsplash.com/photos/Q-dD1KpMcDQ |
+| `highlight-food.jpg` | Various delicious dishes are arranged on a wooden table. | Monaz Nazary | https://unsplash.com/photos/bfmaAMAMERI |
+| `highlight-space.jpg` | rectangular brown wooden dining table inside building | SarahCreates  | https://unsplash.com/photos/4LS-5obpY4o |
+| `gallery-01.jpg` | green palm trees near brown concrete building during daytime | Alev Takil | https://unsplash.com/photos/3jlUF7-3-4E |
+| `gallery-02.jpg` | close-up photo of filled white ceramic cup | Noah Buscher | https://unsplash.com/photos/TRY6tTONVSk |
+| `gallery-03.jpg` | two glasses of coffee on brown table | Toa Heftiba | https://unsplash.com/photos/mtuYqjDzaXM |
+| `gallery-04.jpg` | green potted plant on brown wooden table | Huy Phan | https://unsplash.com/photos/dM317CbttyY |
+| `gallery-05.jpg` | Coffee and pastries on a wooden tray. | Miraxh Tereziu | https://unsplash.com/photos/Np4aW71utRo |
+| `gallery-06.jpg` | white ceramic mug on white ceramic saucer on white table | Jojo Yuen (sharemyfoodd)  | https://unsplash.com/photos/qeIh0T2ZKPI |
+| `about-front.jpg` | A table is set up in a coffee shop window. | Minyeong Jeong | https://unsplash.com/photos/s9MtDihD3ZA |
+| `space-bar.jpg` | close view of gray espresso machine | Crew  | https://unsplash.com/photos/aw6UewokOIo |
+| `space-indoor.jpg` | Modern dining room with table, chairs, and kitchen. | Clay Banks | https://unsplash.com/photos/urH155LONWs |
+| `space-garden.jpg` | plants on wall | micheile henderson | https://unsplash.com/photos/sCl3th_80_M |
 
 Tips:
 
