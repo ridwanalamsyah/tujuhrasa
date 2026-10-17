@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import { address, contact, hero, site } from "@/data/site";
-import { toSchemaOpeningHours } from "@/lib/hours";
+import { hoursSummary, isOpenEveryDay, toSchemaOpeningHours } from "@/lib/hours";
+import { imageExists } from "@/lib/image-exists";
 import { mapsPlaceUrl } from "@/lib/links";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
+
+/** Deskripsi untuk Google & pratinjau link, dibuat dari data agar alamat dan jam selalu sama. */
+export const siteDescription = `${site.tagline}. ${site.name} di ${address.street}, ${address.locality}, ${address.regency}: bar kopi, ruang dalam serba kayu, dan taman. Buka ${isOpenEveryDay() ? "setiap hari " : ""}${hoursSummary()}.`;
 
 /** Data terstruktur schema.org agar Google memahami info kafe. */
 export function cafeJsonLd() {
@@ -12,9 +16,9 @@ export function cafeJsonLd() {
     "@id": `${siteUrl}/#cafe`,
     name: site.name,
     slogan: site.tagline,
-    description: site.seo.description,
+    description: siteDescription,
     url: siteUrl,
-    image: absoluteUrl(hero.image.src),
+    image: absoluteUrl(imageExists(hero.image.src) ? hero.image.src : "/opengraph-image"),
     logo: absoluteUrl("/icon.svg"),
     telephone: contact.phone,
     servesCuisine: ["Coffee", "Indonesian"],

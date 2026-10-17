@@ -52,6 +52,27 @@ export function isOpenEveryDay(rules: OpeningHoursRule[] = openingHours): boolea
   return DAY_KEYS.every((day) => getRuleForDay(day, rules));
 }
 
+/**
+ * Ringkasan jam buka satu baris, mis. "08.00–22.00, Sabtu – Minggu sampai 23.00".
+ * Jika ada hari libur: "Senin – Jumat 08.00–22.00, Sabtu 09.00–15.00".
+ */
+export function hoursSummary(rules: OpeningHoursRule[] = openingHours): string {
+  const [first, ...rest] = rules;
+  if (!first) return "";
+  if (!isOpenEveryDay(rules)) return rules.map((r) => `${r.label} ${formatRange(r)}`).join(", ");
+  const others = rest.map((r) =>
+    r.open === first.open
+      ? `${r.label} sampai ${formatTime(r.close)}`
+      : `${r.label} ${formatRange(r)}`,
+  );
+  return [formatRange(first), ...others].join(", ");
+}
+
+/** "Tutup pukul 22.00" → "tutup pukul 22.00" */
+export function lowerFirst(text: string): string {
+  return text.charAt(0).toLowerCase() + text.slice(1);
+}
+
 /** Hari dan menit saat ini di zona waktu kafe (default Asia/Jakarta). */
 export function getZonedNow(date: Date, timeZone: string = site.timeZone) {
   const parts = new Intl.DateTimeFormat("en-US", {

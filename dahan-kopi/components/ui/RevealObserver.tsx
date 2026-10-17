@@ -4,10 +4,9 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 /**
- * Fade-in halus saat elemen ber-atribut `data-reveal` masuk layar.
- * Elemen yang sudah terlihat saat halaman dibuka tidak disembunyikan (tanpa kedip),
- * dan tidak ada animasi sama sekali bila pengguna memilih "kurangi gerakan".
- * Jeda per elemen: `data-reveal="150"` (milidetik).
+ * Foto ber-atribut `data-reveal` muncul pelan (opacity saja) saat masuk layar.
+ * Yang sudah terlihat saat halaman dibuka tidak disembunyikan (tanpa kedip), tanpa JavaScript
+ * semua tetap tampil, dan tidak ada animasi bila pengguna memilih "kurangi gerakan".
  */
 export function RevealObserver() {
   const pathname = usePathname();
@@ -25,7 +24,7 @@ export function RevealObserver() {
           observer.unobserve(el);
         }
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.12 },
+      { rootMargin: "0px 0px -5% 0px", threshold: 0.05 },
     );
 
     for (const el of document.querySelectorAll<HTMLElement>("[data-reveal]")) {
@@ -37,8 +36,6 @@ export function RevealObserver() {
           el.dataset.revealState = "visible";
           continue;
         }
-        const delay = Number(el.dataset.reveal);
-        if (delay > 0) el.style.setProperty("--reveal-delay", `${delay}ms`);
         el.dataset.revealState = "hidden";
       }
       observer.observe(el);

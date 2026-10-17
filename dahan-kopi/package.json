@@ -2,14 +2,13 @@
   "name": "dahan-kopi",
   "version": "1.0.0",
   "private": true,
-  "description": "Website resmi Dahan Kopi — Coffee & Eatery di Banjaran, Kabupaten Bandung.",
+  "description": "Website resmi Dahan Kopi, kedai kopi dan taman di Banjaran, Kabupaten Bandung.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "images:placeholder": "node scripts/generate-placeholders.mjs",
     "icons": "node scripts/generate-icons.mjs"
   },
   "engines": {

@@ -2,31 +2,21 @@ import type { SVGProps } from "react";
 
 type IconProps = SVGProps<SVGSVGElement>;
 
-function Line({ children, ...props }: IconProps) {
+export function InstagramIcon(props: IconProps) {
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
       strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
       aria-hidden="true"
       focusable="false"
       {...props}
     >
-      {children}
-    </svg>
-  );
-}
-
-export function InstagramIcon(props: IconProps) {
-  return (
-    <Line {...props}>
       <rect x="3" y="3" width="18" height="18" rx="5" />
       <circle cx="12" cy="12" r="4" />
       <circle cx="17.5" cy="6.5" r="0.9" fill="currentColor" stroke="none" />
-    </Line>
+    </svg>
   );
 }
 
@@ -39,42 +29,36 @@ export function WhatsAppIcon(props: IconProps) {
   );
 }
 
-export function ArrowRightIcon(props: IconProps) {
-  return (
-    <Line {...props}>
-      <path d="M5 12h14M13 6l6 6-6 6" />
-    </Line>
-  );
-}
-
-export function ArrowUpRightIcon(props: IconProps) {
-  return (
-    <Line {...props}>
-      <path d="M7 17 17 7M8 7h9v9" />
-    </Line>
-  );
-}
-
-export function DownloadIcon(props: IconProps) {
-  return (
-    <Line {...props}>
-      <path d="M12 4v11M7 10l5 5 5-5M5 20h14" />
-    </Line>
-  );
-}
-
+/** Dua garis (buka navigasi). */
 export function MenuIcon(props: IconProps) {
   return (
-    <Line {...props}>
-      <path d="M4 8h16M4 16h16" />
-    </Line>
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      aria-hidden="true"
+      focusable="false"
+      {...props}
+    >
+      <path d="M0 7h20M0 13h20" />
+    </svg>
   );
 }
 
+/** Dua garis bersilang (tutup navigasi). */
 export function CloseIcon(props: IconProps) {
   return (
-    <Line {...props}>
-      <path d="M6 6l12 12M18 6 6 18" />
-    </Line>
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      aria-hidden="true"
+      focusable="false"
+      {...props}
+    >
+      <path d="M3 3l14 14M17 3 3 17" />
+    </svg>
   );
 }

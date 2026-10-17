@@ -11,6 +11,7 @@
  *  - price       : harga dalam rupiah tanpa titik, mis. 25000
  *  - tags        : ["HOT"], ["ICE"], atau ["HOT", "ICE"] (opsional)
  *  - image       : foto di public/images/menu/ (opsional)
+ *  - featured    : true = tampil di beranda (maks. 3 per kelompok)
  *
  *  Cara menambah kategori: salin satu blok kategori, beri `id` unik
  *  (huruf kecil, tanpa spasi). Urutan di sini = urutan di website.
@@ -19,33 +20,34 @@
 
 import type { MenuCategory } from "@/lib/types";
 
-/** Teks pembuka dan catatan di halaman /menu. */
+/** Teks di halaman /menu. */
 export const menuPage = {
-  eyebrow: "Menu",
-  title: "Dari bar & dapur kami",
-  intro: "Kopi yang diseduh dengan teliti dan hidangan sederhana untuk menemaninya.",
+  title: "Menu",
+  priceNote: "Harga dalam ribu rupiah.",
   pdfLabel: "Unduh buku menu (PDF)",
-  note: "Harga dalam rupiah dan dapat berubah sewaktu-waktu. Tanyakan menu musiman kepada barista kami.",
+  deliveryLabel: "Pesan antar:",
+  note: "Harga bisa berubah sewaktu-waktu. Ada menu musiman, tanya di bar.",
 };
 
 export const menu: MenuCategory[] = [
   {
     id: "kopi",
     name: "Kopi",
-    description: "Espresso based",
+    description: "Berbasis espresso",
     items: [
       {
         name: "Kopi Susu Dahan",
         description: "Espresso, susu segar, dan gula aren.",
         price: 25000,
         tags: ["HOT", "ICE"],
-        image: "/images/menu/kopi-susu-dahan.jpg",
+        featured: true,
       },
       {
         name: "Americano",
         description: "Espresso dan air, ringan dan bersih.",
         price: 22000,
         tags: ["HOT", "ICE"],
+        featured: true,
       },
       {
         name: "Caffè Latte",
@@ -58,13 +60,14 @@ export const menu: MenuCategory[] = [
   {
     id: "manual-brew",
     name: "Manual Brew",
-    description: "Single origin pilihan",
+    description: "Single origin, bergantian",
     items: [
       {
         name: "V60",
         description: "Seduh tangan, tanyakan biji yang tersedia hari ini.",
         price: 30000,
         tags: ["HOT", "ICE"],
+        featured: true,
       },
       {
         name: "Japanese Iced Coffee",
@@ -77,7 +80,7 @@ export const menu: MenuCategory[] = [
   {
     id: "non-kopi",
     name: "Non-Kopi",
-    description: "Teh, cokelat, dan segar-segaran",
+    description: "Teh, cokelat, dan yang segar",
     items: [
       {
         name: "Matcha Latte",
@@ -102,25 +105,26 @@ export const menu: MenuCategory[] = [
   {
     id: "makanan",
     name: "Makanan",
-    description: "Hidangan utama",
+    description: "Makanan berat",
     items: [
       {
         name: "Nasi Goreng Dahan",
         description: "Nasi goreng kampung, telur mata sapi, dan kerupuk.",
         price: 35000,
-        image: "/images/menu/nasi-goreng-dahan.jpg",
+        featured: true,
       },
       {
         name: "Chicken Rice Bowl",
-        description: "Ayam saus pilihan di atas nasi hangat.",
+        description: "Ayam dengan saus di atas nasi.",
         price: 38000,
+        featured: true,
       },
     ],
   },
   {
     id: "camilan",
     name: "Camilan",
-    description: "Teman minum kopi",
+    description: "Teman ngopi",
     items: [
       {
         name: "French Fries",
@@ -131,6 +135,7 @@ export const menu: MenuCategory[] = [
         name: "Pisang Goreng",
         description: "Pisang goreng dengan gula aren dan keju.",
         price: 22000,
+        featured: true,
       },
       {
         name: "Croissant",

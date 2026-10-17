@@ -6,9 +6,11 @@
  *  Tidak perlu menyentuh folder `components/` atau `app/`.
  *
  *  - Teks: ganti isi di antara tanda kutip "...".
- *  - Foto: simpan file di `public/images/`, lalu tulis path-nya
- *    di sini, mis. "/images/nama-foto.jpg".
+ *  - Foto: simpan file di `public/images/` dengan nama yang tertulis
+ *    di `src` (mis. "/images/hero-garden.jpg"). Selama file belum ada,
+ *    website menampilkan kotak foto sementara berisi keterangan `shot`.
  *  - Jam buka: format 24 jam "HH:MM".
+ *  - Kolom yang dikosongkan ("") tidak ditampilkan. Isi hanya dengan info yang benar.
  *  Setelah mengubah, cek dengan `npm run dev` lalu buka http://localhost:3000
  * ============================================================
  */
@@ -16,10 +18,13 @@
 import type {
   DeliveryLink,
   Facility,
+  Fact,
+  FaqItem,
   Highlight,
   ImageAsset,
   NavItem,
   OpeningHoursRule,
+  Space,
 } from "@/lib/types";
 
 /* ---------- Identitas & kontak ---------- */
@@ -34,11 +39,9 @@ export const site = {
   tagline: "Rooted in Good Coffee, Made for Meaningful Moments",
   closingTagline: "The Favorites Place, Everyone Keeps Coming Back For",
   closingCta: "See You at @Dahankopi",
-  /** Dipakai untuk judul tab browser dan hasil pencarian Google. */
+  /** Judul tab browser dan hasil pencarian Google. Deskripsinya dibuat otomatis dari alamat & jam buka. */
   seo: {
     title: "Dahan Kopi — Coffee & Eatery di Banjaran, Bandung",
-    description:
-      "Rooted in Good Coffee, Made for Meaningful Moments. Dahan Kopi adalah kafe dengan bar kopi, interior kayu, dan taman hijau di Jl. Raya Kamasan, Banjaran, Kabupaten Bandung. Buka setiap hari.",
     keywords: [
       "Dahan Kopi",
       "kafe Banjaran",
@@ -58,7 +61,7 @@ export const contact = {
   /** Nomor WhatsApp: kode negara 62 tanpa tanda + dan tanpa angka 0 di depan. */
   whatsapp: "6282121651788",
   /** Pesan awal saat pengunjung menekan tombol "Reservasi". */
-  whatsappMessage: "Halo Dahan Kopi, saya mau reservasi",
+  whatsappMessage: "Halo Dahan Kopi, saya mau reservasi.\nTanggal: \nJam: \nJumlah orang: ",
   instagram: {
     handle: "dahankopi",
     url: "https://instagram.com/dahankopi",
@@ -72,8 +75,8 @@ export const address = {
   province: "Jawa Barat",
   postalCode: "40377",
   country: "ID",
-  /** Versi singkat yang tampil di strip info beranda. */
-  short: "Jl. Raya Kamasan, Banjaran",
+  /** Versi singkat, tampil di layar pertama beranda dan menu mobile. */
+  short: "Jl. Ciherang, Jl. Raya Kamasan, Banjaran",
 };
 
 export const maps = {
@@ -119,128 +122,198 @@ export const navigation: NavItem[] = [
 /* ---------- Beranda ---------- */
 
 export const hero = {
-  eyebrow: "Coffee & Eatery · Banjaran, Bandung",
-  title: site.tagline,
+  /** Tagline dipecah per baris (di layar besar). */
+  taglineLines: ["Rooted in Good Coffee,", "Made for Meaningful Moments"],
   image: {
     src: "/images/hero-garden.jpg",
-    alt: "Area taman Dahan Kopi yang hijau dan rimbun",
+    alt: "Taman Dahan Kopi di siang hari",
+    shot: "Taman Dahan Kopi, siang · landscape, min. 2400 px",
+    tone: "garden",
+    focus: "50% 55%",
   } satisfies ImageAsset,
-  primaryCta: "Lihat Menu",
-  secondaryCta: "Petunjuk Arah",
+  menuLabel: "Lihat Menu",
+  directionsLabel: "Petunjuk Arah",
 };
 
 export const story = {
-  eyebrow: "Cerita kami",
-  title: "Berakar pada kopi yang baik",
-  // Placeholder — ganti dengan cerita Dahan Kopi (2–3 kalimat).
-  text: "Dahan Kopi tumbuh dari keinginan sederhana: punya tempat yang tenang untuk kopi yang dibuat dengan sungguh-sungguh. Di antara bar kopi, interior kayu, dan taman yang rimbun, kami menyiapkan ruang untuk bertemu, bekerja, atau sekadar berhenti sejenak.",
+  // Contoh — ganti dengan cerita singkat Dahan Kopi (2–3 kalimat).
+  text: "Dahan artinya cabang pohon. Kedai kopi kami ada di Jl. Ciherang, Banjaran: bar kopi dan meja-meja kayu di dalam, taman di luar. Datang buat kopi pagi, makan siang, atau ngobrol sampai malam.",
   image: {
     src: "/images/story-bar.jpg",
-    alt: "Barista menyiapkan kopi di bar Dahan Kopi",
+    alt: "Bar kopi Dahan Kopi dengan barista",
+    shot: "Bar kopi dari depan, barista sedang menyeduh · 4:3",
+    tone: "wood",
   } satisfies ImageAsset,
-  linkLabel: "Kenali Dahan Kopi",
+  linkLabel: "Cerita lengkap",
 };
 
-export const highlights = {
-  eyebrow: "Di Dahan",
-  title: "Kopi, makanan, dan ruang",
-  items: [
-    {
-      title: "Kopi",
-      text: "Espresso dan manual brew dari biji pilihan, diseduh dengan teliti setiap hari.",
-      image: { src: "/images/highlight-coffee.jpg", alt: "Secangkir kopi di meja kayu" },
-      href: "/menu#kopi",
+export const highlights: Highlight[] = [
+  {
+    title: "Kopi",
+    text: "Espresso, kopi susu, dan manual brew dari bar. Tanya barista biji apa yang diseduh hari ini.",
+    image: {
+      src: "/images/highlight-coffee.jpg",
+      alt: "Secangkir kopi di meja kayu",
+      shot: "Kopi di meja kayu, cahaya alami · 4:5",
+      tone: "day",
     },
-    {
-      title: "Makanan",
-      text: "Hidangan rumahan dan camilan untuk menemani kopi, dari pagi sampai malam.",
-      image: { src: "/images/highlight-food.jpg", alt: "Hidangan Dahan Kopi di atas meja" },
-      href: "/menu#makanan",
+    menuCategories: ["kopi", "manual-brew"],
+    link: { label: "Menu kopi lengkap", href: "/menu#kopi" },
+  },
+  {
+    title: "Makanan",
+    text: "Makanan berat dan camilan buat teman ngopi, dari pagi sampai malam.",
+    image: {
+      src: "/images/highlight-food.jpg",
+      alt: "Makanan Dahan Kopi di atas meja",
+      shot: "Makanan andalan dari atas · 3:2",
+      tone: "day",
     },
-    {
-      title: "Ruang",
-      text: "Taman yang hijau dan ruang dalam yang hangat, untuk duduk lebih lama.",
-      image: {
-        src: "/images/highlight-space.jpg",
-        alt: "Suasana taman dan ruang dalam Dahan Kopi",
-      },
-      href: "/tentang",
+    menuCategories: ["makanan", "camilan"],
+    link: { label: "Menu makanan lengkap", href: "/menu#makanan" },
+  },
+  {
+    title: "Ruang",
+    text: "Duduk di depan bar, di ruang dalam yang serba kayu, atau di taman.",
+    image: {
+      src: "/images/highlight-space.jpg",
+      alt: "Taman Dahan Kopi dengan meja-meja",
+      shot: "Taman lebar, kelihatan meja-meja · 21:9",
+      tone: "garden",
     },
-  ] satisfies Highlight[],
-};
+    link: { label: "Lihat ruangannya", href: "/tentang#ruang" },
+  },
+];
 
 export const gallery = {
-  eyebrow: "Galeri",
-  title: "Momen di Dahan",
   instagramLabel: "Lihat lebih banyak di Instagram @dahankopi",
-  /** 6 foto untuk grid galeri di beranda. */
+  /** 6 foto. Foto 1 dan 6 tampil besar. */
   images: [
-    { src: "/images/gallery-01.jpg", alt: "Kopi susu di meja taman" },
-    { src: "/images/gallery-02.jpg", alt: "Barista menuang susu ke espresso" },
-    { src: "/images/gallery-03.jpg", alt: "Sudut ruang dalam dengan interior kayu" },
-    { src: "/images/gallery-04.jpg", alt: "Pepohonan rimbun di area taman" },
-    { src: "/images/gallery-05.jpg", alt: "Hidangan dan minuman di meja" },
-    { src: "/images/gallery-06.jpg", alt: "Suasana Dahan Kopi di malam hari" },
+    {
+      src: "/images/gallery-01.jpg",
+      alt: "Pengunjung di taman Dahan Kopi",
+      shot: "Taman dengan pengunjung, sore · 1:1",
+      tone: "garden",
+    },
+    {
+      src: "/images/gallery-02.jpg",
+      alt: "Kopi susu di meja kayu",
+      shot: "Kopi susu di meja kayu · 1:1",
+      tone: "day",
+    },
+    {
+      src: "/images/gallery-03.jpg",
+      alt: "Barista menuang susu ke espresso",
+      shot: "Barista menuang susu · 1:1",
+      tone: "wood",
+    },
+    {
+      src: "/images/gallery-04.jpg",
+      alt: "Sudut ruang dalam dengan kursi kayu",
+      shot: "Sudut ruang dalam · 1:1",
+      tone: "wood",
+    },
+    {
+      src: "/images/gallery-05.jpg",
+      alt: "Makanan dan minuman di meja",
+      shot: "Makanan dari atas · 1:1",
+      tone: "day",
+    },
+    {
+      src: "/images/gallery-06.jpg",
+      alt: "Dahan Kopi di malam hari",
+      shot: "Taman atau bar malam hari, lampu menyala · 1:1",
+      tone: "garden",
+    },
   ] satisfies ImageAsset[],
 };
 
+/* ---------- Blok lokasi (footer, tampil di semua halaman) ---------- */
+
 export const location = {
-  eyebrow: "Lokasi",
-  title: "Mampir ke Dahan",
-  text: "Buka setiap hari, dari pagi sampai malam.",
-  mapsCta: "Buka di Google Maps",
+  /** Judul blok lokasi. */
+  venueTitle: "Banjaran",
+  /** Petunjuk masuk, mis. "Masuk dari Jl. Ciherang, parkir di sebelah kiri." Kosongkan jika belum ada. */
+  directions: "",
+  hoursLabel: "Jam buka",
+  contactLabel: "Kontak",
+  whatsappLabel: "Chat WhatsApp",
+  mapsLabel: "Buka di Google Maps",
 };
 
 /* ---------- Halaman Tentang ---------- */
 
 export const about = {
-  eyebrow: "Tentang",
-  title: "Tempat yang membuat orang kembali",
+  title: "Tentang Dahan Kopi",
+  lead: "Kedai kopi dengan bar, ruang dalam serba kayu, dan taman di Jl. Ciherang, Banjaran, Kabupaten Bandung.",
   image: {
-    src: "/images/about-hero.jpg",
-    alt: "Suasana Dahan Kopi dari area taman",
+    src: "/images/about-front.jpg",
+    alt: "Tampak depan Dahan Kopi",
+    shot: "Tampak depan atau pintu masuk · 21:9",
+    tone: "wood",
   } satisfies ImageAsset,
-  intro:
-    "Kafe dengan bar kopi, interior kayu, dan taman yang rimbun di Banjaran, Kabupaten Bandung.",
-  storyTitle: "Cerita kami",
-  // Placeholder — ganti dengan cerita lengkap Dahan Kopi.
+  storyTitle: "Kenapa Dahan",
+  // Contoh — ganti dengan cerita lengkap Dahan Kopi.
+  // Jika paragraf terakhir diakhiri "halaman Menu.", kata itu otomatis jadi link ke /menu.
   paragraphs: [
-    "Nama Dahan kami ambil dari cabang pohon: bagian yang tumbuh dari akar yang kuat, menjadi tempat bernaung, dan selalu didatangi kembali. Semangat itu yang ingin kami hadirkan di Banjaran.",
-    "Setiap cangkir disiapkan dari biji kopi pilihan dan diseduh dengan teliti oleh barista kami. Di dapur, kami menyiapkan hidangan sederhana yang jujur rasanya, cocok untuk sarapan, makan siang, atau teman ngobrol sampai malam.",
-    "Lebih dari sekadar kafe, Dahan Kopi adalah ruang untuk momen yang berarti: bertemu teman lama, merayakan hal kecil, atau menikmati sore di bawah pepohonan.",
+    "Dahan artinya cabang pohon: tempat burung hinggap, pergi, lalu balik lagi besok. Kami ingin Dahan Kopi jadi tempat seperti itu buat kamu: dekat, santai, dan enak buat mampir lagi.",
+    "Kedai kami ada di Jl. Ciherang, Banjaran. Di dalam ada bar kopi dan meja-meja kayu, di luar ada taman. Pagi orang datang buat sarapan dan kopi pertama, siang buat kerja sebentar, malam buat ngobrol sampai kami tutup.",
+    "Di bar, kami bikin espresso, kopi susu, manual brew, dan minuman non-kopi. Dari dapur ada makanan berat dan camilan. Daftar lengkapnya ada di halaman Menu.",
   ],
-  spacesTitle: "Ruang-ruang kami",
+  /** Fakta singkat. Isi `value` hanya dengan info yang benar; baris kosong tidak tampil. */
+  facts: [
+    { label: "Buka sejak", value: "" },
+    { label: "Biji kopi", value: "" },
+    { label: "Tempat duduk", value: "" },
+  ] satisfies Fact[],
+  spacesTitle: "Ruang",
   spaces: [
     {
+      title: "Bar kopi",
+      text: "Duduk di depan bar kalau mau lihat kopimu dibuat.",
+      image: {
+        src: "/images/space-bar.jpg",
+        alt: "Bar kopi Dahan Kopi",
+        shot: "Bar kopi · 3:2",
+        tone: "wood",
+      },
+    },
+    {
       title: "Ruang dalam",
-      text: "Interior kayu yang hangat dan tenang, nyaman untuk bekerja atau berbincang.",
+      text: "Meja-meja kayu, lebih tenang. Enak buat kerja atau ngobrol lama.",
       image: {
         src: "/images/space-indoor.jpg",
-        alt: "Ruang dalam Dahan Kopi dengan interior kayu",
+        alt: "Ruang dalam Dahan Kopi dengan meja kayu",
+        shot: "Ruang dalam, meja kayu · 4:5",
+        tone: "wood",
       },
     },
     {
       title: "Taman",
-      text: "Area terbuka yang hijau dan rimbun, teduh di siang hari dan syahdu di malam hari.",
-      image: { src: "/images/space-garden.jpg", alt: "Area taman Dahan Kopi" },
+      text: "Meja di luar, di antara pohon dan tanaman, buat yang suka duduk di udara terbuka.",
+      image: {
+        src: "/images/space-garden.jpg",
+        alt: "Taman Dahan Kopi",
+        shot: "Taman · 16:9",
+        tone: "garden",
+      },
     },
-    {
-      title: "Bar kopi",
-      text: "Duduk di depan bar dan lihat barista menyeduh kopi pesananmu dari dekat.",
-      image: { src: "/images/bar.jpg", alt: "Bar kopi Dahan Kopi" },
-    },
-  ] satisfies Highlight[],
+  ] satisfies Space[],
   facilitiesTitle: "Fasilitas",
-  // Placeholder — sesuaikan dengan fasilitas yang tersedia.
+  /** `detail` opsional, isi hanya dengan info yang benar, mis. { name: "Parkir", detail: "motor & mobil" }. */
   facilities: [
-    { name: "Wi-Fi", text: "Internet gratis untuk pengunjung." },
-    { name: "Colokan listrik", text: "Tersedia di area dalam dan sebagian taman." },
-    { name: "Area outdoor", text: "Taman terbuka dengan banyak pepohonan." },
-    { name: "Parkir", text: "Area parkir untuk motor dan mobil." },
-    { name: "Musholla", text: "Ruang ibadah yang bersih dan nyaman." },
-  ] satisfies Facility[],
-  contactTitle: "Kunjungi kami",
-  contactText: "Untuk reservasi tempat atau acara, hubungi kami lewat WhatsApp.",
+    { name: "Wi-Fi" },
+    { name: "Colokan" },
+    { name: "Area outdoor" },
+    { name: "Parkir" },
+    { name: "Musholla" },
+  ] as Facility[],
+  /** Tanya-jawab opsional, mis. { q: "Ada area merokok?", a: "Ada, di taman." }. Kosong = tidak tampil. */
+  faq: [] as FaqItem[],
+  contactTitle: "Kontak",
+  contactText:
+    "Mau pesan tempat buat rombongan atau acara? Chat kami di WhatsApp, sebutkan tanggal, jam, dan jumlah orang.",
+  contactButton: "Reservasi lewat WhatsApp",
 };
 
 /* ---------- Fitur (untuk dikembangkan nanti) ---------- */
@@ -257,7 +330,7 @@ export const features = {
   },
   /**
    * Pesan antar. Isi daftar link (mis. GoFood, GrabFood, ShopeeFood),
-   * maka tombolnya otomatis muncul di halaman Menu.
+   * maka link-nya otomatis muncul di halaman Menu.
    */
   delivery: [] as DeliveryLink[],
   /** File buku menu di folder `public`. */

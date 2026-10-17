@@ -1,173 +1,193 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import { OpeningHoursList } from "@/components/home/LiveHours";
-import { ButtonLink } from "@/components/ui/ButtonLink";
+import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { ArrowUpRightIcon, InstagramIcon, WhatsAppIcon } from "@/components/ui/icons";
-import { PageHeader } from "@/components/ui/PageHeader";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { about, address, contact, site } from "@/data/site";
-import { isOpenEveryDay } from "@/lib/hours";
-import { mapsDirectionsUrl, telUrl, whatsappUrl } from "@/lib/links";
+import { Photo } from "@/components/ui/Photo";
+import { TextLink } from "@/components/ui/TextLink";
+import { about, contact } from "@/data/site";
+import { reservationHref, telUrl } from "@/lib/links";
 import { pageMetadata } from "@/lib/seo";
+import type { Space } from "@/lib/types";
 
 export const metadata: Metadata = pageMetadata({
   title: "Tentang",
-  description: `Cerita, ruang, dan fasilitas ${site.name}: bar kopi, interior kayu, dan taman hijau di Banjaran, Kabupaten Bandung.`,
+  description:
+    "Kenapa namanya Dahan, ruang-ruang di Dahan Kopi (bar, ruang dalam, taman), fasilitas, dan cara reservasi.",
   path: "/tentang",
 });
 
-export default function AboutPage() {
+function SpaceCaption({ space }: { space: Space }) {
   return (
     <>
-      <PageHeader eyebrow={about.eyebrow} title={about.title}>
-        <p>{about.intro}</p>
-      </PageHeader>
+      <h3 className="mt-3 text-[1.0625rem] font-semibold lg:mt-4">{space.title}</h3>
+      <p className="mt-1 text-muted">{space.text}</p>
+    </>
+  );
+}
 
-      <div className="mt-14 sm:mt-20">
-        <div className="relative aspect-4/3 w-full bg-sand sm:aspect-21/9">
-          <Image
-            src={about.image.src}
-            alt={about.image.alt}
-            fill
-            preload
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
-      </div>
+export default function AboutPage() {
+  const facts = about.facts.filter((fact) => fact.value.trim());
+  const [bar, indoor, garden] = about.spaces;
+  const lastParagraph = about.paragraphs.length - 1;
+
+  return (
+    <>
+      <Container className="pb-6 pt-8 lg:grid lg:grid-cols-12 lg:items-end lg:gap-6 lg:pb-12 lg:pt-16">
+        <h1 className="display-1 lg:col-span-6">{about.title}</h1>
+        <p className="body-lg mt-3 lg:col-span-5 lg:col-start-8 lg:mt-0">{about.lead}</p>
+      </Container>
+
+      <Photo image={about.image} ratio="aspect-4/3 lg:aspect-21/9" sizes="100vw" preload />
 
       {/* Cerita */}
-      <section className="py-24 sm:py-32">
-        <Container className="grid gap-10 md:grid-cols-[1fr_1.5fr] md:gap-20">
-          <div data-reveal>
-            <h2 className="heading-display text-4xl sm:text-5xl md:sticky md:top-[calc(var(--header-h)+2rem)]">
-              {about.storyTitle}
-            </h2>
-          </div>
-          <div data-reveal="120" className="space-y-6 text-lg leading-relaxed text-muted">
-            {about.paragraphs.map((paragraph) => (
-              <p key={paragraph.slice(0, 32)}>{paragraph}</p>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* Ruang */}
-      <section className="bg-white py-24 sm:py-32">
-        <Container>
-          <div data-reveal>
-            <SectionHeading title={about.spacesTitle} />
-          </div>
-          <ul className="mt-14 grid gap-12 md:grid-cols-3 md:gap-6 lg:gap-8">
-            {about.spaces.map((space, index) => (
-              <li key={space.title} data-reveal={index * 120} className="group">
-                <div className="relative aspect-4/5 overflow-hidden rounded-card bg-sand shadow-soft">
-                  <Image
-                    src={space.image.src}
-                    alt={space.image.alt}
-                    fill
-                    sizes="(min-width: 1152px) 350px, (min-width: 768px) 31vw, 100vw"
-                    className="object-cover transition-transform duration-700 ease-soft group-hover:scale-[1.04]"
-                  />
+      <Container className="mt-14 lg:mt-24 lg:grid lg:grid-cols-12 lg:gap-6">
+        <div className="self-start lg:sticky lg:top-[calc(var(--header-h)+2rem)] lg:col-span-4">
+          <h2 className="display-3">{about.storyTitle}</h2>
+          {facts.length > 0 && (
+            <dl className="mt-8 hidden space-y-4 lg:block">
+              {facts.map((fact) => (
+                <div key={fact.label}>
+                  <dt className="text-micro text-muted">{fact.label}</dt>
+                  <dd className="font-medium">{fact.value}</dd>
                 </div>
-                <h3 className="heading-display mt-6 text-4xl">{space.title}</h3>
-                <p className="mt-3 leading-relaxed text-muted">{space.text}</p>
-              </li>
+              ))}
+            </dl>
+          )}
+        </div>
+        <div className="body-lg mt-5 max-w-[60ch] space-y-5 lg:col-span-6 lg:col-start-6 lg:mt-0">
+          {about.paragraphs.map((paragraph, index) =>
+            index === lastParagraph && paragraph.endsWith("halaman Menu.") ? (
+              <p key={index}>
+                {paragraph.slice(0, -"halaman Menu.".length)}
+                <TextLink href="/menu" inline>
+                  halaman Menu
+                </TextLink>
+                .
+              </p>
+            ) : (
+              <p key={index}>{paragraph}</p>
+            ),
+          )}
+        </div>
+        {facts.length > 0 && (
+          <dl className="mt-8 space-y-4 lg:hidden">
+            {facts.map((fact) => (
+              <div key={fact.label}>
+                <dt className="text-micro text-muted">{fact.label}</dt>
+                <dd className="font-medium">{fact.value}</dd>
+              </div>
             ))}
-          </ul>
+          </dl>
+        )}
+      </Container>
+
+      {/* Ruang: bar → ruang dalam → taman */}
+      <section
+        id="ruang"
+        aria-labelledby="ruang-judul"
+        className="mt-16 scroll-mt-(--header-h) lg:mt-32"
+      >
+        <Container>
+          <h2 id="ruang-judul" className="display-3">
+            {about.spacesTitle}
+          </h2>
         </Container>
+        <Container className="mt-6 lg:mt-10 lg:grid lg:grid-cols-12 lg:gap-6">
+          {bar && (
+            <div className="lg:col-span-7">
+              <Photo
+                image={bar.image}
+                ratio="aspect-3/2"
+                sizes="(min-width: 1200px) 640px, (min-width: 1024px) 55vw, 100vw"
+              />
+              <SpaceCaption space={bar} />
+            </div>
+          )}
+          {indoor && (
+            <div className="ml-14 mt-12 lg:col-span-4 lg:col-start-9 lg:ml-0 lg:mt-32">
+              <Photo
+                image={indoor.image}
+                ratio="aspect-4/5"
+                sizes="(min-width: 1200px) 360px, (min-width: 1024px) 31vw, 80vw"
+              />
+              <SpaceCaption space={indoor} />
+            </div>
+          )}
+        </Container>
+        {garden && (
+          <div className="mt-12 lg:mt-24">
+            <Photo image={garden.image} ratio="aspect-4/3 lg:aspect-16/9" sizes="100vw" />
+            <Container>
+              <div className="max-w-[28rem]">
+                <SpaceCaption space={garden} />
+              </div>
+            </Container>
+          </div>
+        )}
       </section>
 
       {/* Fasilitas */}
-      <section className="py-24 sm:py-32">
-        <Container className="grid gap-12 md:grid-cols-[1fr_1.5fr] md:gap-20">
-          <div data-reveal>
-            <SectionHeading title={about.facilitiesTitle} />
+      <Container className="mt-16 lg:mt-32">
+        <section
+          aria-labelledby="fasilitas-judul"
+          className="border-t border-line pt-8 lg:grid lg:grid-cols-12 lg:gap-6"
+        >
+          <h2 id="fasilitas-judul" className="display-3 lg:col-span-4">
+            {about.facilitiesTitle}
+          </h2>
+          <div className="mt-4 lg:col-span-7 lg:col-start-6 lg:mt-0">
+            <ul className="dot-list body-lg flex flex-wrap">
+              {about.facilities.map((facility) => (
+                <li key={facility.name}>
+                  {facility.name}
+                  {facility.detail && (
+                    <span className="text-[0.9375rem] text-muted"> ({facility.detail})</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+            {about.faq.length > 0 && (
+              <dl className="mt-8">
+                {about.faq.map((item) => (
+                  <div key={item.q} className="border-b border-line py-3">
+                    <dt className="text-[0.9375rem] font-semibold">{item.q}</dt>
+                    <dd className="mt-1 text-[0.9375rem] text-muted">{item.a}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
           </div>
-          <ul data-reveal="120" className="grid border-t border-line sm:grid-cols-2 sm:gap-x-10">
-            {about.facilities.map((facility, index) => (
-              <li key={facility.name} className="flex gap-5 border-b border-line py-6">
-                <span
-                  aria-hidden="true"
-                  className="pt-0.5 text-sm font-semibold tabular-nums text-leaf"
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 className="font-semibold">{facility.name}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-muted">{facility.text}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </section>
+        </section>
+      </Container>
 
-      {/* Kontak */}
-      <section id="kontak" className="bg-white py-24 sm:py-32">
-        <Container className="grid gap-12 lg:grid-cols-2 lg:gap-20">
-          <div data-reveal>
-            <SectionHeading eyebrow="Kontak" title={about.contactTitle}>
-              <p>{about.contactText}</p>
-            </SectionHeading>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href={whatsappUrl()} icon={<WhatsAppIcon className="h-4 w-4" />}>
-                Reservasi via WhatsApp
-              </ButtonLink>
-              <ButtonLink
-                href={mapsDirectionsUrl}
-                variant="outline"
-                icon={<ArrowUpRightIcon className="h-4 w-4" />}
-              >
-                Petunjuk arah
-              </ButtonLink>
-            </div>
+      {/* Kontak — alamat & jam ada di footer tepat di bawahnya */}
+      <Container className="mt-14 lg:mt-24">
+        <section
+          id="kontak"
+          aria-labelledby="kontak-judul"
+          className="border-t border-line pt-8 lg:grid lg:grid-cols-12 lg:gap-6"
+        >
+          <h2 id="kontak-judul" className="display-3 lg:col-span-4">
+            {about.contactTitle}
+          </h2>
+          <div className="mt-4 lg:col-span-6 lg:col-start-6 lg:mt-0">
+            <p className="body-lg">{about.contactText}</p>
+            <Button href={reservationHref()} className="mt-5">
+              {about.contactButton}
+            </Button>
+            <p className="mt-4 text-small text-muted">
+              Telepon{" "}
+              <TextLink href={telUrl} inline className="tabular-nums text-espresso">
+                {contact.phoneDisplay}
+              </TextLink>{" "}
+              · DM{" "}
+              <TextLink href={contact.instagram.url} inline className="text-espresso">
+                @{contact.instagram.handle}
+              </TextLink>{" "}
+              di Instagram.
+            </p>
           </div>
-
-          <dl data-reveal="120" className="grid gap-8 sm:grid-cols-2">
-            <div>
-              <dt className="eyebrow mb-3 text-muted">Alamat</dt>
-              <dd>
-                <address className="not-italic leading-relaxed">
-                  {address.street},
-                  <br />
-                  {address.locality}, {address.regency},
-                  <br />
-                  {address.province} {address.postalCode}
-                </address>
-              </dd>
-            </div>
-            <div>
-              <dt className="eyebrow mb-3 text-muted">Telepon & WhatsApp</dt>
-              <dd>
-                <a href={telUrl} className="py-1 hover:underline">
-                  {contact.phoneDisplay}
-                </a>
-              </dd>
-              <dt className="eyebrow mb-3 mt-6 text-muted">Instagram</dt>
-              <dd>
-                <a
-                  href={contact.instagram.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 py-1 hover:underline"
-                >
-                  <InstagramIcon className="h-5 w-5" />@{contact.instagram.handle}
-                </a>
-              </dd>
-            </div>
-            <div className="sm:col-span-2">
-              <dt className="eyebrow mb-3 text-muted">
-                Jam buka{isOpenEveryDay() ? " · setiap hari" : ""}
-              </dt>
-              <dd>
-                <OpeningHoursList />
-              </dd>
-            </div>
-          </dl>
-        </Container>
-      </section>
+        </section>
+      </Container>
     </>
   );
 }

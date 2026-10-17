@@ -1,28 +1,26 @@
 @import "tailwindcss";
 
 /*
- * Palet Dahan Kopi (mengikuti buku menu).
- * Pakai di komponen sebagai kelas Tailwind, mis. `bg-espresso`, `text-coffee`.
+ * Palet Dahan Kopi (dari buku menu). Pakai sebagai kelas Tailwind, mis. `bg-espresso`, `text-coffee`.
+ * Aturan: semua halaman berlatar krem; espresso hanya untuk footer.
  */
 @theme {
   --color-espresso: #2b1d16;
+  --color-espresso-2: #3a2a21;
   --color-coffee: #5a3e2b;
   --color-cream: #f6f1ea;
-  --color-sand: #ede4d8;
   --color-line: #e2d6c8;
   --color-muted: #6b5b4f;
   --color-leaf: #4f6b45;
   --color-leaf-soft: #a8bf9c;
   --color-cream-muted: #c9b8a6;
 
-  --shadow-soft: 0 1px 2px rgb(43 29 22 / 0.04), 0 8px 24px -12px rgb(43 29 22 / 0.18);
-  --shadow-lift: 0 2px 4px rgb(43 29 22 / 0.05), 0 18px 40px -18px rgb(43 29 22 / 0.28);
-
-  --radius-card: 0.875rem;
+  /* Warna kotak foto sementara (sebelum foto asli dimasukkan). */
+  --color-ph-garden: #57654b;
+  --color-ph-wood: #6b4f3a;
+  --color-ph-day: #d9cdbd;
 
   --ease-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
-
-  --animate-rise: rise 0.9s var(--ease-soft) both;
 }
 
 @theme inline {
@@ -30,19 +28,14 @@
   --font-display: var(--font-instrument), "Times New Roman", ui-serif, serif;
 }
 
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(1rem);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+:root {
+  --header-h: 3.5rem;
 }
 
-:root {
-  --header-h: 4.5rem;
+@media (width >= 64rem) {
+  :root {
+    --header-h: 4rem;
+  }
 }
 
 @layer base {
@@ -58,8 +51,8 @@
   }
 
   body {
-    @apply bg-cream font-sans text-espresso antialiased;
-    text-rendering: optimizeLegibility;
+    @apply bg-cream font-sans text-base text-espresso antialiased;
+    line-height: 1.55;
   }
 
   ::selection {
@@ -70,42 +63,122 @@
   :focus-visible {
     outline: 2px solid currentColor;
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: 0;
   }
 }
 
 @layer components {
-  /* Judul serif condensed uppercase, seperti judul di buku menu. */
-  .heading-display {
+  /* Serif condensed uppercase, seperti judul di buku menu. Hanya untuk nama: judul halaman, kategori, ruang. */
+  .display-hero,
+  .display-1,
+  .display-2,
+  .display-3,
+  .wordmark {
     font-family: var(--font-display);
     font-weight: 400;
     text-transform: uppercase;
-    line-height: 0.95;
-    letter-spacing: 0.01em;
     text-wrap: balance;
   }
 
-  .eyebrow {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
+  .display-hero {
+    font-size: 1.875rem;
+    line-height: 1;
+    letter-spacing: 0.005em;
+  }
+
+  .display-1 {
+    font-size: 2.75rem;
+    line-height: 0.95;
+    letter-spacing: 0.01em;
+  }
+
+  .display-2 {
+    font-size: 2.125rem;
+    line-height: 1;
+    letter-spacing: 0.01em;
+  }
+
+  .display-3 {
+    font-size: 1.75rem;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+  }
+
+  .wordmark {
+    font-size: 1.25rem;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  .body-lg {
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+
+  .text-small {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .text-micro {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  @media (width >= 40rem) {
+    .display-hero {
+      font-size: 2.5rem;
+    }
+    .display-1 {
+      font-size: 3.25rem;
+    }
+    .display-2 {
+      font-size: 2.25rem;
+    }
+    .wordmark {
+      font-size: 1.375rem;
+    }
+  }
+
+  @media (width >= 64rem) {
+    .display-hero {
+      font-size: 3.25rem;
+    }
+    .display-1 {
+      font-size: 4rem;
+    }
+    .display-2 {
+      font-size: 2.5rem;
+    }
+    .display-3 {
+      font-size: 2rem;
+    }
+    .wordmark {
+      font-size: 1.5rem;
+    }
+    .body-lg {
+      font-size: 1.125rem;
+    }
+  }
+
+  /* Daftar fasilitas: "Wi-Fi · Colokan · Parkir" */
+  .dot-list > li + li::before {
+    content: "·";
+    margin: 0 0.6em;
+    color: var(--color-muted);
   }
 }
 
-/* Fade-in saat scroll (lihat components/ui/RevealObserver.tsx). */
+/* Foto muncul pelan saat discroll (lihat components/ui/RevealObserver.tsx). Hanya opacity. */
 [data-reveal-state="hidden"] {
   opacity: 0;
-  transform: translateY(1.25rem);
 }
 
 [data-reveal-state="visible"] {
   opacity: 1;
-  transform: none;
-  transition:
-    opacity 0.9s var(--ease-soft),
-    transform 0.9s var(--ease-soft);
-  transition-delay: var(--reveal-delay, 0ms);
+  transition: opacity 0.7s var(--ease-soft);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -120,6 +193,5 @@
 
   [data-reveal-state] {
     opacity: 1 !important;
-    transform: none !important;
   }
 }

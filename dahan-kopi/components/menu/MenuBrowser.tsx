@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useSyncExternalStore, type MouseEvent } from "react";
-import { MenuItemCard } from "@/components/menu/MenuItemCard";
+import { MenuRow } from "@/components/menu/MenuRow";
 import { Container } from "@/components/ui/Container";
 import type { MenuCategory } from "@/lib/types";
 
@@ -80,18 +80,16 @@ export function MenuBrowser({ categories }: { categories: MenuCategory[] }) {
   }
 
   const filters = [{ id: ALL, name: "Semua" }, ...visible];
+  const shown = visible.filter((category) => active === ALL || active === category.id);
 
   return (
     <>
-      <div
-        ref={barRef}
-        className="sticky top-(--header-h) z-30 mt-12 border-y border-line bg-cream/95 backdrop-blur-md"
-      >
+      <div ref={barRef} className="sticky top-(--header-h) z-30 border-y border-line bg-cream">
         <Container>
           <nav aria-label="Kategori menu">
             <ul
               ref={pillsRef}
-              className="relative -mx-5 flex gap-2 overflow-x-auto px-5 py-3 [scrollbar-width:none] sm:mx-0 sm:px-0 [&::-webkit-scrollbar]:hidden"
+              className="relative -mx-4 flex gap-6 overflow-x-auto px-4 [scroll-padding-inline:1rem] [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:mx-0 lg:gap-7 lg:px-0 [&::-webkit-scrollbar]:hidden"
             >
               {filters.map((filter) => {
                 const isActive = filter.id === active;
@@ -101,10 +99,10 @@ export function MenuBrowser({ categories }: { categories: MenuCategory[] }) {
                       href={filter.id === ALL ? "#" : `#${filter.id}`}
                       onClick={(event) => select(event, filter.id)}
                       aria-current={isActive ? "true" : undefined}
-                      className={`inline-flex min-h-10 items-center rounded-full border px-4 text-sm font-medium transition-colors duration-300 ${
+                      className={`relative inline-flex min-h-12 items-center whitespace-nowrap text-[0.9375rem] transition-colors duration-150 after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 ${
                         isActive
-                          ? "border-espresso bg-espresso text-cream"
-                          : "border-line bg-white text-espresso hover:border-espresso/40"
+                          ? "font-semibold text-espresso after:bg-coffee"
+                          : "font-medium text-muted hover:text-espresso"
                       }`}
                     >
                       {filter.name}
@@ -118,32 +116,36 @@ export function MenuBrowser({ categories }: { categories: MenuCategory[] }) {
       </div>
 
       <div ref={listRef}>
-        <Container className="space-y-20 py-14 sm:py-20">
-          {visible.map((category) => (
-            <section
-              key={category.id}
-              id={category.id}
-              aria-labelledby={`${category.id}-judul`}
-              hidden={active !== ALL && active !== category.id}
-              className="scroll-mt-[calc(var(--header-h)+5.5rem)]"
-            >
-              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-b border-line pb-5">
-                <h2 id={`${category.id}-judul`} className="heading-display text-5xl sm:text-6xl">
-                  {category.name}
-                </h2>
-                {category.description && (
-                  <p className="eyebrow text-muted">{category.description}</p>
-                )}
-              </div>
-              <ul className="mt-8 grid gap-4 md:grid-cols-2 md:gap-5">
-                {category.items.map((item) => (
-                  <li key={item.name}>
-                    <MenuItemCard item={item} />
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
+        <Container className="pt-8 lg:pt-12">
+          {visible.map((category) => {
+            const isHidden = !shown.includes(category);
+            const isFirst = shown[0] === category;
+            return (
+              <section
+                key={category.id}
+                id={category.id}
+                aria-labelledby={`${category.id}-judul`}
+                hidden={isHidden}
+                className={`scroll-mt-[calc(var(--header-h)+3.125rem+1.5rem)] pb-8 lg:grid lg:grid-cols-12 lg:gap-6 lg:pb-10 ${
+                  isFirst ? "" : "border-t border-line pt-8 lg:pt-10"
+                }`}
+              >
+                <div className="self-start lg:sticky lg:top-[calc(var(--header-h)+3.125rem+1.5rem)] lg:col-span-4">
+                  <h2 id={`${category.id}-judul`} className="display-2">
+                    {category.name}
+                  </h2>
+                  {category.description && (
+                    <p className="mt-1 text-small text-muted">{category.description}</p>
+                  )}
+                </div>
+                <ul className="mt-5 max-w-[40rem] space-y-5 lg:col-span-6 lg:col-start-6 lg:mt-0">
+                  {category.items.map((item) => (
+                    <MenuRow key={item.name} item={item} />
+                  ))}
+                </ul>
+              </section>
+            );
+          })}
         </Container>
       </div>
     </>

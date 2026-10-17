@@ -1,40 +1,122 @@
-import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
+import { MenuRow } from "@/components/menu/MenuRow";
 import { Container } from "@/components/ui/Container";
-import { ArrowRightIcon } from "@/components/ui/icons";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Photo } from "@/components/ui/Photo";
+import { TextLink } from "@/components/ui/TextLink";
+import { menu } from "@/data/menu";
 import { highlights } from "@/data/site";
+import type { Highlight } from "@/lib/types";
 
-export function Highlights() {
+const zoom = "transition-transform duration-700 ease-soft motion-safe:group-hover:scale-[1.02]";
+
+/** Hingga 3 item `featured` dari kategori menu yang terkait. */
+function featuredItems(item: Highlight) {
+  return menu
+    .filter((category) => item.menuCategories?.includes(category.id))
+    .flatMap((category) => category.items)
+    .filter((menuItem) => menuItem.featured)
+    .slice(0, 3);
+}
+
+/** Foto yang bisa diklik dengan mouse; link teks di bawahnya jalur untuk keyboard & pembaca layar. */
+function PhotoLink({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <section className="bg-espresso py-24 text-cream sm:py-32">
-      <Container>
-        <div data-reveal>
-          <SectionHeading tone="dark" eyebrow={highlights.eyebrow} title={highlights.title} />
-        </div>
-        <ul className="mt-14 grid gap-12 md:grid-cols-3 md:gap-6 lg:gap-8">
-          {highlights.items.map((item, index) => (
-            <li key={item.title} data-reveal={index * 120}>
-              <Link href={item.href ?? "/"} className="group block rounded-card">
-                <div className="relative aspect-4/5 overflow-hidden rounded-card bg-coffee">
-                  <Image
-                    src={item.image.src}
-                    alt={item.image.alt}
-                    fill
-                    sizes="(min-width: 1152px) 350px, (min-width: 768px) 31vw, 100vw"
-                    className="object-cover transition-transform duration-700 ease-soft group-hover:scale-[1.04]"
-                  />
-                </div>
-                <h3 className="heading-display mt-6 flex items-center justify-between text-4xl">
-                  {item.title}
-                  <ArrowRightIcon className="h-5 w-5 text-cream-muted transition-transform duration-300 group-hover:translate-x-1 group-hover:text-cream" />
-                </h3>
-                <p className="mt-3 leading-relaxed text-cream-muted">{item.text}</p>
-              </Link>
-            </li>
+    <Link href={href} aria-hidden="true" tabIndex={-1} className="group block">
+      {children}
+    </Link>
+  );
+}
+
+function Caption({
+  item,
+  id,
+  className = "",
+}: {
+  item: Highlight;
+  id: string;
+  className?: string;
+}) {
+  const featured = featuredItems(item);
+  return (
+    <div className={className}>
+      <h2 id={id} className="display-3">
+        {item.title}
+      </h2>
+      <p className="mt-2">{item.text}</p>
+      {featured.length > 0 && (
+        <ul className="mt-4 max-w-[22rem]">
+          {featured.map((menuItem) => (
+            <MenuRow key={menuItem.name} item={menuItem} compact />
           ))}
         </ul>
+      )}
+      <TextLink href={item.link.href} className="mt-3">
+        {item.link.label}
+      </TextLink>
+    </div>
+  );
+}
+
+/** Kopi, Makanan, Ruang: tidak simetris, satu ukuran foto per blok. */
+export function Highlights() {
+  const [coffee, food, space] = highlights;
+
+  return (
+    <div className="mt-20 lg:mt-32">
+      <Container className="lg:grid lg:grid-cols-12 lg:gap-6">
+        {coffee && (
+          <section aria-labelledby="sorot-kopi" className="lg:col-span-5">
+            <PhotoLink href={coffee.link.href}>
+              <Photo
+                image={coffee.image}
+                ratio="aspect-4/5"
+                sizes="(min-width: 1200px) 452px, (min-width: 1024px) 38vw, 100vw"
+                innerClassName={zoom}
+              />
+            </PhotoLink>
+            <Caption item={coffee} id="sorot-kopi" className="mt-5" />
+          </section>
+        )}
+        {food && (
+          <section
+            aria-labelledby="sorot-makanan"
+            className="ml-14 mt-14 lg:col-span-6 lg:col-start-7 lg:ml-0 lg:mt-40"
+          >
+            <PhotoLink href={food.link.href}>
+              <Photo
+                image={food.image}
+                ratio="aspect-3/2"
+                sizes="(min-width: 1200px) 548px, (min-width: 1024px) 46vw, 85vw"
+                innerClassName={zoom}
+              />
+            </PhotoLink>
+            <Caption item={food} id="sorot-makanan" className="mt-5" />
+          </section>
+        )}
       </Container>
-    </section>
+
+      {space && (
+        <section aria-labelledby="sorot-ruang" className="mt-14 lg:mt-24">
+          <PhotoLink href={space.link.href}>
+            <Photo
+              image={space.image}
+              ratio="aspect-4/3 lg:aspect-21/9"
+              sizes="100vw"
+              innerClassName={zoom}
+            />
+          </PhotoLink>
+          <Container className="mt-4 lg:mt-5 lg:flex lg:flex-wrap lg:items-baseline lg:gap-x-6">
+            <h2 id="sorot-ruang" className="display-3">
+              {space.title}
+            </h2>
+            <p className="mt-2 lg:mt-0">{space.text}</p>
+            <TextLink href={space.link.href} className="mt-1 lg:mt-0">
+              {space.link.label}
+            </TextLink>
+          </Container>
+        </section>
+      )}
+    </div>
   );
 }

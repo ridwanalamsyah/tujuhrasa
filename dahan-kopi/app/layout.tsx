@@ -6,7 +6,7 @@ import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
 import { JsonLd } from "@/components/JsonLd";
 import { RevealObserver } from "@/components/ui/RevealObserver";
 import { site } from "@/data/site";
-import { cafeJsonLd } from "@/lib/seo";
+import { cafeJsonLd, siteDescription } from "@/lib/seo";
 import { siteUrl } from "@/lib/site-url";
 import "./globals.css";
 
@@ -20,6 +20,7 @@ const display = Instrument_Serif({
 
 const sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   variable: "--font-jakarta",
   display: "swap",
 });
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
     default: site.seo.title,
     template: `%s — ${site.name}`,
   },
-  description: site.seo.description,
+  description: siteDescription,
   keywords: site.seo.keywords,
   applicationName: site.name,
   openGraph: {
@@ -38,12 +39,12 @@ export const metadata: Metadata = {
     locale: "id_ID",
     siteName: site.name,
     title: site.seo.title,
-    description: site.seo.description,
+    description: siteDescription,
   },
   twitter: {
     card: "summary_large_image",
     title: site.seo.title,
-    description: site.seo.description,
+    description: siteDescription,
   },
   formatDetection: { telephone: false },
 };
@@ -59,9 +60,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <a
           href="#konten"
-          className="fixed left-4 top-3 z-[60] -translate-y-20 rounded-full bg-espresso px-5 py-3 text-sm font-semibold text-cream transition-transform focus:translate-y-0"
+          className="fixed left-4 top-2 z-[60] -translate-y-20 bg-espresso px-4 py-3 text-[0.875rem] font-semibold text-cream focus:translate-y-0"
         >
-          Langsung ke konten
+          Langsung ke isi
         </a>
         <Navbar />
         <main id="konten" tabIndex={-1} className="outline-none">

@@ -2,25 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { Logo } from "@/components/Logo";
-import { CloseIcon, InstagramIcon, MenuIcon } from "@/components/ui/icons";
-import { address, contact, features, navigation, openingHours } from "@/data/site";
-import { formatRange } from "@/lib/hours";
-import { isExternal, reservationHref } from "@/lib/links";
-
-function subscribeScroll(onChange: () => void) {
-  window.addEventListener("scroll", onChange, { passive: true });
-  return () => window.removeEventListener("scroll", onChange);
-}
-
-function useScrolled(offset = 24) {
-  return useSyncExternalStore(
-    subscribeScroll,
-    () => window.scrollY > offset,
-    () => false,
-  );
-}
+import { useEffect, useRef, useState } from "react";
+import { StatusLine } from "@/components/hours/StatusLine";
+import { LogoLockup } from "@/components/Logo";
+import { Button } from "@/components/ui/Button";
+import { CloseIcon, MenuIcon } from "@/components/ui/icons";
+import { TextLink } from "@/components/ui/TextLink";
+import { about, address, contact, features, navigation } from "@/data/site";
+import { reservationHref } from "@/lib/links";
 
 function isActive(pathname: string, href: string) {
   return href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -28,30 +17,34 @@ function isActive(pathname: string, href: string) {
 
 export function Navbar() {
   const pathname = usePathname();
-  const scrolled = useScrolled();
-  // Menu mobile otomatis tertutup saat pindah halaman.
+  // Navigasi mobile otomatis tertutup saat pindah halaman.
   const [openOn, setOpenOn] = useState<string | null>(null);
   const open = openOn === pathname;
   const toggleRef = useRef<HTMLButtonElement>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
-
-  const overlay = pathname === "/" && !scrolled && !open;
+  const overlayRef = useRef<HTMLDivElement>(null);
+  // Kembalikan fokus ke tombol menu hanya bila ditutup dengan Escape / tombol tutup.
+  const restoreFocus = useRef(false);
   const reservation = reservationHref();
-  const reservationIsExternal = isExternal(reservation);
+
+  const close = (returnFocus: boolean) => {
+    restoreFocus.current = returnFocus;
+    setOpenOn(null);
+  };
 
   useEffect(() => {
     if (!open) return;
     const root = document.documentElement;
+    const toggle = toggleRef.current;
     root.style.overflow = "hidden";
-    panelRef.current?.querySelector<HTMLElement>("a")?.focus();
+    overlayRef.current?.querySelector<HTMLElement>("nav a")?.focus();
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        restoreFocus.current = true;
         setOpenOn(null);
-        toggleRef.current?.focus();
       }
     };
-    // Tutup otomatis bila layar melebar ke ukuran desktop (menu mobile disembunyikan).
-    const desktop = window.matchMedia("(min-width: 48rem)");
+    // Tutup otomatis bila layar melebar ke ukuran desktop.
+    const desktop = window.matchMedia("(min-width: 64rem)");
     const onResize = () => desktop.matches && setOpenOn(null);
     window.addEventListener("keydown", onKey);
     desktop.addEventListener("change", onResize);
@@ -59,128 +52,114 @@ export function Navbar() {
       root.style.overflow = "";
       window.removeEventListener("keydown", onKey);
       desktop.removeEventListener("change", onResize);
+      // Berjalan setelah header tidak lagi `inert`, jadi fokus bisa dipindahkan.
+      if (restoreFocus.current) toggle?.focus();
+      restoreFocus.current = false;
     };
   }, [open]);
 
-  return (
-    <>
-      <header
-        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
-          overlay
-            ? "bg-transparent text-cream"
-            : "border-b border-line/80 bg-cream/95 text-espresso backdrop-blur-md"
-        }`}
+  const bar = (isOverlay: boolean) => (
+    <div className="mx-auto flex h-(--header-h) w-full max-w-[75rem] items-center justify-between gap-6 px-4 sm:px-6 lg:px-10">
+      <Link
+        href="/"
+        aria-label="Dahan Kopi, halaman utama"
+        className="-mx-1 inline-flex min-h-11 items-center px-1"
+        onClick={isOverlay ? () => close(false) : undefined}
       >
-        <div className="mx-auto flex h-(--header-h) w-full max-w-6xl items-center justify-between gap-6 px-5 sm:px-8">
-          <Link href="/" className="-m-1 rounded-full p-1" aria-label="Dahan Kopi — Home">
-            <Logo className="h-11 w-11 sm:h-12 sm:w-12" title="" />
-          </Link>
+        <LogoLockup />
+      </Link>
 
-          <nav aria-label="Navigasi utama" className="hidden items-center gap-9 md:flex">
-            <ul className="flex items-center gap-8">
-              {navigation.map((item) => {
-                const active = isActive(pathname, item.href);
-                return (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      aria-current={active ? "page" : undefined}
-                      className={`relative py-2 text-sm font-medium tracking-wide transition-opacity duration-300 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:bg-current after:transition-transform after:duration-300 hover:opacity-100 ${
-                        active
-                          ? "after:scale-x-100"
-                          : "opacity-80 after:scale-x-0 hover:after:scale-x-100"
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-            <a
-              href={reservation}
-              {...(reservationIsExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              className={`inline-flex min-h-11 items-center rounded-full px-5 text-sm font-semibold tracking-wide transition-colors duration-300 ${
-                overlay
-                  ? "bg-cream text-espresso hover:bg-white"
-                  : "bg-espresso text-cream hover:bg-coffee"
-              }`}
-            >
-              {features.reservation.label}
-            </a>
-          </nav>
-
-          <button
-            ref={toggleRef}
-            type="button"
-            className="-mr-2 inline-flex h-11 w-11 items-center justify-center rounded-full md:hidden"
-            aria-expanded={open}
-            aria-controls="mobile-menu"
-            aria-label={open ? "Tutup menu" : "Buka menu"}
-            onClick={() => setOpenOn(open ? null : pathname)}
-          >
-            {open ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
-          </button>
-        </div>
-      </header>
-
-      {/* Di luar <header>: backdrop-filter pada header akan "mengurung" elemen fixed di dalamnya. */}
-      <div
-        id="mobile-menu"
-        ref={panelRef}
-        inert={!open}
-        className={`fixed inset-x-0 bottom-0 top-(--header-h) z-45 overflow-y-auto bg-cream text-espresso duration-300 md:hidden ${
-          // Saat dibuka, visibility langsung aktif agar link pertama bisa langsung difokus.
-          open
-            ? "visible opacity-100 transition-opacity"
-            : "invisible opacity-0 transition-[opacity,visibility]"
-        }`}
-      >
-        <nav aria-label="Navigasi mobile" className="flex min-h-full flex-col px-5 pb-10 pt-8">
-          <ul className="space-y-1">
+      {!isOverlay && (
+        <nav aria-label="Navigasi utama" className="hidden items-center gap-8 lg:flex">
+          <ul className="flex items-center gap-8">
             {navigation.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
                   aria-current={isActive(pathname, item.href) ? "page" : undefined}
-                  onClick={() => setOpenOn(null)}
-                  className="heading-display block py-2 text-5xl aria-[current=page]:text-coffee"
+                  className="inline-flex min-h-11 items-center text-[0.9375rem] font-medium decoration-1 underline-offset-[6px] hover:underline aria-[current=page]:underline"
                 >
                   {item.label}
                 </Link>
               </li>
             ))}
           </ul>
-
-          <a
-            href={reservation}
-            {...(reservationIsExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            className="mt-8 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-espresso px-6 text-sm font-semibold tracking-wide text-cream"
-          >
+          <Button href={reservation} className="h-10!">
             {features.reservation.label}
-            {reservationIsExternal ? " via WhatsApp" : ""}
-          </a>
+          </Button>
+        </nav>
+      )}
 
-          <div className="mt-auto space-y-4 border-t border-line pt-6 text-sm text-muted">
-            <p>{address.short}</p>
-            <ul className="space-y-1">
-              {openingHours.map((rule) => (
-                <li key={rule.label} className="flex justify-between gap-4">
-                  <span>{rule.label}</span>
-                  <span className="tabular-nums">{formatRange(rule)}</span>
+      <div className="flex items-center gap-2 lg:hidden">
+        {!isOverlay && (
+          <TextLink href={reservation} className="px-1 text-[0.875rem] font-semibold">
+            {features.reservation.label}
+          </TextLink>
+        )}
+        <button
+          ref={isOverlay ? undefined : toggleRef}
+          type="button"
+          className="-mr-3 inline-flex h-11 w-11 items-center justify-center"
+          aria-expanded={open}
+          aria-controls="navigasi-mobile"
+          aria-label={isOverlay ? "Tutup navigasi" : "Buka navigasi"}
+          onClick={() => (isOverlay ? close(true) : setOpenOn(pathname))}
+        >
+          {isOverlay ? <CloseIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
+        </button>
+      </div>
+    </div>
+  );
+
+  return (
+    <>
+      <header className="sticky top-0 z-40 border-b border-line bg-cream" inert={open}>
+        {bar(false)}
+      </header>
+
+      <div
+        id="navigasi-mobile"
+        ref={overlayRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigasi"
+        inert={!open}
+        className={`fixed inset-0 z-50 flex flex-col overflow-y-auto bg-cream duration-200 lg:hidden ${
+          // Saat dibuka, visibility langsung aktif agar link pertama bisa langsung difokus.
+          open
+            ? "visible opacity-100 transition-opacity"
+            : "invisible opacity-0 transition-[opacity,visibility]"
+        }`}
+      >
+        <div className="border-b border-line">{bar(true)}</div>
+        <div className="flex flex-1 flex-col px-4 sm:px-6">
+          <nav aria-label="Navigasi mobile" className="pt-10">
+            <ul>
+              {navigation.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    aria-current={isActive(pathname, item.href) ? "page" : undefined}
+                    onClick={() => close(false)}
+                    className="display-1 flex min-h-14 items-center leading-[1.1] decoration-2 underline-offset-[0.12em] aria-[current=page]:underline"
+                  >
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
-            <a
-              href={contact.instagram.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 py-1 font-medium text-espresso"
-            >
-              <InstagramIcon className="h-5 w-5" />@{contact.instagram.handle}
-            </a>
+          </nav>
+
+          <Button href={reservation} tone="solid" className="mt-10">
+            {about.contactButton}
+          </Button>
+
+          <div className="mt-auto space-y-1 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-10 text-small">
+            <StatusLine />
+            <p className="text-muted">{address.short}</p>
+            <TextLink href={contact.instagram.url}>@{contact.instagram.handle}</TextLink>
           </div>
-        </nav>
+        </div>
       </div>
     </>
   );

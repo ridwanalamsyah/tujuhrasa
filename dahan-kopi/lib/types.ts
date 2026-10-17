@@ -7,10 +7,19 @@
 export type DayKey = "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun";
 
 export type ImageAsset = {
-  /** Path gambar di dalam folder `public`, mis. "/images/bar.jpg". */
+  /**
+   * Path foto di dalam folder `public`, mis. "/images/bar.jpg".
+   * Selama file belum ada, website menampilkan kotak foto sementara.
+   */
   src: string;
-  /** Deskripsi singkat isi foto (untuk pembaca layar dan SEO). */
+  /** Deskripsi isi foto (untuk pembaca layar dan Google). */
   alt: string;
+  /** Foto apa yang dibutuhkan; tampil di kotak sementara sebagai panduan memotret. */
+  shot: string;
+  /** Warna kotak sementara: "garden" (taman), "wood" (bar/kayu/malam), "day" (makanan/minuman). */
+  tone: "garden" | "wood" | "day";
+  /** Opsional. Titik fokus foto saat dipotong, mis. "50% 30%". */
+  focus?: string;
 };
 
 export type OpeningHoursRule = {
@@ -31,12 +40,31 @@ export type Highlight = {
   title: string;
   text: string;
   image: ImageAsset;
-  href?: string;
+  link: { label: string; href: string };
+  /** Kategori menu (id dari data/menu.ts) yang item `featured`-nya tampil di bawah teks. */
+  menuCategories?: string[];
+};
+
+export type Space = {
+  title: string;
+  text: string;
+  image: ImageAsset;
 };
 
 export type Facility = {
   name: string;
-  text: string;
+  /** Opsional, isi hanya dengan info yang benar, mis. "motor & mobil". */
+  detail?: string;
+};
+
+export type Fact = {
+  label: string;
+  value: string;
+};
+
+export type FaqItem = {
+  q: string;
+  a: string;
 };
 
 export type DeliveryLink = {
@@ -53,8 +81,10 @@ export type MenuItem = {
   /** Harga dalam rupiah, tanpa titik. Contoh: 25000. */
   price: number;
   tags?: MenuTag[];
-  /** Opsional. Path foto di `public`, mis. "/images/menu/kopi-susu.jpg". */
+  /** Opsional. Foto di `public/images/menu/`, mis. "/images/menu/kopi-susu.jpg". */
   image?: string;
+  /** `true` = tampil di beranda (maks. 3 per kelompok). */
+  featured?: boolean;
 };
 
 export type MenuCategory = {
