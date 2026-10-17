@@ -157,7 +157,7 @@ export const highlights: Highlight[] = [
       shot: "Kopi di meja kayu, cahaya alami · 4:5",
       tone: "day",
     },
-    link: { label: "Menu kopi lengkap", href: "/menu#kopi" },
+    link: { label: "Menu kopi lengkap", href: "/menu#signature" },
   },
   {
     title: "Makanan",

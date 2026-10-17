@@ -71,14 +71,17 @@ export type DeliveryLink = {
   url: string;
 };
 
-export type MenuTag = "HOT" | "ICE";
+export type MenuPrice = {
+  /** Opsional, mis. "HOT", "ICE", "500 ml". */
+  label?: string;
+  /** Harga dalam rupiah, tanpa titik. Contoh: 25000. */
+  price: number;
+};
 
 export type MenuItem = {
   name: string;
   description?: string;
-  /** Harga dalam rupiah, tanpa titik. Contoh: 25000. */
-  price: number;
-  tags?: MenuTag[];
+  prices: MenuPrice[];
   /** Opsional. Foto di `public/images/menu/`, mis. "/images/menu/kopi-susu.jpg". */
   image?: string;
 };

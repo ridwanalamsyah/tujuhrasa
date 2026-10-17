@@ -52,24 +52,28 @@ Semua konten ada di **`data/site.ts`**. Komponen tidak perlu disentuh.
 
 ## Mengisi menu
 
-Buka **`data/menu.ts`**. Isinya sekarang hanya **contoh**; ganti dengan menu asli.
+Buka **`data/menu.ts`**. Isinya sudah disalin dari buku menu Dahan Kopi di Canva
+("Book Menu Dahan Clean Version"). Jika menu atau harga berubah, ubah di file ini.
 
 ```ts
 {
-  name: "Kopi Susu Dahan",
-  description: "Espresso, susu segar, dan gula aren.", // opsional
-  price: 25000,                                        // rupiah, tanpa titik (tampil "25")
-  tags: ["HOT", "ICE"],                                // opsional: "HOT" dan/atau "ICE"
-  image: "/images/menu/kopi-susu-dahan.jpg",           // opsional: foto kecil di bawah deskripsi
+  name: "Black Coffee",
+  description: "Kopi hitam dengan aroma khas.",              // opsional
+  prices: [{ label: "HOT", price: 28000 }, { label: "ICE", price: 28000 }],
+},
+{
+  name: "Nasi Rawon",
+  prices: [{ price: 42000 }],                               // satu harga, tanpa label
 },
 ```
 
-- Harga tampil ringkas seperti di buku menu (`25`, `27,5`), dengan catatan "Harga dalam ribu rupiah".
+- Harga ditulis dalam rupiah tanpa titik dan tampil ringkas seperti di buku menu ("HOT 28 · ICE 28").
+- `label` bebas: "HOT", "ICE", "500 ml", "1 L", dan seterusnya.
 - Tambah item: salin satu blok `{ ... }` di dalam `items`.
 - Tambah kategori: salin satu blok kategori dan beri `id` unik (huruf kecil, tanpa spasi).
-  `id` dipakai di link, mis. `/menu#kopi`. Urutan di file = urutan di website.
-- Teks halaman menu (judul, catatan harga) ada di `menuPage` (file yang sama).
-- **Buku menu PDF**: ganti file `public/menu-dahan.pdf` dengan buku menu asli (nama file tetap sama).
+  `id` dipakai di link, mis. `/menu#signature`. Urutan di file = urutan di website.
+- **Buku menu PDF**: di Canva, buka buku menu → Bagikan → Unduh → PDF, lalu simpan sebagai
+  `public/menu-dahan.pdf` (menimpa file contoh yang ada sekarang).
 
 ## Memasukkan foto
 
