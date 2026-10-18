@@ -121,6 +121,8 @@ export const navigation: NavItem[] = [
 /* ---------- Beranda ---------- */
 
 export const hero = {
+  /** Foto latar layar pertama (area taman Dahan, dari desain Canva). */
+  background: "/images/canva/garden-crop.webp",
   /** Tagline dipecah per baris (di layar besar). */
   taglineLines: ["Rooted in Good Coffee,", "Made for Meaningful Moments"],
   image: {
@@ -148,12 +150,10 @@ export const home = {
   kedaiLabel: "Kedai di Banjaran",
   kedaiText:
     "Bar kopi, ruang dalam yang serba kayu, dan taman. Mampir untuk kopi pagi, makan siang, atau ngobrol sampai malam.",
-  kedaiImage: {
-    src: "https://images.unsplash.com/photo-1464979681340-bdd28a61699e", // Unsplash, foto sementara · ganti dengan "/images/kedai.jpg"
-    alt: "Barista di balik meja bar kedai kopi",
-    shot: "Bar kopi Dahan, suasana sore · 4:3",
-    tone: "wood",
-  } satisfies ImageAsset,
+  kedaiPoster: {
+    src: "/images/canva/poster-cover-cup.webp",
+    alt: "Poster Dahan Kopi: gelas Dahan di dinding beton, Where good coffee takes root",
+  },
 };
 
 export const gallery = {
@@ -198,6 +198,78 @@ export const gallery = {
     },
   ] satisfies ImageAsset[],
 };
+
+/** Liter Series (dijual di kedai). Teks & harga dari label botol dan buku menu Canva. */
+export const literSeries = {
+  label: "Dahan in a bottle",
+  title: "Liter Series",
+  intro:
+    "Minuman favorit Dahan dalam botol 500 ml dan 1 liter. Ambil di kedai, simpan dingin, kocok sebelum diminum.",
+  items: [
+    {
+      id: "iced",
+      name: "Dahan Iced",
+      notes: "Signature Blend · Bottled Fresh",
+      text: "Kopi susu khas Dahan dengan karakter bold dan sentuhan manis yang bikin ingin kembali lagi.",
+      prices: [
+        { label: "500 ml", price: 45000 },
+        { label: "1 L", price: 90000 },
+      ],
+      sky: "#f2c45a",
+      image: "/images/illustrations/dahan-iced.webp",
+    },
+    {
+      id: "helena",
+      name: "Helena",
+      notes: "Coffee Mocktail · Berry Infusion",
+      text: "Mocktail kopi dengan sentuhan blueberry dan cherry yang fruity dan menyegarkan.",
+      prices: [
+        { label: "500 ml", price: 105000 },
+        { label: "1 L", price: 185000 },
+      ],
+      sky: "#ee98ad",
+      image: "/images/illustrations/dahan-helena.webp",
+    },
+    {
+      id: "greentea",
+      name: "Greentea Latte",
+      notes: "Green Tea · Creamy Milk",
+      text: "Matcha dengan rasa khas yang lembut, berpadu dengan susu creamy dalam setiap tegukan.",
+      prices: [
+        { label: "500 ml", price: 45000 },
+        { label: "1 L", price: 90000 },
+      ],
+      sky: "#b9d2a6",
+      image: "/images/illustrations/dahan-greentea.webp",
+    },
+  ],
+};
+
+/** Poster dari desain Canva Dahan, tampil di galeri beranda. */
+export const posters = [
+  {
+    src: "/images/canva/poster-cover-bar.webp",
+    alt: "Poster Dahan Kopi: bar kopi dengan lampu gantung",
+  },
+  { src: "/images/canva/poster-garden.webp", alt: "Poster: area taman Dahan, The Favorites Place" },
+  {
+    src: "/images/canva/poster-favorites.webp",
+    alt: "Poster: interior kayu Dahan, The favorites everyone keeps coming back for",
+  },
+  { src: "/images/canva/poster-signature.webp", alt: "Poster menu Signature Coffee Dahan" },
+  {
+    src: "/images/canva/poster-clean-cover.webp",
+    alt: "Sampul buku menu Dahan: Rooted in Good Coffee",
+  },
+];
+
+/** Marquee di bawah layar pertama. */
+export const marquee = [
+  "Where good coffee takes root",
+  "Our menu, your choice",
+  "Open everyday 08.00–22.00",
+  "See you at @dahankopi",
+];
 
 /* ---------- Blok lokasi (footer, tampil di semua halaman) ---------- */
 

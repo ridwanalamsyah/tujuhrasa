@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { StatusLine } from "@/components/hours/StatusLine";
-import { Photo } from "@/components/ui/Photo";
 import { address, features, home, site } from "@/data/site";
 import { hoursSummary, isOpenEveryDay } from "@/lib/hours";
 
@@ -8,11 +7,18 @@ import { hoursSummary, isOpenEveryDay } from "@/lib/hours";
 export function Kedai() {
   return (
     <section className="bg-espresso text-cream lg:grid lg:grid-cols-2">
-      <Photo
-        image={home.kedaiImage}
-        ratio="aspect-4/3 lg:aspect-auto lg:min-h-[36rem]"
-        sizes="(min-width: 1024px) 50vw, 100vw"
-      />
+      <div className="flex items-center justify-center px-4 pt-14 sm:px-6 lg:py-20">
+        {/* Poster asli dari desain Canva Dahan. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={home.kedaiPoster.src}
+          alt={home.kedaiPoster.alt}
+          loading="lazy"
+          width={400}
+          height={500}
+          className="w-full max-w-[22rem] rotate-[-2deg] shadow-[0_20px_40px_-20px_rgb(0_0_0/0.6)] transition-transform duration-500 ease-soft hover:rotate-0"
+        />
+      </div>
       <div className="flex flex-col justify-center px-4 py-14 sm:px-6 lg:px-16 lg:py-20">
         <p className="label text-cream-muted">{home.kedaiLabel}</p>
         <h2 lang="en" className="display-1 mt-3 max-w-lg">

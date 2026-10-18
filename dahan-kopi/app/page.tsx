@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { BottlePicker } from "@/components/home/BottlePicker";
 import { Hero } from "@/components/home/Hero";
 import { Kedai } from "@/components/home/Kedai";
+import { Marquee } from "@/components/home/Marquee";
+import { Posters } from "@/components/home/Posters";
 import { ShopTeaser } from "@/components/home/ShopTeaser";
-import { Strip } from "@/components/home/Strip";
 import { site } from "@/data/site";
 import { pageMetadata, siteDescription } from "@/lib/seo";
 
@@ -16,9 +18,11 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <Marquee />
       <ShopTeaser />
+      <BottlePicker />
       <Kedai />
-      <Strip />
+      <Posters />
     </>
   );
 }

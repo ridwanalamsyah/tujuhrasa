@@ -10,7 +10,7 @@ export function ProductCard({ product }: { product: Product }) {
       <ProductMedia
         product={product}
         sizes="(min-width: 1024px) 25vw, 50vw"
-        className="transition-opacity duration-300 group-hover:opacity-90"
+        className="transition-transform duration-300 ease-soft group-hover:-translate-y-1"
       />
       <div className="mt-3 flex items-baseline justify-between gap-3">
         <h3 className="font-semibold leading-snug group-hover:underline group-hover:underline-offset-4">
