@@ -182,19 +182,19 @@ isi juga `site.url` di `data/site.ts` (atau `NEXT_PUBLIC_SITE_URL`) agar sitemap
 ## Struktur folder
 
 ```
-app/                  Halaman (/, /menu, /tentang), layout, SEO (sitemap, robots, gambar share, ikon)
+app/                  Halaman (/, /shop, /checkout, /lokasi, /tentang), API pembayaran, SEO
 components/
   layout/             Navbar, footer (blok lokasi + peta), tombol WhatsApp melayang
   home/               Bagian beranda (foto utama, cerita, Kopi/Makanan/Ruang, galeri)
-  menu/               Filter kategori & baris menu
+  shop/               Kartu produk, keranjang, checkout
   hours/              Status buka, jam hari ini, daftar jam buka
   ui/                 Komponen kecil: foto, link, tombol, baris bertitik, ikon
 data/
   site.ts             Semua teks, kontak, jam buka, foto
-  menu.ts             Isi menu
+  products.ts         Produk toko, ongkir, pilihan gilingan
 lib/                  Logika: jam buka (Asia/Jakarta), link WhatsApp/Maps, SEO, format harga
 public/images/        Foto
-public/menu-dahan.pdf Buku menu
+public/menu-dahan.pdf Buku menu kafe (PDF)
 assets/fonts/         Font untuk gambar share (lisensi SIL OFL)
 ```
 
