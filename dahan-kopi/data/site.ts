@@ -121,25 +121,23 @@ export const navigation: NavItem[] = [
 /* ---------- Beranda ---------- */
 
 export const hero = {
-  /** Foto latar layar pertama (area taman Dahan, dari desain Canva). */
-  background: "/images/canva/garden-crop.webp",
-  /** Tagline dipecah per baris (di layar besar). */
-  taglineLines: ["Rooted in Good Coffee,", "Made for Meaningful Moments"],
+  /** Label kecil di atas judul. */
+  kicker: "Dahan Kopi · Banjaran, Bandung",
+  /** Foto utama Dahan (dipakai untuk Google / pratinjau link). */
   image: {
-    src: "https://images.unsplash.com/photo-1561645179-e087d31418b8", // Unsplash, foto sementara · ganti dengan "/images/hero-garden.jpg"
-    alt: "Meja kayu di antara pohon palem",
-    shot: "Taman Dahan Kopi, siang · landscape, min. 2400 px",
+    src: "/images/dahan/photo-garden.webp",
+    alt: "Halaman depan Dahan Kopi dengan pohon, tanaman, dan papan DAHAN",
+    shot: "Halaman depan Dahan",
     tone: "garden",
-    focus: "50% 55%",
   } satisfies ImageAsset,
-  /** Kalimat kecil di bawah layar pertama (dari desain Canva Dahan). */
+  /** Kalimat kecil di bawah ilustrasi (dari desain Canva Dahan). */
   footnote: "Where good coffee takes root.",
 };
 
 /** Teks beranda. */
 export const home = {
   shopLabel: "Bawa pulang",
-  shopTitle: "Shop",
+  shopTitle: "Biji kopi & drip bag",
   /** Produk yang tampil di beranda (slug dari data/products.ts). */
   featuredProducts: [
     "house-blend",
@@ -147,59 +145,46 @@ export const home = {
     "drip-bag-house-blend",
     "tumbler-dahan",
   ],
+  /** Kalimat besar di beranda. */
+  statementLabel: "Kenapa Dahan",
+  statement:
+    "Dahan artinya cabang pohon: tempat burung hinggap, pergi, lalu balik lagi besok. Kami ingin Dahan Kopi jadi tempat seperti itu buat kamu.",
   kedaiLabel: "Kedai di Banjaran",
   kedaiText:
-    "Bar kopi, ruang dalam yang serba kayu, dan taman. Mampir untuk kopi pagi, makan siang, atau ngobrol sampai malam.",
-  kedaiPoster: {
-    src: "/images/canva/poster-cover-cup.webp",
-    alt: "Poster Dahan Kopi: gelas Dahan di dinding beton, Where good coffee takes root",
+    "Bar kopi, ruang dalam beton dan kayu, dan halaman penuh tanaman. Mampir untuk kopi pagi, makan siang, atau ngobrol sampai malam.",
+  /** Foto latar blok kedai. */
+  kedaiPhoto: {
+    src: "/images/dahan/photo-courtyard.webp",
+    alt: "Halaman belakang Dahan Kopi: meja, kursi besi, cermin, dan dinding penuh tanaman",
   },
 };
 
-export const gallery = {
-  instagramLabel: "Lihat lebih banyak di Instagram @dahankopi",
-  /** 6 foto. Foto 1 dan 6 tampil besar. */
-  images: [
-    {
-      src: "https://images.unsplash.com/photo-1586122891856-5f90886b0cee", // Unsplash, foto sementara · ganti dengan "/images/gallery-01.jpg"
-      alt: "Pohon palem di dekat bangunan",
-      shot: "Taman dengan pengunjung, sore · 1:1",
-      tone: "garden",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1519944990593-1ac66b41ac9a", // Unsplash, foto sementara · ganti dengan "/images/gallery-02.jpg"
-      alt: "Secangkir kopi dari dekat",
-      shot: "Kopi susu di meja kayu · 1:1",
-      tone: "day",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1564992982896-cb2a99f64a25", // Unsplash, foto sementara · ganti dengan "/images/gallery-03.jpg"
-      alt: "Dua gelas kopi di meja kayu",
-      shot: "Barista menuang susu · 1:1",
-      tone: "wood",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1583753075968-1236ccb83c66", // Unsplash, foto sementara · ganti dengan "/images/gallery-04.jpg"
-      alt: "Tanaman pot di meja kayu",
-      shot: "Sudut ruang dalam · 1:1",
-      tone: "wood",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1744638628542-12578d73179b", // Unsplash, foto sementara · ganti dengan "/images/gallery-05.jpg"
-      alt: "Kopi dan kue di atas nampan kayu",
-      shot: "Makanan dari atas · 1:1",
-      tone: "day",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1592319866469-a1016ff5fe89", // Unsplash, foto sementara · ganti dengan "/images/gallery-06.jpg"
-      alt: "Cangkir kopi putih di atas tatakan",
-      shot: "Taman atau bar malam hari, lampu menyala · 1:1",
-      tone: "garden",
-    },
-  ] satisfies ImageAsset[],
-};
+/** Foto asli Dahan (dari buku menu Canva). Tampil di beranda dalam bingkai berbentuk rumah logo Dahan. */
+export const photos = [
+  {
+    src: "/images/dahan/photo-interior.webp",
+    alt: "Bar kopi Dahan: dinding beton, lampu gantung, rak gelas, dan tanaman monstera",
+    caption: "Bar",
+    width: 1617,
+    height: 3067,
+  },
+  {
+    src: "/images/dahan/photo-cup.webp",
+    alt: "Gelas kertas putih berlogo Dahan di atas dinding beton",
+    caption: "Gelas Dahan",
+    width: 1200,
+    height: 1512,
+  },
+  {
+    src: "/images/dahan/photo-garden.webp",
+    alt: "Halaman depan Dahan Kopi dengan pohon, tanaman, dan papan DAHAN",
+    caption: "Halaman depan",
+    width: 1617,
+    height: 3067,
+  },
+];
 
-/** Liter Series (dijual di kedai). Teks & harga dari label botol dan buku menu Canva. */
+/** Liter Series (layar pertama beranda). Teks & harga dari label botol dan buku menu Canva. `slug` = produk di data/products.ts. */
 export const literSeries = {
   label: "Dahan in a bottle",
   title: "Liter Series",
@@ -216,7 +201,8 @@ export const literSeries = {
         { label: "1 L", price: 90000 },
       ],
       sky: "#f2c45a",
-      image: "/images/illustrations/dahan-iced.webp",
+      slug: "dahan-iced-liter",
+      scene: "/images/dahan/scene-iced.webp",
     },
     {
       id: "helena",
@@ -228,7 +214,8 @@ export const literSeries = {
         { label: "1 L", price: 185000 },
       ],
       sky: "#ee98ad",
-      image: "/images/illustrations/dahan-helena.webp",
+      slug: "helena-liter",
+      scene: "/images/dahan/scene-helena.webp",
     },
     {
       id: "greentea",
@@ -240,7 +227,8 @@ export const literSeries = {
         { label: "1 L", price: 90000 },
       ],
       sky: "#b9d2a6",
-      image: "/images/illustrations/dahan-greentea.webp",
+      slug: "greentea-latte-liter",
+      scene: "/images/dahan/scene-greentea.webp",
     },
   ],
 };
@@ -288,20 +276,21 @@ export const location = {
 
 export const about = {
   title: "Tentang Dahan Kopi",
-  lead: "Kedai kopi dengan bar, ruang dalam serba kayu, dan taman di Jl. Ciherang, Banjaran, Kabupaten Bandung.",
+  lead: "Kedai kopi dengan bar, ruang beton dan kayu, dan halaman penuh tanaman di Jl. Ciherang, Banjaran, Kabupaten Bandung.",
   image: {
-    src: "https://images.unsplash.com/photo-1745827213105-59dfd024ad2a", // Unsplash, foto sementara · ganti dengan "/images/about-front.jpg"
-    alt: "Meja di jendela kedai kopi",
+    src: "/images/dahan/photo-garden.webp",
+    alt: "Halaman depan Dahan Kopi dengan pohon, tanaman, dan papan DAHAN",
     shot: "Tampak depan atau pintu masuk · 21:9",
-    tone: "wood",
+    tone: "garden",
+    focus: "50% 62%",
   } satisfies ImageAsset,
   storyTitle: "Kenapa Dahan",
   // Contoh — ganti dengan cerita lengkap Dahan Kopi.
-  // Jika paragraf terakhir diakhiri "halaman Menu.", kata itu otomatis jadi link ke /menu.
+  // Jika paragraf terakhir diakhiri "halaman Lokasi.", kata itu otomatis jadi link ke /lokasi.
   paragraphs: [
     "Dahan artinya cabang pohon: tempat burung hinggap, pergi, lalu balik lagi besok. Kami ingin Dahan Kopi jadi tempat seperti itu buat kamu: dekat, santai, dan enak buat mampir lagi.",
     "Kedai kami ada di Jl. Ciherang, Banjaran. Di dalam ada bar kopi dan meja-meja kayu, di luar ada taman. Pagi orang datang buat sarapan dan kopi pertama, siang buat kerja sebentar, malam buat ngobrol sampai kami tutup.",
-    "Di bar, kami bikin espresso, kopi susu, manual brew, dan minuman non-kopi. Dari dapur ada makanan berat dan camilan. Daftar lengkapnya ada di halaman Menu.",
+    "Di bar, kami bikin espresso, kopi susu, manual brew, dan minuman non-kopi. Dari dapur ada makanan berat dan camilan. Daftar lengkapnya ada di menu kafe (PDF) di halaman Lokasi.",
   ],
   /** Fakta singkat. Isi `value` hanya dengan info yang benar; baris kosong tidak tampil. */
   facts: [
@@ -315,28 +304,28 @@ export const about = {
       title: "Bar kopi",
       text: "Duduk di depan bar kalau mau lihat kopimu dibuat.",
       image: {
-        src: "https://images.unsplash.com/photo-1461988366670-48e401bafb0a", // Unsplash, foto sementara · ganti dengan "/images/space-bar.jpg"
-        alt: "Mesin espresso",
+        src: "/images/dahan/photo-interior.webp",
+        alt: "Bar kopi Dahan: dinding beton, lampu gantung, rak gelas, dan tanaman monstera",
         shot: "Bar kopi · 3:2",
         tone: "wood",
       },
     },
     {
-      title: "Ruang dalam",
-      text: "Meja-meja kayu, lebih tenang. Enak buat kerja atau ngobrol lama.",
+      title: "Halaman depan",
+      text: "Pohon besar, tanaman, dan papan DAHAN di depan pintu. Tempat foto favorit.",
       image: {
-        src: "https://images.unsplash.com/photo-1745794621090-d856c53b0cc2", // Unsplash, foto sementara · ganti dengan "/images/space-indoor.jpg"
-        alt: "Ruang makan dengan meja dan kursi kayu",
+        src: "/images/dahan/photo-garden.webp",
+        alt: "Halaman depan Dahan Kopi dengan pohon, tanaman, dan papan DAHAN",
         shot: "Ruang dalam, meja kayu · 4:5",
         tone: "wood",
       },
     },
     {
-      title: "Taman",
-      text: "Meja di luar, di antara pohon dan tanaman, buat yang suka duduk di udara terbuka.",
+      title: "Halaman belakang",
+      text: "Meja di luar, di antara dinding penuh tanaman, buat yang suka duduk di udara terbuka.",
       image: {
-        src: "https://images.unsplash.com/photo-1563135022-66565e1f042a", // Unsplash, foto sementara · ganti dengan "/images/space-garden.jpg"
-        alt: "Dinding penuh tanaman di halaman belakang",
+        src: "/images/dahan/photo-courtyard.webp",
+        alt: "Halaman belakang Dahan Kopi: meja, kursi besi, cermin, dan dinding penuh tanaman",
         shot: "Taman · 16:9",
         tone: "garden",
       },

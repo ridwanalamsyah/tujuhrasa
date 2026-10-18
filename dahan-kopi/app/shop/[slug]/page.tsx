@@ -71,13 +71,17 @@ export default async function ProductPage({ params }: PageProps<"/shop/[slug]">)
               <AddToCart product={product} />
             </div>
 
-            <p className="mt-6 text-small text-muted">
-              {shop.shipping.note} Ongkir {formatPrice(shop.shipping.flatRate)}
-              {shop.shipping.freeOver > 0 &&
-                `, gratis untuk belanja di atas ${formatPrice(shop.shipping.freeOver)}`}
-              .
-            </p>
-            {shop.sampleNotice && (
+            {product.category === "liter" ? (
+              <p className="mt-6 text-small text-muted">{shop.literNote}</p>
+            ) : (
+              <p className="mt-6 text-small text-muted">
+                {shop.shipping.note} Ongkir {formatPrice(shop.shipping.flatRate)}
+                {shop.shipping.freeOver > 0 &&
+                  `, gratis untuk belanja di atas ${formatPrice(shop.shipping.freeOver)}`}
+                .
+              </p>
+            )}
+            {shop.sampleNotice && product.category !== "liter" && (
               <p className="label mt-3 text-coffee">Produk & harga masih contoh</p>
             )}
           </div>

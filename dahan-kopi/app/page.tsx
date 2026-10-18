@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { BottlePicker } from "@/components/home/BottlePicker";
 import { Hero } from "@/components/home/Hero";
 import { Kedai } from "@/components/home/Kedai";
+import { LiterShop } from "@/components/home/LiterShop";
 import { Marquee } from "@/components/home/Marquee";
+import { Photos } from "@/components/home/Photos";
 import { Posters } from "@/components/home/Posters";
 import { ShopTeaser } from "@/components/home/ShopTeaser";
+import { Statement } from "@/components/home/Statement";
 import { site } from "@/data/site";
 import { pageMetadata, siteDescription } from "@/lib/seo";
 
@@ -19,9 +21,11 @@ export default function HomePage() {
     <>
       <Hero />
       <Marquee />
-      <ShopTeaser />
-      <BottlePicker />
+      <LiterShop />
+      <Statement />
+      <Photos />
       <Kedai />
+      <ShopTeaser />
       <Posters />
     </>
   );

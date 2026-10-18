@@ -13,7 +13,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const svg = await readFile(join(root, "app/icon.svg"));
 
 const png = (size, background) =>
-  sharp(svg, { density: 72 * (size / 120) * 4 })
+  sharp(svg, { density: 72 * (size / 1600) * 8 })
     .resize(size, size)
     .flatten(background ? { background } : undefined)
     .ensureAlpha()

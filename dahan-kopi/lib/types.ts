@@ -71,7 +71,7 @@ export type DeliveryLink = {
   url: string;
 };
 
-export type ProductCategory = "biji-kopi" | "drip-bag" | "merch";
+export type ProductCategory = "liter" | "biji-kopi" | "drip-bag" | "merch";
 
 export type ProductVariant = {
   id: string;

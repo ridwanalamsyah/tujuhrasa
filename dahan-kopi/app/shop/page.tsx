@@ -20,7 +20,7 @@ export default function ShopPage() {
       <p className="mt-3 max-w-xl text-muted">{shop.intro}</p>
       {shop.sampleNotice && (
         <p className="label mt-4 inline-block border border-line px-3 py-1.5 text-coffee">
-          Produk & harga masih contoh
+          Biji kopi, drip bag & merch masih contoh
         </p>
       )}
       <div className="mt-10">

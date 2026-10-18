@@ -57,11 +57,11 @@ export default function AboutPage() {
         </div>
         <div className="body-lg mt-5 max-w-[40rem] space-y-5 lg:col-span-6 lg:col-start-6 lg:mt-0">
           {about.paragraphs.map((paragraph, index) =>
-            index === lastParagraph && paragraph.endsWith("halaman Menu.") ? (
+            index === lastParagraph && paragraph.endsWith("halaman Lokasi.") ? (
               <p key={index}>
-                {paragraph.slice(0, -"halaman Menu.".length)}
-                <TextLink href="/menu" inline>
-                  halaman Menu
+                {paragraph.slice(0, -"halaman Lokasi.".length)}
+                <TextLink href="/lokasi" inline>
+                  halaman Lokasi
                 </TextLink>
                 .
               </p>

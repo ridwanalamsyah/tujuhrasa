@@ -15,7 +15,7 @@ export function Footer() {
       <Container>
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <LogoLockup cut="#2b1d16" className="[&_span]:text-[2.25rem]" />
+            <LogoLockup className="h-28" />
             <p lang="en" className="mt-4 max-w-xs text-cream/80">
               {site.closingTagline}
             </p>

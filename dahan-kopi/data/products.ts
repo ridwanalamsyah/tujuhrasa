@@ -2,7 +2,8 @@
  * ============================================================
  *  PRODUK TOKO DAHAN KOPI
  * ============================================================
- *  PERHATIAN: produk dan harga di bawah ini masih CONTOH.
+ *  Liter Series sudah memakai harga asli dari buku menu.
+ *  PERHATIAN: biji kopi, drip bag, dan merch di bawah ini masih CONTOH.
  *  Ganti dengan produk asli, lalu ubah `shop.sampleNotice` menjadi false.
  *
  *  - slug     : dipakai di URL (/shop/house-blend). Huruf kecil, tanpa spasi.
@@ -20,7 +21,7 @@ export const shop = {
   /** Tampilkan catatan "produk masih contoh" di toko. Ubah ke false setelah produk asli diisi. */
   sampleNotice: true,
   title: "Shop",
-  intro: "Biji kopi, drip bag, dan barang Dahan untuk dibawa pulang atau dikirim.",
+  intro: "Liter Series, biji kopi, drip bag, dan barang Dahan untuk dibawa pulang atau dikirim.",
   shipping: {
     /** Ongkos kirim flat ke seluruh Indonesia (rupiah). Contoh, sesuaikan. */
     flatRate: 20000,
@@ -28,16 +29,75 @@ export const shop = {
     freeOver: 300000,
     note: "Dikirim dari Banjaran, Kabupaten Bandung, 1–2 hari kerja setelah pembayaran.",
   },
+  /** Catatan di halaman produk Liter Series (minuman dingin). */
+  literNote:
+    "Minuman dingin: dikirim hanya untuk area Bandung dengan kurir instan, atau ambil di kedai Banjaran.",
   grindOptions: ["Biji utuh", "Giling espresso", "Giling filter / V60", "Giling French press"],
 };
 
 export const categories: { id: ProductCategory; name: string }[] = [
+  { id: "liter", name: "Liter Series" },
   { id: "biji-kopi", name: "Biji Kopi" },
   { id: "drip-bag", name: "Drip Bag" },
   { id: "merch", name: "Merch" },
 ];
 
 export const products: Product[] = [
+  // Liter Series: nama, deskripsi, dan harga asli dari buku menu & label botol Dahan di Canva.
+  {
+    slug: "dahan-iced-liter",
+    name: "Dahan Iced",
+    category: "liter",
+    tagline: "Signature blend · susu · gula aren",
+    description:
+      "Kopi susu khas Dahan dengan karakter bold dan sentuhan manis yang bikin ingin kembali lagi. Dibotolkan segar di kedai.",
+    details: [
+      { label: "Simpan", value: "Dingin, kocok sebelum diminum" },
+      { label: "Pengiriman", value: "Area Bandung, kurir instan" },
+    ],
+    variants: [
+      { id: "500ml", label: "500 ml", price: 45000, weight: 600 },
+      { id: "1l", label: "1 liter", price: 90000, weight: 1150 },
+    ],
+    image: "/images/dahan/char-iced.webp",
+    art: { bg: "#f2c45a", body: "#2b1d16", ink: "#f1ece4", shape: "box" },
+  },
+  {
+    slug: "helena-liter",
+    name: "Helena",
+    category: "liter",
+    tagline: "Coffee mocktail · blueberry & cherry",
+    description:
+      "Mocktail kopi dengan sentuhan blueberry dan cherry yang fruity dan menyegarkan. Dibotolkan segar di kedai.",
+    details: [
+      { label: "Simpan", value: "Dingin, kocok sebelum diminum" },
+      { label: "Pengiriman", value: "Area Bandung, kurir instan" },
+    ],
+    variants: [
+      { id: "500ml", label: "500 ml", price: 105000, weight: 600 },
+      { id: "1l", label: "1 liter", price: 185000, weight: 1150 },
+    ],
+    image: "/images/dahan/char-helena.webp",
+    art: { bg: "#ee98ad", body: "#2b1d16", ink: "#f1ece4", shape: "box" },
+  },
+  {
+    slug: "greentea-latte-liter",
+    name: "Greentea Latte",
+    category: "liter",
+    tagline: "Green tea · creamy milk",
+    description:
+      "Matcha dengan rasa khas yang lembut, berpadu dengan susu creamy dalam setiap tegukan. Dibotolkan segar di kedai.",
+    details: [
+      { label: "Simpan", value: "Dingin, kocok sebelum diminum" },
+      { label: "Pengiriman", value: "Area Bandung, kurir instan" },
+    ],
+    variants: [
+      { id: "500ml", label: "500 ml", price: 45000, weight: 600 },
+      { id: "1l", label: "1 liter", price: 90000, weight: 1150 },
+    ],
+    image: "/images/dahan/char-greentea.webp",
+    art: { bg: "#b9d2a6", body: "#2b1d16", ink: "#f1ece4", shape: "box" },
+  },
   {
     slug: "house-blend",
     name: "House Blend",

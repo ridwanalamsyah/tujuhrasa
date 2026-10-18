@@ -48,7 +48,7 @@ export function Navbar() {
             aria-label="Dahan Kopi, halaman utama"
             className="inline-flex min-h-11 items-center"
           >
-            <LogoLockup />
+            <LogoLockup className="h-11 lg:h-12" />
           </Link>
           <nav aria-label="Navigasi utama" className="hidden items-center gap-8 lg:flex">
             {navigation.map((item) => (
@@ -94,7 +94,7 @@ export function Navbar() {
         }`}
       >
         <div className="flex h-(--header-h) items-center justify-between border-b border-line px-4 sm:px-6">
-          <LogoLockup />
+          <LogoLockup className="h-11" />
           <button
             type="button"
             aria-label="Tutup navigasi"
