@@ -6,12 +6,14 @@ _Rooted in Good Coffee, Made for Meaningful Moments._
 Dibuat dengan Next.js 16 (App Router), TypeScript, dan Tailwind CSS 4. Semua halaman
 dirender statis (SSG) dan siap di-deploy ke Vercel.
 
-| Halaman    | Isi                                                                                     |
-| ---------- | --------------------------------------------------------------------------------------- |
-| `/`        | Foto utama, tagline, status buka + jam hari ini + alamat, cerita singkat, Kopi/Makanan/Ruang, galeri |
-| `/menu`    | Menu ala buku menu, filter kategori, unduh buku menu (PDF)                              |
-| `/tentang` | Cerita, ruang (bar, ruang dalam, taman), fasilitas, kontak                              |
-| Footer     | Blok lokasi di setiap halaman: alamat, jam buka lengkap, kontak, peta Google Maps       |
+| Halaman          | Isi                                                                      |
+| ---------------- | ------------------------------------------------------------------------ |
+| `/`              | Foto suasana + wordmark, produk pilihan, blok kedai, foto Instagram      |
+| `/shop`          | Toko: biji kopi, drip bag, merch (filter kategori)                       |
+| `/shop/[produk]` | Detail produk: ukuran, gilingan, jumlah, tambah ke keranjang             |
+| `/checkout`      | Alamat pengiriman + pembayaran online (Midtrans)                         |
+| `/lokasi`        | Alamat, jam buka, status buka, peta, reservasi WhatsApp, menu kafe (PDF) |
+| `/tentang`       | Cerita, ruang, fasilitas, kontak                                         |
 
 ## Menjalankan di komputer
 
@@ -50,30 +52,52 @@ Semua konten ada di **`data/site.ts`**. Komponen tidak perlu disentuh.
   tepat, isi `placeUrl` dengan link "Bagikan" dari Google Maps, dan `embedUrl` dengan link dari
   Google Maps → Bagikan → Sematkan peta (ambil isi `src="..."`).
 
-## Mengisi menu
+## Mengisi produk toko
 
-Buka **`data/menu.ts`**. Isinya sudah disalin dari buku menu Dahan Kopi di Canva
-("Book Menu Dahan Clean Version"). Jika menu atau harga berubah, ubah di file ini.
+Buka **`data/products.ts`**. Produk dan harga di sana masih **contoh**. Ganti dengan produk asli,
+lalu ubah `shop.sampleNotice` menjadi `false` agar label "Produk & harga masih contoh" hilang.
 
 ```ts
 {
-  name: "Black Coffee",
-  description: "Kopi hitam dengan aroma khas.",              // opsional
-  prices: [{ label: "HOT", price: 28000 }, { label: "ICE", price: 28000 }],
-},
-{
-  name: "Nasi Rawon",
-  prices: [{ price: 42000 }],                               // satu harga, tanpa label
+  slug: "house-blend",                    // URL: /shop/house-blend
+  name: "House Blend",
+  category: "biji-kopi",                  // "biji-kopi" | "drip-bag" | "merch"
+  tagline: "Cokelat, karamel, kacang",
+  description: "…",
+  details: [{ label: "Roast", value: "Medium-dark" }],
+  variants: [
+    { id: "200g", label: "200 g", price: 85000, weight: 250 },   // harga rupiah, berat kirim gram
+    { id: "1kg", label: "1 kg", price: 370000, weight: 1050 },
+  ],
+  grinds: true,                           // pembeli memilih gilingan
+  image: "/images/products/house-blend.jpg", // opsional: foto produk asli
+  art: { bg: "#d9c7ae", body: "#2b1d16", ink: "#f1ece4", shape: "pouch" }, // gambar label sementara
 },
 ```
 
-- Harga ditulis dalam rupiah tanpa titik dan tampil ringkas seperti di buku menu ("HOT 28 · ICE 28").
-- `label` bebas: "HOT", "ICE", "500 ml", "1 L", dan seterusnya.
-- Tambah item: salin satu blok `{ ... }` di dalam `items`.
-- Tambah kategori: salin satu blok kategori dan beri `id` unik (huruf kecil, tanpa spasi).
-  `id` dipakai di link, mis. `/menu#signature`. Urutan di file = urutan di website.
-- **Buku menu PDF**: di Canva, buka buku menu → Bagikan → Unduh → PDF, lalu simpan sebagai
-  `public/menu-dahan.pdf` (menimpa file contoh yang ada sekarang).
+- Selama `image` belum diisi (atau filenya belum ada), tampil gambar label berwarna dari `art`.
+- Ongkos kirim flat dan batas gratis ongkir ada di `shop.shipping` (masih contoh, sesuaikan).
+- Produk di beranda dipilih lewat `home.featuredProducts` di `data/site.ts`.
+
+### Mengaktifkan pembayaran online (Midtrans)
+
+1. Daftar di [midtrans.com](https://midtrans.com) dan ambil **Server Key** (Settings → Access Keys).
+2. Di Vercel → Project → Settings → Environment Variables, tambahkan:
+   - `MIDTRANS_SERVER_KEY` = Server Key Anda
+   - `MIDTRANS_PRODUCTION` = `true` (kosongkan selama masih uji coba di sandbox)
+3. Di dashboard Midtrans → Settings → Payment → Notification URL, isi
+   `https://domain-anda/api/midtrans`.
+4. Deploy ulang. Pembeli akan diarahkan ke halaman pembayaran Midtrans (QRIS, e-wallet, virtual
+   account, kartu), lalu kembali ke `/checkout/selesai`. Daftar pesanan dan statusnya ada di dashboard
+   Midtrans.
+
+Selama `MIDTRANS_SERVER_KEY` belum diisi, tombol bayar menampilkan pilihan **kirim pesanan lewat
+WhatsApp** dengan rincian pesanan, total, dan alamat yang sudah terisi.
+
+### Menu kafe
+
+Menu kafe tidak lagi ditampilkan sebagai halaman; tersedia sebagai PDF di halaman Lokasi dan beranda.
+Di Canva, buka buku menu → Bagikan → Unduh → PDF, lalu simpan sebagai `public/menu-dahan.pdf`.
 
 ## Memasukkan foto
 
@@ -179,8 +203,6 @@ assets/fonts/         Font untuk gambar share (lisensi SIL OFL)
 - **Reservasi online**: buat `app/reservasi/page.tsx`, lalu di `data/site.ts` ubah
   `features.reservation.mode` menjadi `"page"`. Semua tombol "Reservasi" otomatis mengarah
   ke halaman tersebut (sekarang ke WhatsApp).
-- **Pesan antar**: isi `features.delivery`, mis.
-  `[{ name: "GoFood", url: "https://gofood.co.id/..." }]`. Link-nya otomatis muncul di halaman Menu.
 - **Halaman baru**: buat folder di `app/` (mis. `app/acara/page.tsx`), tambahkan ke `navigation`
   di `data/site.ts` dan ke `app/sitemap.ts`.
 

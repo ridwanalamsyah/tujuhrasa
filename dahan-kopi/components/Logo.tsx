@@ -1,31 +1,47 @@
-import type { SVGProps } from "react";
+import type { CSSProperties, SVGProps } from "react";
 
 /**
- * Logo sementara Dahan Kopi: lingkaran berisi cangkir dan ranting kecil.
- * Ganti isi SVG ini dengan logo asli bila sudah tersedia (warna mengikuti `currentColor`).
- * Versi lengkap dengan tulisan DAHAN ada di app/icon.svg (favicon).
+ * Logo Dahan (digambar ulang dari logo di gelas & buku menu): rumah berisi ranting.
+ * Rumah memakai `currentColor`; ranting memakai warna `cut` (default krem).
+ * Ganti dengan file logo asli bila sudah tersedia.
  */
-export function LogoMark(props: SVGProps<SVGSVGElement>) {
+export function LogoMark({
+  cut = "#f2eee8",
+  ...props
+}: SVGProps<SVGSVGElement> & { cut?: string }) {
   return (
     <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false" {...props}>
-      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="60" cy="60" r="56" strokeWidth="5" />
-        <path d="M59 44c0-7 2-12.5 7-18" strokeWidth="5" />
-        <path d="M34 52h44v6c0 12-9.8 21-22 21s-22-9-22-21z" strokeWidth="6" />
-        <path d="M78 56c9 0 9 13-1.5 13" strokeWidth="6" />
-        <path d="M30 89h52" strokeWidth="6" />
+      <path
+        d="M60 6 110 42v72H10V42z"
+        fill="currentColor"
+        stroke="currentColor"
+        strokeWidth="6"
+        strokeLinejoin="round"
+      />
+      <g fill="none" stroke={cut} strokeWidth="6" strokeLinecap="round">
+        <path d="M60 104V36" />
+        <path d="M60 92c-10-4-18-12-22-24M60 92c10-4 18-12 22-24" />
+        <path d="M60 74c-8-4-13-10-16-19M60 74c8-4 13-10 16-19" />
+        <path d="M60 56c-5-3-8-8-9-14M60 56c5-3 8-8 9-14" />
       </g>
-      <path fill="currentColor" d="M63 32c4-4 9.5-4.6 12.8-1.9-3.7 4-9 4.6-12.8 1.9z" />
     </svg>
   );
 }
 
-/** Logo + tulisan "DAHAN KOPI" untuk navbar. */
-export function LogoLockup({ className = "" }: { className?: string }) {
+/** Logo + wordmark tulisan tangan "Dahan Kopi". */
+export function LogoLockup({
+  className = "",
+  cut,
+  style,
+}: {
+  className?: string;
+  cut?: string;
+  style?: CSSProperties;
+}) {
   return (
-    <span className={`inline-flex items-center gap-2 ${className}`}>
-      <LogoMark className="h-6 w-6 shrink-0 lg:h-7 lg:w-7" />
-      <span className="wordmark">Dahan Kopi</span>
+    <span className={`inline-flex items-center gap-2 ${className}`} style={style}>
+      <LogoMark cut={cut} className="h-7 w-7 shrink-0" />
+      <span className="font-hand text-[1.625rem] leading-none">Dahan Kopi</span>
     </span>
   );
 }

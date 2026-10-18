@@ -71,25 +71,35 @@ export type DeliveryLink = {
   url: string;
 };
 
-export type MenuPrice = {
-  /** Opsional, mis. "HOT", "ICE", "500 ml". */
-  label?: string;
-  /** Harga dalam rupiah, tanpa titik. Contoh: 25000. */
-  price: number;
-};
+export type ProductCategory = "biji-kopi" | "drip-bag" | "merch";
 
-export type MenuItem = {
-  name: string;
-  description?: string;
-  prices: MenuPrice[];
-  /** Opsional. Foto di `public/images/menu/`, mis. "/images/menu/kopi-susu.jpg". */
-  image?: string;
-};
-
-export type MenuCategory = {
-  /** Dipakai di URL, mis. /menu#kopi. Huruf kecil tanpa spasi. */
+export type ProductVariant = {
   id: string;
+  label: string;
+  /** Harga dalam rupiah, tanpa titik. */
+  price: number;
+  /** Berat kirim dalam gram. */
+  weight: number;
+};
+
+export type Product = {
+  slug: string;
   name: string;
-  description?: string;
-  items: MenuItem[];
+  category: ProductCategory;
+  tagline: string;
+  description: string;
+  details?: { label: string; value: string }[];
+  variants: ProductVariant[];
+  grinds?: boolean;
+  /** Opsional. Foto produk di public, mis. "/images/products/house-blend.jpg". */
+  image?: string;
+  /** Gambar label berwarna, dipakai selama belum ada foto produk. */
+  art: { bg: string; body: string; ink: string; shape: "pouch" | "box" | "tumbler" | "tote" };
+};
+
+export type CartLine = {
+  slug: string;
+  variantId: string;
+  grind?: string;
+  qty: number;
 };

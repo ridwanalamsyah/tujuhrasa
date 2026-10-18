@@ -20,7 +20,6 @@ import type {
   Facility,
   Fact,
   FaqItem,
-  Highlight,
   ImageAsset,
   NavItem,
   OpeningHoursRule,
@@ -114,9 +113,9 @@ export const openingHours: OpeningHoursRule[] = [
 /* ---------- Navigasi ---------- */
 
 export const navigation: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Menu", href: "/menu" },
+  { label: "Shop", href: "/shop" },
   { label: "Tentang", href: "/tentang" },
+  { label: "Lokasi", href: "/lokasi" },
 ];
 
 /* ---------- Beranda ---------- */
@@ -131,57 +130,31 @@ export const hero = {
     tone: "garden",
     focus: "50% 55%",
   } satisfies ImageAsset,
-  menuLabel: "Lihat Menu",
-  directionsLabel: "Petunjuk Arah",
+  /** Kalimat kecil di bawah layar pertama (dari desain Canva Dahan). */
+  footnote: "Where good coffee takes root.",
 };
 
-export const story = {
-  // Contoh — ganti dengan cerita singkat Dahan Kopi (2–3 kalimat).
-  text: "Dahan artinya cabang pohon. Kedai kopi kami ada di Jl. Ciherang, Banjaran: bar kopi dan meja-meja kayu di dalam, taman di luar. Datang buat kopi pagi, makan siang, atau ngobrol sampai malam.",
-  image: {
-    src: "https://images.unsplash.com/photo-1464979681340-bdd28a61699e", // Unsplash, foto sementara · ganti dengan "/images/story-bar.jpg"
+/** Teks beranda. */
+export const home = {
+  shopLabel: "Bawa pulang",
+  shopTitle: "Shop",
+  /** Produk yang tampil di beranda (slug dari data/products.ts). */
+  featuredProducts: [
+    "house-blend",
+    "single-origin-jawa-barat",
+    "drip-bag-house-blend",
+    "tumbler-dahan",
+  ],
+  kedaiLabel: "Kedai di Banjaran",
+  kedaiText:
+    "Bar kopi, ruang dalam yang serba kayu, dan taman. Mampir untuk kopi pagi, makan siang, atau ngobrol sampai malam.",
+  kedaiImage: {
+    src: "https://images.unsplash.com/photo-1464979681340-bdd28a61699e", // Unsplash, foto sementara · ganti dengan "/images/kedai.jpg"
     alt: "Barista di balik meja bar kedai kopi",
-    shot: "Bar kopi dari depan, barista sedang menyeduh · 4:3",
+    shot: "Bar kopi Dahan, suasana sore · 4:3",
     tone: "wood",
   } satisfies ImageAsset,
-  linkLabel: "Cerita lengkap",
 };
-
-export const highlights: Highlight[] = [
-  {
-    title: "Kopi",
-    text: "Espresso, kopi susu, dan manual brew, dibikin langsung di bar.",
-    image: {
-      src: "https://images.unsplash.com/photo-1585855584302-713f1c72aad8", // Unsplash, foto sementara · ganti dengan "/images/highlight-coffee.jpg"
-      alt: "Cangkir kopi putih di meja kayu",
-      shot: "Kopi di meja kayu, cahaya alami · 4:5",
-      tone: "day",
-    },
-    link: { label: "Menu kopi lengkap", href: "/menu#signature" },
-  },
-  {
-    title: "Makanan",
-    text: "Makanan berat dan camilan buat teman ngopi.",
-    image: {
-      src: "https://images.unsplash.com/photo-1744955913865-853beac35448", // Unsplash, foto sementara · ganti dengan "/images/highlight-food.jpg"
-      alt: "Beragam hidangan di atas meja kayu",
-      shot: "Makanan andalan dari atas · 3:2",
-      tone: "day",
-    },
-    link: { label: "Menu makanan lengkap", href: "/menu#makanan" },
-  },
-  {
-    title: "Ruang",
-    text: "Duduk di depan bar, di ruang dalam yang serba kayu, atau di taman.",
-    image: {
-      src: "https://images.unsplash.com/photo-1569409611258-a386734494fd", // Unsplash, foto sementara · ganti dengan "/images/highlight-space.jpg"
-      alt: "Meja makan kayu panjang di dalam ruangan",
-      shot: "Taman lebar, kelihatan meja-meja · 21:9",
-      tone: "garden",
-    },
-    link: { label: "Lihat ruangannya", href: "/tentang#ruang" },
-  },
-];
 
 export const gallery = {
   instagramLabel: "Lihat lebih banyak di Instagram @dahankopi",

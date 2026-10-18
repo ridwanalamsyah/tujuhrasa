@@ -1,50 +1,53 @@
+import Link from "next/link";
 import { StatusLine } from "@/components/hours/StatusLine";
-import { TodayLine } from "@/components/hours/TodayLine";
-import { Container } from "@/components/ui/Container";
 import { Photo } from "@/components/ui/Photo";
-import { TextLink } from "@/components/ui/TextLink";
-import { address, hero, site } from "@/data/site";
-import { mapsDirectionsUrl } from "@/lib/links";
+import { contact, hero, site } from "@/data/site";
 
-/**
- * Layar pertama: satu foto besar (tanpa teks di atasnya), lalu tagline, dua aksi,
- * dan "papan pintu": status buka, jam hari ini, alamat.
- */
+/** Layar pertama, mengikuti sampul buku menu Dahan di Canva: foto besar, wordmark tulisan tangan, label mono. */
 export function Hero() {
   return (
-    <section className="grid h-[calc(100svh-var(--header-h))] min-h-[32.5rem] grid-rows-[minmax(15rem,1fr)_auto]">
-      <div className="relative">
-        <Photo image={hero.image} ratio="fill" sizes="100vw" preload />
-      </div>
+    <section className="relative isolate h-[calc(100svh-var(--header-h))] min-h-[32rem] overflow-hidden bg-espresso text-cream">
+      <Photo
+        image={hero.image}
+        ratio="fill"
+        sizes="100vw"
+        preload
+        className="absolute! inset-0 -z-20"
+      />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-espresso/45" />
 
-      <Container className="pb-6 pt-5 lg:grid lg:grid-cols-12 lg:items-end lg:gap-6 lg:py-7">
-        <div className="lg:col-span-8">
-          <h1 className="display-hero">
-            <span className="sr-only">{site.name}: </span>
-            <span lang="en">
-              {hero.taglineLines.map((line) => (
-                <span key={line} className="block">
-                  {line}{" "}
-                </span>
-              ))}
+      <div className="mx-auto flex h-full max-w-[75rem] flex-col justify-between px-4 py-5 sm:px-6 lg:px-10 lg:py-8">
+        <div className="label flex justify-between gap-4">
+          <StatusLine onDark live={false} />
+          <span className="hidden sm:inline">@{contact.instagram.handle}</span>
+        </div>
+
+        <div className="text-center">
+          <h1>
+            <span className="font-hand block text-[5.5rem] leading-[0.9] sm:text-[8rem] lg:text-[10.5rem]">
+              Dahan Kopi
+            </span>
+            <span
+              lang="en"
+              className="mx-auto mt-4 block max-w-md text-[1rem] leading-snug text-cream/90 sm:text-[1.125rem]"
+            >
+              {site.tagline}
             </span>
           </h1>
-          <div className="mt-3 flex gap-6 lg:mt-5 lg:gap-8">
-            <TextLink href="/menu" className="font-semibold">
-              {hero.menuLabel}
-            </TextLink>
-            <TextLink href={mapsDirectionsUrl} maps className="font-semibold">
-              {hero.directionsLabel}
-            </TextLink>
-          </div>
         </div>
 
-        <div className="mt-3 border-t border-line pt-4 text-small leading-[1.6] lg:col-span-4 lg:col-start-9 lg:mt-0 lg:border-0 lg:pt-0 lg:text-[0.9375rem]">
-          <StatusLine />
-          <TodayLine className="text-muted" />
-          <p className="text-muted">{address.short}</p>
+        <div className="label flex flex-wrap items-end justify-between gap-4">
+          <span lang="en">{hero.footnote}</span>
+          <span className="flex gap-6">
+            <Link href="/shop" className="underline underline-offset-4 hover:no-underline">
+              Shop
+            </Link>
+            <Link href="/lokasi" className="underline underline-offset-4 hover:no-underline">
+              Lokasi
+            </Link>
+          </span>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

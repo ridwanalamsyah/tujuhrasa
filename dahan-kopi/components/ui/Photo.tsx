@@ -64,7 +64,7 @@ export function Photo({
           loading={preload ? "eager" : "lazy"}
           fetchPriority={preload ? "high" : undefined}
           decoding="async"
-          className={`absolute inset-0 h-full w-full bg-ph-day object-cover ${innerClassName}`}
+          className={`absolute inset-0 h-full w-full bg-ph-day object-cover text-transparent ${innerClassName}`}
           style={{ objectPosition: image.focus ?? "50% 50%" }}
         />
       </div>

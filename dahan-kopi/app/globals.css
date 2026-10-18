@@ -8,7 +8,7 @@
   --color-espresso: #2b1d16;
   --color-espresso-2: #3a2a21;
   --color-coffee: #5a3e2b;
-  --color-cream: #f6f1ea;
+  --color-cream: #f2eee8;
   --color-line: #e2d6c8;
   --color-muted: #6b5b4f;
   --color-leaf: #4f6b45;
@@ -26,6 +26,8 @@
 @theme inline {
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-instrument), "Times New Roman", ui-serif, serif;
+  --font-hand: var(--font-gochi), "Comic Sans MS", cursive;
+  --font-mono: var(--font-space-mono), ui-monospace, monospace;
 }
 
 :root {
@@ -173,6 +175,15 @@
     .display-hero {
       font-size: 3.25rem;
     }
+  }
+
+  /* Label kecil bergaya mesin tik, seperti di desain Canva Dahan ("WHERE GOOD COFFEE TAKES ROOT."). */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
 
   /* Daftar fasilitas: "Wi-Fi · Colokan · Parkir" */
