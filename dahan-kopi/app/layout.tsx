@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Gochi_Hand, Instrument_Serif, Plus_Jakarta_Sans, Space_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { CartDrawer } from "@/components/shop/CartDrawer";
@@ -10,28 +10,7 @@ import { cafeJsonLd, siteDescription } from "@/lib/seo";
 import { siteUrl } from "@/lib/site-url";
 import "./globals.css";
 
-// Judul: serif condensed tinggi (uppercase). Teks isi: sans-serif bersih.
-const display = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-instrument",
-  display: "swap",
-});
-
-// Wordmark tulisan tangan dan label mono, mengikuti desain Canva Dahan.
-const hand = Gochi_Hand({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-gochi",
-  display: "swap",
-});
-const mono = Space_Mono({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-space-mono",
-  display: "swap",
-});
-
+// Satu huruf untuk semuanya.
 const sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
@@ -64,7 +43,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#2b1d16",
+  themeColor: "#ffffff",
   colorScheme: "light",
 };
 
@@ -73,7 +52,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html
       lang="id"
       data-scroll-behavior="smooth"
-      className={`${display.variable} ${sans.variable} ${hand.variable} ${mono.variable}`}
+      className={sans.variable}
     >
       <body>
         <a

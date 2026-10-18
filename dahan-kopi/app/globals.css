@@ -4,30 +4,35 @@
  * Palet Dahan Kopi (dari buku menu). Pakai sebagai kelas Tailwind, mis. `bg-espresso`, `text-coffee`.
  * Aturan: semua halaman berlatar krem; espresso hanya untuk footer.
  */
+/*
+ * Dahan Kopi: putih, hitam, abu-abu. Nama token lama dipertahankan agar kelas Tailwind tetap jalan:
+ * `cream` = latar (putih), `espresso` = teks (hitam), `muted` = abu-abu, `line` = garis.
+ */
 @theme {
-  --color-espresso: #2b1d16;
-  --color-espresso-2: #3a2a21;
-  --color-coffee: #5a3e2b;
-  --color-cream: #f2eee8;
-  --color-line: #e2d6c8;
-  --color-muted: #6b5b4f;
-  --color-leaf: #4f6b45;
-  --color-leaf-soft: #a8bf9c;
-  --color-cream-muted: #c9b8a6;
+  --color-espresso: #141414;
+  --color-espresso-2: #262626;
+  --color-coffee: #141414;
+  --color-cream: #ffffff;
+  --color-paper: #f4f4f2;
+  --color-line: #e4e4e2;
+  --color-muted: #737373;
+  --color-leaf: #3f6b3a;
+  --color-leaf-soft: #8fb58a;
+  --color-cream-muted: #a3a3a3;
 
-  /* Warna kotak foto sementara (sebelum foto asli dimasukkan). */
-  --color-ph-garden: #57654b;
-  --color-ph-wood: #6b4f3a;
-  --color-ph-day: #d9cdbd;
+  /* Warna kotak foto sementara. */
+  --color-ph-garden: #e9e9e6;
+  --color-ph-wood: #e9e9e6;
+  --color-ph-day: #f1f1ef;
 
   --ease-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 @theme inline {
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-instrument), "Times New Roman", ui-serif, serif;
-  --font-hand: var(--font-gochi), "Comic Sans MS", cursive;
-  --font-mono: var(--font-space-mono), ui-monospace, monospace;
+  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-hand: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
@@ -64,8 +69,8 @@
   }
 
   ::selection {
-    background: var(--color-coffee);
-    color: var(--color-cream);
+    background: #141414;
+    color: #ffffff;
   }
 
   :focus-visible {
@@ -76,52 +81,47 @@
 }
 
 @layer components {
-  /* Serif condensed uppercase, seperti judul di buku menu. Hanya untuk nama: judul halaman, kategori, ruang. */
+  /* Judul: satu huruf yang sama dengan teks, hanya lebih besar dan lebih rapat. */
   .display-hero,
   .display-1,
   .display-2,
   .display-3,
   .wordmark {
     font-family: var(--font-display);
-    font-weight: 400;
-    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: -0.025em;
     text-wrap: balance;
   }
 
   .display-hero {
-    font-size: 1.875rem;
-    line-height: 1;
-    letter-spacing: 0.005em;
+    font-size: 2rem;
+    line-height: 1.08;
   }
 
   .display-1 {
-    font-size: 2.75rem;
-    line-height: 0.95;
-    letter-spacing: 0.01em;
+    font-size: 1.75rem;
+    line-height: 1.12;
   }
 
   .display-2 {
-    font-size: 2.125rem;
-    line-height: 1;
-    letter-spacing: 0.01em;
+    font-size: 1.5rem;
+    line-height: 1.15;
   }
 
   .display-3 {
-    font-size: 1.75rem;
-    line-height: 1.05;
-    letter-spacing: 0.01em;
+    font-size: 1.25rem;
+    line-height: 1.2;
   }
 
   .wordmark {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     line-height: 1;
-    letter-spacing: 0.06em;
     white-space: nowrap;
   }
 
   .body-lg {
     font-size: 1.0625rem;
-    line-height: 1.65;
+    line-height: 1.6;
   }
 
   .text-small {
@@ -135,55 +135,25 @@
     line-height: 1.4;
   }
 
-  @media (width >= 40rem) {
-    .display-hero {
-      font-size: 2.5rem;
-    }
-    .display-1 {
-      font-size: 3.25rem;
-    }
-    .display-2 {
-      font-size: 2.25rem;
-    }
-    .wordmark {
-      font-size: 1.375rem;
-    }
-  }
-
   @media (width >= 64rem) {
     .display-hero {
       font-size: 3rem;
     }
     .display-1 {
-      font-size: 4rem;
+      font-size: 2.25rem;
     }
     .display-2 {
-      font-size: 2.5rem;
+      font-size: 1.75rem;
     }
     .display-3 {
-      font-size: 2rem;
-    }
-    .wordmark {
-      font-size: 1.5rem;
-    }
-    .body-lg {
-      font-size: 1.125rem;
+      font-size: 1.375rem;
     }
   }
 
-  @media (width >= 80rem) {
-    .display-hero {
-      font-size: 3.25rem;
-    }
-  }
-
-  /* Label kecil bergaya mesin tik, seperti di desain Canva Dahan ("WHERE GOOD COFFEE TAKES ROOT."). */
+  /* Label kecil. */
   .label {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     line-height: 1.5;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
   }
 
   /* Daftar fasilitas: "Wi-Fi · Colokan · Parkir" */
@@ -191,40 +161,6 @@
     content: "·";
     margin: 0 0.6em;
     color: var(--color-muted);
-  }
-}
-
-/* Wordmark bergoyang sedikit saat disorot. */
-@keyframes wiggle {
-  0%,
-  100% {
-    transform: rotate(0);
-  }
-  30% {
-    transform: rotate(-6deg) translateY(-4%);
-  }
-  60% {
-    transform: rotate(4deg);
-  }
-}
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .wiggle:hover {
-    animation: wiggle 0.5s ease-in-out;
-  }
-}
-
-/* Teks berjalan (Marquee). */
-@keyframes marquee {
-  to {
-    transform: translateX(-33.333%);
-  }
-}
-.marquee {
-  animation: marquee 30s linear infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  .marquee {
-    animation: none;
   }
 }
 

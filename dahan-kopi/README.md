@@ -1,19 +1,24 @@
 # Dahan Kopi — Website
 
-Website resmi **Dahan Kopi**, kedai kopi dan taman di Banjaran, Kabupaten Bandung.
+Website resmi **Dahan Kopi HQ**, coffee & eatery di Ciherang, Banjaran, Kabupaten Bandung.
 _Rooted in Good Coffee, Made for Meaningful Moments._
 
 Dibuat dengan Next.js 16 (App Router), TypeScript, dan Tailwind CSS 4. Semua halaman
 dirender statis (SSG) dan siap di-deploy ke Vercel.
 
-| Halaman          | Isi                                                                      |
-| ---------------- | ------------------------------------------------------------------------ |
-| `/`              | Foto suasana + wordmark, produk pilihan, blok kedai, foto Instagram      |
-| `/shop`          | Toko: biji kopi, drip bag, merch (filter kategori)                       |
-| `/shop/[produk]` | Detail produk: ukuran, gilingan, jumlah, tambah ke keranjang             |
-| `/checkout`      | Alamat pengiriman + pembayaran online (Midtrans)                         |
-| `/lokasi`        | Alamat, jam buka, status buka, peta, reservasi WhatsApp, menu kafe (PDF) |
-| `/tentang`       | Cerita, ruang, fasilitas, kontak                                         |
+| Halaman          | Isi                                                                          |
+| ---------------- | ---------------------------------------------------------------------------- |
+| `/`              | Foto asli, link Dahan (versi Linktree), cuplikan menu, Liter Series, lokasi HQ |
+| `/menu`          | Semua halaman buku menu baru (dari Canva) + unduh PDF                        |
+| `/shop`          | Liter Series + link Tokopedia & Shopee                                       |
+| `/shop/[produk]` | Detail produk: ukuran, jumlah, tambah ke keranjang                           |
+| `/checkout`      | Alamat pengiriman + pembayaran online (Midtrans)                             |
+| `/lokasi`        | Alamat, jam buka, status buka, peta, reservasi WhatsApp                      |
+| `/tentang`       | Cerita, ruang, fasilitas, kontak                                             |
+
+Link di beranda dan footer diambil dari Linktree Dahan (Menu, Lokasi HQ, GoFood, Tokopedia, Shopee,
+WhatsApp Admin HQ, Instagram). Ubah di `data/site.ts` (`stores`, `contact`, `maps`) dan
+`lib/dahan-links.ts`. Dahan Backyard (Cimahi) sengaja tidak dimasukkan.
 
 ## Menjalankan di komputer
 
@@ -54,8 +59,8 @@ Semua konten ada di **`data/site.ts`**. Komponen tidak perlu disentuh.
 
 ## Mengisi produk toko
 
-Buka **`data/products.ts`**. Produk dan harga di sana masih **contoh**. Ganti dengan produk asli,
-lalu ubah `shop.sampleNotice` menjadi `false` agar label "Produk & harga masih contoh" hilang.
+Buka **`data/products.ts`**. Isinya Liter Series dengan harga asli dari buku menu. Produk lain
+Dahan dijual di Tokopedia & Shopee; tambahkan di sini hanya bila ingin dijual langsung di website.
 
 ```ts
 {
@@ -94,10 +99,12 @@ lalu ubah `shop.sampleNotice` menjadi `false` agar label "Produk & harga masih c
 Selama `MIDTRANS_SERVER_KEY` belum diisi, tombol bayar menampilkan pilihan **kirim pesanan lewat
 WhatsApp** dengan rincian pesanan, total, dan alamat yang sudah terisi.
 
-### Menu kafe
+### Menu
 
-Menu kafe tidak lagi ditampilkan sebagai halaman; tersedia sebagai PDF di halaman Lokasi dan beranda.
-Di Canva, buka buku menu → Bagikan → Unduh → PDF, lalu simpan sebagai `public/menu-dahan.pdf`.
+Halaman `/menu` menampilkan buku menu baru dari Canva ("Book Menu Dahan Clean Version"), disimpan
+sebagai gambar di `public/images/menu-baru/hal-01.webp` … `hal-16.webp`, plus `public/menu-dahan.pdf`.
+Jika menu berubah: ekspor ulang dari Canva (PNG per halaman dan PDF), lalu timpa file-file tersebut.
+Jumlah halaman diatur di `menuPages` (`data/site.ts`).
 
 ## Memasukkan foto
 
@@ -187,8 +194,8 @@ npm run icons      # buat favicon.ico & apple-icon.png dari app/icon.svg
 
 ## Catatan desain
 
-- Satu latar krem di semua halaman; warna espresso hanya untuk footer. Tidak ada teks di atas foto.
-- Judul memakai Instrument Serif (uppercase), teks isi Plus Jakarta Sans, keduanya dari Google
-  Fonts lewat `next/font`. Salinan font di `assets/fonts/` dipakai untuk membuat gambar share.
-- Foto muncul pelan saat digulir dan foto Kopi/Makanan/Ruang membesar sedikit saat disorot mouse.
-  Semua gerakan mati otomatis jika pengunjung memilih "kurangi gerakan" di perangkatnya.
+- Putih dan hitam, satu huruf (Plus Jakarta Sans) untuk judul dan teks. Tanpa dekorasi: foto asli,
+  garis tipis, dan teks.
+- Warna hanya datang dari foto dan ilustrasi Dahan (label Liter Series).
+- Gambar pratinjau link (`app/opengraph-image.tsx`) memakai logo lencana dan font di `assets/fonts/`.
+- Semua gerakan mati otomatis jika pengunjung memilih "kurangi gerakan" di perangkatnya.

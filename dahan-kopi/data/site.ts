@@ -57,14 +57,21 @@ export const contact = {
   phoneDisplay: "+62 821 2165 1788",
   /** Format internasional tanpa spasi, untuk link telepon. */
   phone: "+6282121651788",
-  /** Nomor WhatsApp: kode negara 62 tanpa tanda + dan tanpa angka 0 di depan. */
-  whatsapp: "6282121651788",
+  /** WhatsApp Admin HQ (dari Linktree Dahan): kode negara 62 tanpa tanda + dan tanpa angka 0 di depan. */
+  whatsapp: "6282219941430",
   /** Pesan awal saat pengunjung menekan tombol "Reservasi". */
   whatsappMessage: "Halo Dahan Kopi, saya mau reservasi.\nTanggal: \nJam: \nJumlah orang: ",
   instagram: {
     handle: "dahankopi",
     url: "https://instagram.com/dahankopi",
   },
+};
+
+/** Toko & pesan antar (dari Linktree Dahan). Kosongkan url untuk menyembunyikan. */
+export const stores = {
+  tokopedia: "https://www.tokopedia.com/dahanindonesia",
+  shopee: "https://shopee.co.id/dahanindonesia",
+  gofood: "https://gofood.link/a/yM9eymm",
 };
 
 export const address = {
@@ -85,7 +92,7 @@ export const maps = {
    * Opsional. Link "Bagikan" dari Google Maps (mis. https://maps.app.goo.gl/xxxx).
    * Jika diisi, tombol "Buka di Google Maps" memakai link ini.
    */
-  placeUrl: "",
+  placeUrl: "https://maps.app.goo.gl/uaUfbNcyPpDhLNtMA",
   /**
    * Opsional. Link dari Google Maps → Bagikan → Sematkan peta (ambil isi atribut src="...").
    * Jika kosong, peta dibuat otomatis dari `query`.
@@ -113,9 +120,10 @@ export const openingHours: OpeningHoursRule[] = [
 /* ---------- Navigasi ---------- */
 
 export const navigation: NavItem[] = [
+  { label: "Menu", href: "/menu" },
   { label: "Shop", href: "/shop" },
-  { label: "Tentang", href: "/tentang" },
   { label: "Lokasi", href: "/lokasi" },
+  { label: "Tentang", href: "/tentang" },
 ];
 
 /* ---------- Beranda ---------- */
@@ -136,28 +144,19 @@ export const hero = {
 
 /** Teks beranda. */
 export const home = {
-  shopLabel: "Bawa pulang",
-  shopTitle: "Biji kopi & drip bag",
-  /** Produk yang tampil di beranda (slug dari data/products.ts). */
-  featuredProducts: [
-    "house-blend",
-    "single-origin-jawa-barat",
-    "drip-bag-house-blend",
-    "tumbler-dahan",
-  ],
-  /** Kalimat besar di beranda. */
-  statementLabel: "Kenapa Dahan",
-  statement:
-    "Dahan artinya cabang pohon: tempat burung hinggap, pergi, lalu balik lagi besok. Kami ingin Dahan Kopi jadi tempat seperti itu buat kamu.",
-  kedaiLabel: "Kedai di Banjaran",
-  kedaiText:
-    "Bar kopi, ruang dalam beton dan kayu, dan halaman penuh tanaman. Mampir untuk kopi pagi, makan siang, atau ngobrol sampai malam.",
-  /** Foto latar blok kedai. */
-  kedaiPhoto: {
-    src: "/images/dahan/photo-courtyard.webp",
-    alt: "Halaman belakang Dahan Kopi: meja, kursi besi, cermin, dan dinding penuh tanaman",
-  },
+  /** Kalimat pembuka di bawah foto. */
+  intro: "Coffee & eatery di Ciherang, Banjaran. Bar kopi, ruang beton, dan halaman penuh tanaman.",
+  menuTitle: "Menu",
+  menuText: "Menu baru Dahan: kopi, non-kopi, Liter Series, makanan, dan kolaborasi Ramen Tensai.",
+  /** Halaman menu yang tampil di beranda (nomor halaman di public/images/menu-baru). */
+  menuPreview: [2, 3, 4, 6, 8, 12],
 };
+
+/** Halaman buku menu baru (ekspor dari Canva "Book Menu Dahan Clean Version"). */
+export const menuPages = Array.from({ length: 16 }, (_, i) => ({
+  src: `/images/menu-baru/hal-${String(i + 1).padStart(2, "0")}.webp`,
+  alt: `Menu Dahan Kopi, halaman ${i + 1}`,
+}));
 
 /** Foto asli Dahan (dari buku menu Canva). Tampil di beranda dalam bingkai berbentuk rumah logo Dahan. */
 export const photos = [
@@ -233,32 +232,6 @@ export const literSeries = {
   ],
 };
 
-/** Poster dari desain Canva Dahan, tampil di galeri beranda. */
-export const posters = [
-  {
-    src: "/images/canva/poster-cover-bar.webp",
-    alt: "Poster Dahan Kopi: bar kopi dengan lampu gantung",
-  },
-  { src: "/images/canva/poster-garden.webp", alt: "Poster: area taman Dahan, The Favorites Place" },
-  {
-    src: "/images/canva/poster-favorites.webp",
-    alt: "Poster: interior kayu Dahan, The favorites everyone keeps coming back for",
-  },
-  { src: "/images/canva/poster-signature.webp", alt: "Poster menu Signature Coffee Dahan" },
-  {
-    src: "/images/canva/poster-clean-cover.webp",
-    alt: "Sampul buku menu Dahan: Rooted in Good Coffee",
-  },
-];
-
-/** Marquee di bawah layar pertama. */
-export const marquee = [
-  "Where good coffee takes root",
-  "Our menu, your choice",
-  "Open everyday 08.00–22.00",
-  "See you at @dahankopi",
-];
-
 /* ---------- Blok lokasi (footer, tampil di semua halaman) ---------- */
 
 export const location = {
@@ -286,11 +259,11 @@ export const about = {
   } satisfies ImageAsset,
   storyTitle: "Kenapa Dahan",
   // Contoh — ganti dengan cerita lengkap Dahan Kopi.
-  // Jika paragraf terakhir diakhiri "halaman Lokasi.", kata itu otomatis jadi link ke /lokasi.
+  // Jika paragraf terakhir diakhiri "halaman Menu.", kata itu otomatis jadi link ke /menu.
   paragraphs: [
     "Dahan artinya cabang pohon: tempat burung hinggap, pergi, lalu balik lagi besok. Kami ingin Dahan Kopi jadi tempat seperti itu buat kamu: dekat, santai, dan enak buat mampir lagi.",
     "Kedai kami ada di Jl. Ciherang, Banjaran. Di dalam ada bar kopi dan meja-meja kayu, di luar ada taman. Pagi orang datang buat sarapan dan kopi pertama, siang buat kerja sebentar, malam buat ngobrol sampai kami tutup.",
-    "Di bar, kami bikin espresso, kopi susu, manual brew, dan minuman non-kopi. Dari dapur ada makanan berat dan camilan. Daftar lengkapnya ada di menu kafe (PDF) di halaman Lokasi.",
+    "Di bar, kami bikin espresso, kopi susu, manual brew, dan minuman non-kopi. Dari dapur ada makanan berat dan camilan. Daftar lengkapnya ada di halaman Menu.",
   ],
   /** Fakta singkat. Isi `value` hanya dengan info yang benar; baris kosong tidak tampil. */
   facts: [

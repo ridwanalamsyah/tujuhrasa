@@ -4,7 +4,6 @@ import { StatusLine } from "@/components/hours/StatusLine";
 import { MapFrame } from "@/components/layout/MapFrame";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { Photo } from "@/components/ui/Photo";
 import { TextLink } from "@/components/ui/TextLink";
 import { about, address, contact, features, location } from "@/data/site";
 import { mapsDirectionsUrl, reservationHref, telUrl } from "@/lib/links";
@@ -66,7 +65,6 @@ export default function LokasiPage() {
           />
         </div>
       </Container>
-      <Photo image={about.image} ratio="aspect-4/3 lg:aspect-21/9" sizes="100vw" />
     </>
   );
 }

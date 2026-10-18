@@ -38,7 +38,6 @@ export default function AboutPage() {
         </p>
       </Container>
 
-      <Photo image={about.image} ratio="aspect-4/3 lg:aspect-21/9" sizes="100vw" preload />
 
       {/* Cerita */}
       <Container className="mt-14 lg:mt-24 lg:grid lg:grid-cols-12 lg:gap-6">
@@ -57,11 +56,11 @@ export default function AboutPage() {
         </div>
         <div className="body-lg mt-5 max-w-[40rem] space-y-5 lg:col-span-6 lg:col-start-6 lg:mt-0">
           {about.paragraphs.map((paragraph, index) =>
-            index === lastParagraph && paragraph.endsWith("halaman Lokasi.") ? (
+            index === lastParagraph && paragraph.endsWith("halaman Menu.") ? (
               <p key={index}>
-                {paragraph.slice(0, -"halaman Lokasi.".length)}
-                <TextLink href="/lokasi" inline>
-                  halaman Lokasi
+                {paragraph.slice(0, -"halaman Menu.".length)}
+                <TextLink href="/menu" inline>
+                  halaman Menu
                 </TextLink>
                 .
               </p>
