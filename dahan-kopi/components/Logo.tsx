@@ -10,19 +10,13 @@ export function LogoMark({
   ...props
 }: SVGProps<SVGSVGElement> & { cut?: string }) {
   return (
-    <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false" {...props}>
-      <path
-        d="M60 6 110 42v72H10V42z"
-        fill="currentColor"
-        stroke="currentColor"
-        strokeWidth="6"
-        strokeLinejoin="round"
-      />
-      <g fill="none" stroke={cut} strokeWidth="6" strokeLinecap="round">
-        <path d="M60 104V36" />
-        <path d="M60 92c-10-4-18-12-22-24M60 92c10-4 18-12 22-24" />
-        <path d="M60 74c-8-4-13-10-16-19M60 74c8-4 13-10 16-19" />
-        <path d="M60 56c-5-3-8-8-9-14M60 56c5-3 8-8 9-14" />
+    <svg viewBox="0 0 100 130" aria-hidden="true" focusable="false" {...props}>
+      <path d="M50 3 93 31v96H7V31z" fill="currentColor" />
+      <g fill="none" stroke={cut} strokeWidth="5" strokeLinecap="round">
+        <path d="M50 122V24" />
+        <path d="M50 104c-9-3-17-11-21-24M50 104c9-3 17-11 21-24" />
+        <path d="M50 80c-8-3-14-10-18-21M50 80c8-3 14-10 18-21" />
+        <path d="M50 56c-6-3-10-8-13-16M50 56c6-3 10-8 13-16" />
       </g>
     </svg>
   );
@@ -40,7 +34,7 @@ export function LogoLockup({
 }) {
   return (
     <span className={`inline-flex items-center gap-2 ${className}`} style={style}>
-      <LogoMark cut={cut} className="h-7 w-7 shrink-0" />
+      <LogoMark cut={cut} className="h-8 w-[1.6rem] shrink-0" />
       <span className="font-hand text-[1.625rem] leading-none">Dahan Kopi</span>
     </span>
   );
