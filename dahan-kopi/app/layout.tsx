@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Instrument_Serif, Plus_Jakarta_Sans, Space_Mono } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { CartDrawer } from "@/components/shop/CartDrawer";
@@ -10,7 +10,19 @@ import { cafeJsonLd, siteDescription } from "@/lib/seo";
 import { siteUrl } from "@/lib/site-url";
 import "./globals.css";
 
-// Satu huruf untuk semuanya.
+// Judul serif, label mono (seperti desain Canva Dahan), teks isi sans-serif.
+const display = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-instrument",
+  display: "swap",
+});
+const mono = Space_Mono({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-space-mono",
+  display: "swap",
+});
 const sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
@@ -52,7 +64,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html
       lang="id"
       data-scroll-behavior="smooth"
-      className={sans.variable}
+      className={`${display.variable} ${sans.variable} ${mono.variable}`}
     >
       <body>
         <a

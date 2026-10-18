@@ -8,10 +8,11 @@ export function CartButton({ className = "" }: { className?: string }) {
     <button
       type="button"
       onClick={() => cart.openDrawer()}
-      className={`label inline-flex min-h-11 items-center ${className}`}
+      className={`inline-flex min-h-11 items-center ${className}`}
       aria-label={`Keranjang, ${count} barang`}
     >
-      Keranjang ({count})
+      <span className="hidden sm:inline">Keranjang&nbsp;</span>
+      <span className="sm:hidden">Tas&nbsp;</span>({count})
     </button>
   );
 }

@@ -5,13 +5,14 @@
  * Aturan: semua halaman berlatar krem; espresso hanya untuk footer.
  */
 /*
- * Dahan Kopi: putih, hitam, abu-abu. Nama token lama dipertahankan agar kelas Tailwind tetap jalan:
- * `cream` = latar (putih), `espresso` = teks (hitam), `muted` = abu-abu, `line` = garis.
+ * Dahan Kopi: latar putih, teks espresso, krem (`sand`) untuk pita, espresso untuk footer.
+ * `cream` = latar (putih), `espresso` = teks, `muted` = abu-abu, `line` = garis.
  */
 @theme {
-  --color-espresso: #141414;
-  --color-espresso-2: #262626;
-  --color-coffee: #141414;
+  --color-espresso: #2b1d16;
+  --color-espresso-2: #3d2b21;
+  --color-coffee: #5a3e2b;
+  --color-sand: #f6f1ea;
   --color-cream: #ffffff;
   --color-paper: #f0f0f0;
   --color-line: #e4e4e2;
@@ -30,9 +31,9 @@
 
 @theme inline {
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-instrument), "Times New Roman", ui-serif, serif;
   --font-hand: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-space-mono), ui-monospace, monospace;
 }
 
 :root {
@@ -81,36 +82,45 @@
 }
 
 @layer components {
-  /* Judul: satu huruf yang sama dengan teks, hanya lebih besar dan lebih rapat. */
+  /* Judul: serif (Instrument Serif), huruf biasa, seperti situs kafe referensi. */
   .display-hero,
   .display-1,
   .display-2,
   .display-3,
   .wordmark {
     font-family: var(--font-display);
-    font-weight: 500;
-    letter-spacing: -0.025em;
+    font-weight: 400;
+    letter-spacing: -0.01em;
     text-wrap: balance;
   }
 
   .display-hero {
-    font-size: 2rem;
-    line-height: 1.08;
+    font-size: 2.75rem;
+    line-height: 1;
   }
 
   .display-1 {
-    font-size: 1.75rem;
-    line-height: 1.12;
+    font-size: 2.25rem;
+    line-height: 1.05;
   }
 
   .display-2 {
+    font-size: 1.875rem;
+    line-height: 1.1;
+  }
+
+  .display-3 {
     font-size: 1.5rem;
     line-height: 1.15;
   }
 
-  .display-3 {
-    font-size: 1.25rem;
-    line-height: 1.2;
+  /* Label kecil mesin tik, seperti di desain Canva Dahan ("WHERE GOOD COFFEE TAKES ROOT."). */
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 
   .wordmark {
@@ -137,16 +147,16 @@
 
   @media (width >= 64rem) {
     .display-hero {
-      font-size: 3rem;
+      font-size: 4.5rem;
     }
     .display-1 {
-      font-size: 2.25rem;
+      font-size: 3.5rem;
     }
     .display-2 {
-      font-size: 1.75rem;
+      font-size: 2.5rem;
     }
     .display-3 {
-      font-size: 1.375rem;
+      font-size: 1.75rem;
     }
   }
 

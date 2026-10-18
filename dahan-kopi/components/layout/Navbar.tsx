@@ -9,6 +9,7 @@ import { CartButton } from "@/components/shop/CartButton";
 import { SmartLink } from "@/components/ui/SmartLink";
 import { CloseIcon, MenuIcon } from "@/components/ui/icons";
 import { address, contact, navigation } from "@/data/site";
+import { whatsappUrl } from "@/lib/links";
 
 const isActive = (pathname: string, href: string) => pathname.startsWith(href);
 
@@ -43,40 +44,47 @@ export function Navbar() {
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-line bg-cream">
-        <div className="mx-auto flex h-(--header-h) max-w-[75rem] items-center justify-between gap-6 px-4 sm:px-6 lg:px-10">
-          <Link
-            href="/"
-            aria-label="Dahan Kopi, halaman utama"
-            className="inline-flex min-h-11 items-center"
-          >
-            <LogoLockup className="h-11 lg:h-12" />
-          </Link>
+        <div className="mx-auto grid h-(--header-h) max-w-[75rem] grid-cols-[1fr_auto_1fr] items-center gap-6 px-4 sm:px-6 lg:px-10">
           <nav aria-label="Navigasi utama" className="hidden items-center gap-8 lg:flex">
             {navigation.map((item) => (
               <SmartLink
                 key={item.href}
                 href={item.href}
                 aria-current={isActive(pathname, item.href) ? "page" : undefined}
-                className="label inline-flex min-h-11 items-center underline-offset-[6px] hover:underline aria-[current=page]:underline"
+                className="kicker inline-flex min-h-11 items-center underline-offset-[6px] hover:underline aria-[current=page]:underline"
               >
                 {item.label}
               </SmartLink>
             ))}
-            <CartButton />
           </nav>
-          <div className="flex items-center gap-3 lg:hidden">
-            <CartButton />
-            <button
-              ref={toggleRef}
-              type="button"
-              aria-expanded={open}
-              aria-controls="navigasi-mobile"
-              aria-label="Buka navigasi"
-              className="-mr-3 inline-flex h-11 w-11 items-center justify-center"
-              onClick={() => setOpenOn(pathname)}
+          <button
+            ref={toggleRef}
+            type="button"
+            aria-expanded={open}
+            aria-controls="navigasi-mobile"
+            aria-label="Buka navigasi"
+            className="-ml-3 inline-flex h-11 w-11 items-center justify-center justify-self-start lg:hidden"
+            onClick={() => setOpenOn(pathname)}
+          >
+            <MenuIcon className="h-5 w-5" />
+          </button>
+          <Link
+            href="/"
+            aria-label="Dahan Kopi, halaman utama"
+            className="inline-flex min-h-11 items-center"
+          >
+            <LogoLockup className="h-11 lg:h-14" />
+          </Link>
+          <div className="flex items-center justify-end gap-5">
+            <CartButton className="kicker" />
+            <a
+              href={whatsappUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="kicker hidden min-h-10 items-center rounded-full bg-espresso px-5 text-white transition-opacity hover:opacity-85 lg:inline-flex"
             >
-              <MenuIcon className="h-5 w-5" />
-            </button>
+              Reservasi
+            </a>
           </div>
         </div>
       </header>

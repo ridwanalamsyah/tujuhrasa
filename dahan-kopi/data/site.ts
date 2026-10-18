@@ -150,11 +150,46 @@ export const home = {
     image: "/images/dahan/liter-bottles.webp",
     alt: "Tiga botol Liter Series Dahan: Greentea Latte, Dahan Iced, dan Helena",
   },
-  visitPhoto: {
-    src: "/images/dahan/photo-courtyard.webp",
-    alt: "Halaman belakang Dahan Kopi: meja, kursi besi, cermin, dan dinding penuh tanaman",
-  },
+  /** Dua foto di blok "Jam buka & lokasi" (kiri, kanan). */
+  visitPhotos: [
+    {
+      src: "/images/dahan/photo-courtyard.webp",
+      alt: "Halaman belakang Dahan Kopi: meja, kursi besi, cermin, dan dinding penuh tanaman",
+    },
+    {
+      src: "/images/dahan/photo-storefront.webp",
+      alt: "Tampak depan Dahan Kopi HQ pada malam hari, pengunjung di depan kaca",
+    },
+  ],
 };
+
+/** Foto di pita galeri beranda (bisa digeser). */
+export const gallery = [
+  {
+    src: "/images/dahan/photo-interior.webp",
+    alt: "Bar kopi Dahan: dinding beton, lampu gantung, rak gelas, dan tanaman monstera",
+  },
+  {
+    src: "/images/dahan/photo-storefront.webp",
+    alt: "Tampak depan Dahan Kopi HQ pada malam hari",
+  },
+  {
+    src: "/images/dahan/photo-garden.webp",
+    alt: "Halaman depan Dahan Kopi dengan pohon, tanaman, dan papan DAHAN",
+  },
+  {
+    src: "/images/dahan/liter-bottles.webp",
+    alt: "Tiga botol Liter Series Dahan",
+  },
+  {
+    src: "/images/dahan/photo-courtyard.webp",
+    alt: "Halaman belakang Dahan Kopi dengan dinding penuh tanaman",
+  },
+  {
+    src: "/images/dahan/photo-cup.webp",
+    alt: "Gelas Dahan di dinding beton",
+  },
+];
 
 /** Foto asli Dahan (dari buku menu Canva). Tampil di beranda dalam bingkai berbentuk rumah logo Dahan. */
 export const photos = [

@@ -184,8 +184,11 @@ npm run icons      # buat favicon.ico & apple-icon.png dari app/icon.svg
 
 ## Catatan desain
 
-- Putih dan hitam, satu huruf (Plus Jakarta Sans) untuk judul dan teks. Tanpa dekorasi: foto asli,
-  garis tipis, dan teks.
-- Warna hanya datang dari foto dan ilustrasi Dahan (label Liter Series).
-- Gambar pratinjau link (`app/opengraph-image.tsx`) memakai logo lencana dan font di `assets/fonts/`.
+- Mengikuti pola situs kafe referensi (Nüde, Sisterfields, Kynd): logo di tengah header, foto besar
+  penuh layar dengan judul di tengah, blok foto + teks, pita foto yang bisa digeser, blok
+  foto | jam & lokasi | foto, dan footer berwarna.
+- Huruf: Instrument Serif untuk judul, Space Mono untuk label kecil (seperti desain Canva Dahan),
+  Plus Jakarta Sans untuk teks.
+- Warna dari palet Dahan: latar putih, espresso `#2B1D16`, krem `#F6F1EA`, coffee `#5A3E2B`.
+- Menu kafe sengaja tidak dicantumkan di website.
 - Semua gerakan mati otomatis jika pengunjung memilih "kurangi gerakan" di perangkatnya.
