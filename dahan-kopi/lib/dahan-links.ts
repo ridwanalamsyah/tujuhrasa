@@ -6,7 +6,6 @@ export type DahanLink = { label: string; detail: string; href: string };
 /** Link-link dari Linktree Dahan (tanpa Dahan Backyard Cimahi). Link yang url-nya kosong tidak tampil. */
 export function dahanLinks(): DahanLink[] {
   return [
-    { label: "Menu", detail: "Menu baru Dahan", href: "/menu" },
     { label: "Lokasi Dahan Kopi HQ", detail: address.short, href: mapsPlaceUrl },
     { label: "GoFood", detail: "Pesan antar", href: stores.gofood },
     { label: "Tokopedia", detail: "dahanindonesia", href: stores.tokopedia },

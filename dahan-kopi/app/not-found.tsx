@@ -11,7 +11,7 @@ export default function NotFound() {
       <p className="mt-4">Halaman ini tidak ada atau sudah dipindah.</p>
       <div className="mt-4 flex gap-6">
         <TextLink href="/">Ke halaman utama</TextLink>
-        <TextLink href="/menu">Lihat menu</TextLink>
+        <TextLink href="/shop">Shop</TextLink>
       </div>
     </Container>
   );

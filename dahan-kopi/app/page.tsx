@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { Hero } from "@/components/home/Hero";
 import { Intro } from "@/components/home/Intro";
-import { LiterSeries } from "@/components/home/LiterSeries";
-import { MenuPreview } from "@/components/home/MenuPreview";
+import { Liter } from "@/components/home/Liter";
+import { Order } from "@/components/home/Order";
 import { Visit } from "@/components/home/Visit";
 import { site } from "@/data/site";
 import { pageMetadata, siteDescription } from "@/lib/seo";
@@ -15,10 +16,11 @@ export const metadata: Metadata = pageMetadata({
 export default function HomePage() {
   return (
     <>
+      <Hero />
       <Intro />
-      <MenuPreview />
-      <LiterSeries />
+      <Liter />
       <Visit />
+      <Order />
     </>
   );
 }

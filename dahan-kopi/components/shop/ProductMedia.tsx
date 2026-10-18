@@ -3,7 +3,7 @@ import { ProductArt } from "@/components/shop/ProductArt";
 import { imageExists } from "@/lib/image-exists";
 import type { Product } from "@/lib/types";
 
-/** Foto produk jika ada, selain itu gambar label berwarna. Selalu persegi. */
+/** Foto produk jika ada, selain itu gambar label berwarna. Rasio 4:5. */
 export function ProductMedia({
   product,
   sizes,
@@ -17,7 +17,7 @@ export function ProductMedia({
 }) {
   return (
     <div
-      className={`relative aspect-square overflow-hidden ${className}`}
+      className={`relative aspect-[4/5] overflow-hidden ${className}`}
       style={{ background: product.art.bg }}
     >
       {product.image && imageExists(product.image) ? (

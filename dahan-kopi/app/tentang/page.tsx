@@ -27,7 +27,6 @@ function SpaceCaption({ space }: { space: Space }) {
 export default function AboutPage() {
   const facts = about.facts.filter((fact) => fact.value.trim());
   const [bar, indoor, garden] = about.spaces;
-  const lastParagraph = about.paragraphs.length - 1;
 
   return (
     <>
@@ -55,19 +54,9 @@ export default function AboutPage() {
           )}
         </div>
         <div className="body-lg mt-5 max-w-[40rem] space-y-5 lg:col-span-6 lg:col-start-6 lg:mt-0">
-          {about.paragraphs.map((paragraph, index) =>
-            index === lastParagraph && paragraph.endsWith("halaman Menu.") ? (
-              <p key={index}>
-                {paragraph.slice(0, -"halaman Menu.".length)}
-                <TextLink href="/menu" inline>
-                  halaman Menu
-                </TextLink>
-                .
-              </p>
-            ) : (
-              <p key={index}>{paragraph}</p>
-            ),
-          )}
+          {about.paragraphs.map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
         </div>
         {facts.length > 0 && (
           <dl className="mt-8 space-y-4 lg:hidden">

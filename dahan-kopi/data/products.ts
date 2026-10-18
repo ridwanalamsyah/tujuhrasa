@@ -56,8 +56,8 @@ export const products: Product[] = [
       { id: "500ml", label: "500 ml", price: 45000, weight: 600 },
       { id: "1l", label: "1 liter", price: 90000, weight: 1150 },
     ],
-    image: "/images/dahan/char-iced.webp",
-    art: { bg: "#f2c45a", body: "#2b1d16", ink: "#f1ece4", shape: "box" },
+    image: "/images/dahan/bottle-iced.webp",
+    art: { bg: "#f0f0f0", body: "#2b1d16", ink: "#f1ece4", shape: "box" },
   },
   {
     slug: "helena-liter",
@@ -74,8 +74,8 @@ export const products: Product[] = [
       { id: "500ml", label: "500 ml", price: 105000, weight: 600 },
       { id: "1l", label: "1 liter", price: 185000, weight: 1150 },
     ],
-    image: "/images/dahan/char-helena.webp",
-    art: { bg: "#ee98ad", body: "#2b1d16", ink: "#f1ece4", shape: "box" },
+    image: "/images/dahan/bottle-helena.webp",
+    art: { bg: "#f0f0f0", body: "#2b1d16", ink: "#f1ece4", shape: "box" },
   },
   {
     slug: "greentea-latte-liter",
@@ -92,8 +92,8 @@ export const products: Product[] = [
       { id: "500ml", label: "500 ml", price: 45000, weight: 600 },
       { id: "1l", label: "1 liter", price: 90000, weight: 1150 },
     ],
-    image: "/images/dahan/char-greentea.webp",
-    art: { bg: "#b9d2a6", body: "#2b1d16", ink: "#f1ece4", shape: "box" },
+    image: "/images/dahan/bottle-greentea.webp",
+    art: { bg: "#f0f0f0", body: "#2b1d16", ink: "#f1ece4", shape: "box" },
   },
 ];
 

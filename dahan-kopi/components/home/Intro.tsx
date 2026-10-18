@@ -1,35 +1,23 @@
-import Image from "next/image";
-import { LinkList } from "@/components/home/LinkList";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { home, photos, site } from "@/data/site";
+import { address, home } from "@/data/site";
 
-/** Layar pertama: tiga foto asli Dahan, satu kalimat, dan link-link Dahan. */
+/** Paragraf pembuka, di tengah. */
 export function Intro() {
   return (
-    <section>
-      <div className="grid grid-cols-3 gap-1 sm:gap-2">
-        {photos.map((photo, i) => (
-          <div key={photo.src} className="relative aspect-[3/5] bg-paper sm:aspect-[3/4]">
-            <Image
-              src={photo.src}
-              alt={photo.alt}
-              fill
-              preload={i === 0}
-              sizes="33vw"
-              className="object-cover"
-            />
-          </div>
-        ))}
-      </div>
-      <Container className="grid gap-10 py-12 lg:grid-cols-12 lg:gap-12 lg:py-16">
-        <div className="lg:col-span-6">
-          <h1 lang="en" className="display-hero max-w-xl">
-            {site.tagline}
-          </h1>
-          <p className="body-lg mt-4 max-w-md text-muted">{home.intro}</p>
-        </div>
-        <LinkList className="lg:col-span-6" />
-      </Container>
-    </section>
+    <Container className="py-20 text-center lg:py-28">
+      <p className="text-small text-muted">
+        Dahan Kopi HQ · {address.locality}, {address.regency}
+      </p>
+      <p className="mx-auto mt-6 max-w-3xl text-[1.375rem] leading-[1.4] tracking-[-0.01em] sm:text-[1.75rem]">
+        {home.intro}
+      </p>
+      <Link
+        href="/tentang"
+        className="mt-8 inline-block text-small underline underline-offset-4 hover:no-underline"
+      >
+        Tentang Dahan
+      </Link>
+    </Container>
   );
 }

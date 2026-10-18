@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { StatusLine } from "@/components/hours/StatusLine";
 import { LogoLockup } from "@/components/Logo";
 import { CartButton } from "@/components/shop/CartButton";
+import { SmartLink } from "@/components/ui/SmartLink";
 import { CloseIcon, MenuIcon } from "@/components/ui/icons";
 import { address, contact, navigation } from "@/data/site";
 
@@ -52,14 +53,14 @@ export function Navbar() {
           </Link>
           <nav aria-label="Navigasi utama" className="hidden items-center gap-8 lg:flex">
             {navigation.map((item) => (
-              <Link
+              <SmartLink
                 key={item.href}
                 href={item.href}
                 aria-current={isActive(pathname, item.href) ? "page" : undefined}
                 className="label inline-flex min-h-11 items-center underline-offset-[6px] hover:underline aria-[current=page]:underline"
               >
                 {item.label}
-              </Link>
+              </SmartLink>
             ))}
             <CartButton />
           </nav>
@@ -108,13 +109,13 @@ export function Navbar() {
           <ul>
             {[{ label: "Home", href: "/" }, ...navigation].map((item) => (
               <li key={item.href}>
-                <Link
+                <SmartLink
                   href={item.href}
                   onClick={() => setOpenOn(null)}
                   className="display-1 flex min-h-16 items-center"
                 >
                   {item.label}
-                </Link>
+                </SmartLink>
               </li>
             ))}
           </ul>

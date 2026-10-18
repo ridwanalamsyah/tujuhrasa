@@ -5,7 +5,7 @@ import { MapFrame } from "@/components/layout/MapFrame";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { TextLink } from "@/components/ui/TextLink";
-import { about, address, contact, features, location } from "@/data/site";
+import { about, address, contact, location } from "@/data/site";
 import { mapsDirectionsUrl, reservationHref, telUrl } from "@/lib/links";
 import { pageMetadata } from "@/lib/seo";
 
@@ -53,9 +53,6 @@ export default function LokasiPage() {
                 Petunjuk arah <span aria-hidden="true">↗</span>
               </Button>
               <Button href={reservationHref()}>{about.contactButton}</Button>
-              <Button href={features.menuPdf} download="Menu-Dahan-Kopi.pdf">
-                Menu kafe (PDF)
-              </Button>
             </div>
           </div>
 

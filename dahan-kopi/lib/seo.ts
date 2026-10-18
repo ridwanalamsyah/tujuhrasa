@@ -23,7 +23,6 @@ export function cafeJsonLd() {
     telephone: contact.phone,
     servesCuisine: ["Coffee", "Indonesian"],
     priceRange: "Rp",
-    menu: absoluteUrl("/menu"),
     acceptsReservations: true,
     hasMap: mapsPlaceUrl,
     address: {

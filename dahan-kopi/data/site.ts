@@ -120,7 +120,6 @@ export const openingHours: OpeningHoursRule[] = [
 /* ---------- Navigasi ---------- */
 
 export const navigation: NavItem[] = [
-  { label: "Menu", href: "/menu" },
   { label: "Shop", href: "/shop" },
   { label: "Lokasi", href: "/lokasi" },
   { label: "Tentang", href: "/tentang" },
@@ -144,19 +143,18 @@ export const hero = {
 
 /** Teks beranda. */
 export const home = {
-  /** Kalimat pembuka di bawah foto. */
-  intro: "Coffee & eatery di Ciherang, Banjaran. Bar kopi, ruang beton, dan halaman penuh tanaman.",
-  menuTitle: "Menu",
-  menuText: "Menu baru Dahan: kopi, non-kopi, Liter Series, makanan, dan kolaborasi Ramen Tensai.",
-  /** Halaman menu yang tampil di beranda (nomor halaman di public/images/menu-baru). */
-  menuPreview: [2, 3, 4, 6, 8, 12],
+  /** Paragraf pembuka di bawah foto pertama. */
+  intro:
+    "Dahan artinya cabang pohon: tempat hinggap, pergi, lalu balik lagi besok. Di Ciherang, Banjaran, kami menyiapkan kopi, makanan, dan tempat duduk di antara beton dan tanaman.",
+  liter: {
+    image: "/images/dahan/liter-bottles.webp",
+    alt: "Tiga botol Liter Series Dahan: Greentea Latte, Dahan Iced, dan Helena",
+  },
+  visitPhoto: {
+    src: "/images/dahan/photo-courtyard.webp",
+    alt: "Halaman belakang Dahan Kopi: meja, kursi besi, cermin, dan dinding penuh tanaman",
+  },
 };
-
-/** Halaman buku menu baru (ekspor dari Canva "Book Menu Dahan Clean Version"). */
-export const menuPages = Array.from({ length: 16 }, (_, i) => ({
-  src: `/images/menu-baru/hal-${String(i + 1).padStart(2, "0")}.webp`,
-  alt: `Menu Dahan Kopi, halaman ${i + 1}`,
-}));
 
 /** Foto asli Dahan (dari buku menu Canva). Tampil di beranda dalam bingkai berbentuk rumah logo Dahan. */
 export const photos = [
@@ -201,7 +199,6 @@ export const literSeries = {
       ],
       sky: "#f2c45a",
       slug: "dahan-iced-liter",
-      scene: "/images/dahan/scene-iced.webp",
     },
     {
       id: "helena",
@@ -214,7 +211,6 @@ export const literSeries = {
       ],
       sky: "#ee98ad",
       slug: "helena-liter",
-      scene: "/images/dahan/scene-helena.webp",
     },
     {
       id: "greentea",
@@ -227,7 +223,6 @@ export const literSeries = {
       ],
       sky: "#b9d2a6",
       slug: "greentea-latte-liter",
-      scene: "/images/dahan/scene-greentea.webp",
     },
   ],
 };
@@ -259,11 +254,10 @@ export const about = {
   } satisfies ImageAsset,
   storyTitle: "Kenapa Dahan",
   // Contoh — ganti dengan cerita lengkap Dahan Kopi.
-  // Jika paragraf terakhir diakhiri "halaman Menu.", kata itu otomatis jadi link ke /menu.
   paragraphs: [
     "Dahan artinya cabang pohon: tempat burung hinggap, pergi, lalu balik lagi besok. Kami ingin Dahan Kopi jadi tempat seperti itu buat kamu: dekat, santai, dan enak buat mampir lagi.",
     "Kedai kami ada di Jl. Ciherang, Banjaran. Di dalam ada bar kopi dan meja-meja kayu, di luar ada taman. Pagi orang datang buat sarapan dan kopi pertama, siang buat kerja sebentar, malam buat ngobrol sampai kami tutup.",
-    "Di bar, kami bikin espresso, kopi susu, manual brew, dan minuman non-kopi. Dari dapur ada makanan berat dan camilan. Daftar lengkapnya ada di halaman Menu.",
+    "Di bar, kami bikin espresso, kopi susu, manual brew, dan minuman non-kopi. Dari dapur ada makanan berat dan camilan.",
   ],
   /** Fakta singkat. Isi `value` hanya dengan info yang benar; baris kosong tidak tampil. */
   facts: [
@@ -335,9 +329,7 @@ export const features = {
   },
   /**
    * Pesan antar. Isi daftar link (mis. GoFood, GrabFood, ShopeeFood),
-   * maka link-nya otomatis muncul di halaman Menu.
+   * untuk dipakai nanti.
    */
   delivery: [] as DeliveryLink[],
-  /** File buku menu di folder `public`. */
-  menuPdf: "/menu-dahan.pdf",
 };

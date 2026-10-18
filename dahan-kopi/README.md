@@ -8,16 +8,15 @@ dirender statis (SSG) dan siap di-deploy ke Vercel.
 
 | Halaman          | Isi                                                                          |
 | ---------------- | ---------------------------------------------------------------------------- |
-| `/`              | Foto asli, link Dahan (versi Linktree), cuplikan menu, Liter Series, lokasi HQ |
-| `/menu`          | Semua halaman buku menu baru (dari Canva) + unduh PDF                        |
+| `/`              | Foto asli, Liter Series, lokasi HQ, pesan online (GoFood/Tokopedia/Shopee)   |
 | `/shop`          | Liter Series + link Tokopedia & Shopee                                       |
 | `/shop/[produk]` | Detail produk: ukuran, jumlah, tambah ke keranjang                           |
 | `/checkout`      | Alamat pengiriman + pembayaran online (Midtrans)                             |
 | `/lokasi`        | Alamat, jam buka, status buka, peta, reservasi WhatsApp                      |
 | `/tentang`       | Cerita, ruang, fasilitas, kontak                                             |
 
-Link di beranda dan footer diambil dari Linktree Dahan (Menu, Lokasi HQ, GoFood, Tokopedia, Shopee,
-WhatsApp Admin HQ, Instagram). Ubah di `data/site.ts` (`stores`, `contact`, `maps`) dan
+Link di footer diambil dari Linktree Dahan (Lokasi HQ, GoFood, Tokopedia, Shopee, WhatsApp Admin HQ,
+Instagram). Menu kafe sengaja tidak dicantumkan di website. Ubah di `data/site.ts` (`stores`, `contact`, `maps`) dan
 `lib/dahan-links.ts`. Dahan Backyard (Cimahi) sengaja tidak dimasukkan.
 
 ## Menjalankan di komputer
@@ -99,13 +98,6 @@ Dahan dijual di Tokopedia & Shopee; tambahkan di sini hanya bila ingin dijual la
 Selama `MIDTRANS_SERVER_KEY` belum diisi, tombol bayar menampilkan pilihan **kirim pesanan lewat
 WhatsApp** dengan rincian pesanan, total, dan alamat yang sudah terisi.
 
-### Menu
-
-Halaman `/menu` menampilkan buku menu baru dari Canva ("Book Menu Dahan Clean Version"), disimpan
-sebagai gambar di `public/images/menu-baru/hal-01.webp` … `hal-16.webp`, plus `public/menu-dahan.pdf`.
-Jika menu berubah: ekspor ulang dari Canva (PNG per halaman dan PDF), lalu timpa file-file tersebut.
-Jumlah halaman diatur di `menuPages` (`data/site.ts`).
-
 ## Memasukkan foto
 
 Semua foto dan ilustrasi sekarang **asli Dahan**, diambil dari desain Canva ("Book Menu Dahan Clean
@@ -113,8 +105,7 @@ Version" dan label Liter Series) dan disimpan di **`public/images/dahan/`**:
 
 | File                                    | Isi                                                   | Dipakai di                    |
 | --------------------------------------- | ----------------------------------------------------- | ----------------------------- |
-| `scene-iced/helena/greentea.webp`       | Ilustrasi gedung Dahan, langit kuning/pink/hijau       | Layar pertama (pilih rasa)    |
-| `char-iced/helena/greentea.webp`        | Ilustrasi karakter label botol                         | Foto produk Liter Series      |
+| `bottle-iced/helena/greentea.webp`      | Foto botol Liter Series (dari buku menu)               | Foto produk Liter Series      |
 | `liter-bottles.webp`                    | Foto tiga botol Liter Series                           | Beranda, blok Liter Series    |
 | `photo-interior.webp`                   | Bar kopi                                               | Beranda, Tentang              |
 | `photo-cup.webp`                        | Gelas Dahan di dinding beton                           | Beranda                       |
@@ -170,7 +161,6 @@ data/
   products.ts         Produk toko, ongkir, pilihan gilingan
 lib/                  Logika: jam buka (Asia/Jakarta), link WhatsApp/Maps, SEO, format harga
 public/images/        Foto
-public/menu-dahan.pdf Buku menu kafe (PDF)
 assets/fonts/         Font untuk gambar share (lisensi SIL OFL)
 ```
 
